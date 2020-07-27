@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Generic;
+using TriangleHandler;
 using UnityEngine;
 using VertexHandler;
 using Debug = UnityEngine.Debug;
@@ -374,6 +375,7 @@ public class ExtractVertices : MonoBehaviour {
                         ++index;
                     }
 
+                    // Debug.Log(vertex);
                     trianglesDescriptions.Add(verticesDict[vertex]);
                 }
 
@@ -412,36 +414,30 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private List<VertexHelper.Triangle> GetTriangles() {
-        // var vertices = GetEllipsoidVertices();
-        var vertices = vertexHandler.GetVertices();
-        Debug.Log(vertices.Count);
-
-        // var builder = new MyTriangleBuilder();
-        var builder = new DelaunayTriangulation();
-        // return VertexHelper.GetAllRawSubTriangles(builder.getTriangles(vertices), 1.0f);
-        return builder.getTriangles(vertices);
+        // // var vertices = GetEllipsoidVertices();
+        // var vertices = vertexHandler.GetVertices();
+        // Debug.Log(vertices.Count);
+        //
+        // // var builder = new MyTriangleBuilder();
+        // var builder = new DelaunayTriangulation();
+        // // return VertexHelper.GetAllRawSubTriangles(builder.getTriangles(vertices), 1.0f);
+        // return builder.getTriangles(vertices);
+        return new StlTriangleHandler(Path.Combine(Utils.GetDataFolder(), "sample1", "data.stl")).GetTriangles();
     }
 
     private void Awake() {
-        VertexHelper.RunMathTests();
-        // vertexHandler = new RawVertexHandler(gameObject);
-        vertexHandler = new EllipsoidVertexHandler(gameObject);
+        // VertexHelper.RunMathTests();
+        vertexHandler = new RawVertexHandler(gameObject);
+        // vertexHandler = new EllipsoidVertexHandler(gameObject);
     }
 
     public void Start() {
-        // var vertexes = GetVertices();
-        // Debug.Log(vertexes.Count);
-        // foreach (var v in vertexes)  {
-        //     Debug.Log(v.x + "  "  + " " + v.y + " " + v.z);
-        // }
-
-        // getTriangles();
         var baseTriangles = GetTriangles();
         var normalizedTriangles = VertexHelper.NormalizeTriangles(baseTriangles);
         var subTriangles = VertexHelper.GetAllRawSubTriangles(normalizedTriangles, h);
         
         var chunks = new List<TriangleChunk>{
-            new TriangleChunk(normalizedTriangles, ColorType.Default, 0.9f, false),
+            new TriangleChunk(baseTriangles, ColorType.Default, 0.9f, true),
         };
 
         if (drawSubTriangles) {

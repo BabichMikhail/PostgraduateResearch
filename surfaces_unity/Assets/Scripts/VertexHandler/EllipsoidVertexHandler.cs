@@ -6,7 +6,7 @@ using Random = System.Random;
 namespace VertexHandler
 {
     public class EllipsoidVertexHandler : IVertexHandler {
-        private GameObject gameObject;
+        private readonly GameObject gameObject;
 
         public EllipsoidVertexHandler(GameObject aGameObject) {
             gameObject = aGameObject;

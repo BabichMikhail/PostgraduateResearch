@@ -228,8 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
-  h: 0.1
-  drawSubTriangles: 1
+  h: 0.4
+  drawSubTriangles: 0
   drawNormals: 0
 --- !u!1 &1093202271
 GameObject:

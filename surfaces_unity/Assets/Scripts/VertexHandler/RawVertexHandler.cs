@@ -5,7 +5,7 @@ using UnityEngine;
 namespace VertexHandler
 {
     public class RawVertexHandler : IVertexHandler {
-        private GameObject gameObject;
+        private readonly GameObject gameObject;
 
         public RawVertexHandler(GameObject aGameObject) {
             gameObject = aGameObject;

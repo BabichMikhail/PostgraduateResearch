@@ -18,8 +18,8 @@ namespace TriangleHandler
         private Vector3 LoadVertex(byte[] bytes, int firstByteIndex) {
             return new Vector3(
                 BitConverter.ToSingle(bytes, firstByteIndex),
-                BitConverter.ToSingle(bytes, firstByteIndex + 4),
-                BitConverter.ToSingle(bytes, firstByteIndex + 8)
+                BitConverter.ToSingle(bytes, firstByteIndex + 8),
+                BitConverter.ToSingle(bytes, firstByteIndex + 4)
             );
         }
         

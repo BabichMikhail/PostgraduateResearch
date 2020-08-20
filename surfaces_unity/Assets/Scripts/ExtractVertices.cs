@@ -5,11 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Generic;
+using PathFinders;
 using TriangleHandler;
 using UnityEngine;
 using VertexHandler;
 using Debug = UnityEngine.Debug;
-using Random = System.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class ExtractVertices : MonoBehaviour {
@@ -17,6 +17,12 @@ public class ExtractVertices : MonoBehaviour {
     public float h;
     public bool drawSubTriangles;
     public bool drawNormals;
+
+    public bool drawSurfacePath = false;
+    public bool drawOriginPath = false;
+    public bool drawFromOriginToSurfacePath = false;
+
+    private List<Position> path = null;
 
     [DllImport("msvcrt.dll", CallingConvention = CallingConvention.Cdecl)]
     public static extern int printf(string format, __arglist);
@@ -172,7 +178,7 @@ public class ExtractVertices : MonoBehaviour {
                                     triangles.Add(triangle);
 
                                     var line = "Add Triangle: ";
-                                    foreach (var v in triangle.GetPoints()) {
+                                    foreach (var v in triangle.GetVertices()) {
                                         line += "(" + v.x + "  " + " " + v.y + " " + v.z + ") ";
                                     }
 
@@ -286,6 +292,7 @@ public class ExtractVertices : MonoBehaviour {
         Random,
         Red,
         White,
+        Debug,
         Default,
     }
 
@@ -329,7 +336,7 @@ public class ExtractVertices : MonoBehaviour {
         float maxCoord = -1000000;
         foreach (var chunk in chunks) {
             foreach (var triangle in chunk.triangles) {
-                foreach (var vertex in triangle.GetPoints()) {
+                foreach (var vertex in triangle.GetVertices()) {
                     minCoord = Math.Min(minCoord, vertex.x);
                     minCoord = Math.Min(minCoord, vertex.y);
                     minCoord = Math.Min(minCoord, vertex.z);
@@ -349,7 +356,7 @@ public class ExtractVertices : MonoBehaviour {
         var colors = new List<Color>();
         foreach (var chunk in chunks) {
             foreach (var triangle in chunk.triangles) {
-                foreach (var vertex in triangle.GetPoints()) {
+                foreach (var vertex in triangle.GetVertices()) {
                     if (!verticesDict.ContainsKey(vertex)) {
                         verticesDict[vertex] = vertices.Count;
                         vertices.Add(vertexHandler.PrepareVertex(vertex));
@@ -357,7 +364,7 @@ public class ExtractVertices : MonoBehaviour {
 
                         var newColor = Color.white;
                         if (chunk.colorType == ColorType.Default) {
-                            float elem = (3 * maxCoord - vertex.x + vertex.y + vertex.z) / 3.0f / (maxCoord - minCoord);
+                            float elem = (3 * maxCoord - vertex.x - vertex.y - vertex.z) / 3.0f / (maxCoord - minCoord);
                             newColor = new Color(0, elem, 0, chunk.colorAlpha);
                         }
                         else if (chunk.colorType == ColorType.Random) {
@@ -368,6 +375,10 @@ public class ExtractVertices : MonoBehaviour {
                         }
                         else if (chunk.colorType == ColorType.White) {
                             newColor = Color.white;
+                        }
+                        else if (chunk.colorType == ColorType.Debug) {
+                            newColor = triangle.DebugColor;
+                            Debug.Log(newColor);
                         }
 
                         newColor.a = chunk.colorAlpha;
@@ -380,7 +391,7 @@ public class ExtractVertices : MonoBehaviour {
                 }
 
                 if (chunk.drawTwoSide) {
-                    var points = triangle.GetPoints();
+                    var points = triangle.GetVertices();
                     points.Reverse();
                     foreach (var vertex in points) {
                         trianglesDescriptions.Add(verticesDict[vertex]);
@@ -435,7 +446,9 @@ public class ExtractVertices : MonoBehaviour {
         var baseTriangles = GetTriangles();
         var normalizedTriangles = VertexHelper.NormalizeTriangles(baseTriangles);
         var subTriangles = VertexHelper.GetAllRawSubTriangles(normalizedTriangles, h);
-        
+
+        path = PathFinder.GetInstance().GetPath(ref baseTriangles);
+
         var chunks = new List<TriangleChunk>{
             new TriangleChunk(baseTriangles, ColorType.Default, 0.9f, true),
         };
@@ -451,6 +464,29 @@ public class ExtractVertices : MonoBehaviour {
                 var obj = Instantiate(new GameObject(), t.O, Quaternion.identity);
                 var lineRenderer = obj.AddComponent<LineRenderer>();
                 lineRenderer.SetPositions(new Vector3[] { t.O, t.O + t.GetPlane().GetNormal() * 4 });
+            }
+        }
+    }
+
+    private void OnDrawGizmos() {
+        if (path != null) {
+            if (drawFromOriginToSurfacePath) {
+                foreach (var pos in path) {
+                    Gizmos.DrawLine(pos.originPosition, pos.surfacePosition);
+                }
+            }
+
+            for (var i = 0; i < path.Count - 1; ++i) {
+                var pos1 = path[i];
+                var pos2 = path[i + 1];
+
+                if (drawOriginPath) {
+                    Gizmos.DrawLine(pos1.originPosition, pos2.originPosition);
+                }
+
+                if (drawSurfacePath) {
+                    Gizmos.DrawLine(pos1.surfacePosition, pos2.surfacePosition);
+                }
             }
         }
     }

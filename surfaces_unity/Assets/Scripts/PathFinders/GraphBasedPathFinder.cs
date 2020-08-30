@@ -5,29 +5,13 @@ using UnityEngine;
 
 namespace PathFinders
 {
-    public class Position {
-        public readonly Vector3 originPosition;
-        public readonly Vector3 paintDirection;
-        public readonly Vector3 surfacePosition;
-
-        public Position(Vector3 aOriginPosition, Vector3 aPaintDirection, Vector3 aSurfacePosition) {
-            originPosition = aOriginPosition;
-            paintDirection = aPaintDirection;
-            surfacePosition = aSurfacePosition;
-        }
-    }
-
-    public class PathFinder {
+    public class GraphBasedPathFinder : IPathFinder {
         public float paintHeight;
         public float paintRadius;
 
-        private static PathFinder instance = null;
+        private static GraphBasedPathFinder instance = null;
 
-        public static PathFinder GetInstance() {
-            return instance ?? (instance = new PathFinder(0.2f, 0.3f));
-        }
-
-        private PathFinder(float aPaintRadius, float aPaintHeight) {
+        public GraphBasedPathFinder(float aPaintRadius, float aPaintHeight) {
             paintHeight = aPaintHeight;
             paintRadius = aPaintRadius;
         }
@@ -65,22 +49,6 @@ namespace PathFinders
                 var r3 = paintRadius * (1 + Mathf.Floor(h3 / paintRadius)) - h3;
                 if (r1 > r2 && r1 > r3) {
                     ProcessBigTriangleArea(ref result, h1, r1 / 2, t.p1, t.p2, t.p3, N);
-                    // var remind = r1 / 2;
-                    // // var k = (t.l2 * t.l2 - t.l3 * t.l3 + t.l1 * t.l1) / (2 * t.l1 * t.l1);
-                    // // var H = t.p3 + (t.p2 - t.p3) * k;
-                    // // var tn = H - t.p1;
-                    // for (var i = 0; i < Mathf.Floor(h1 / paintRadius); ++i) {
-                    //     var step = paintRadius;
-                    //     if (i == 0) {
-                    //         step -= remind;
-                    //     }
-                    //
-                    //     var surfacePointA = t.p2 + (t.p1 - t.p2) * ((i + 1) * step - remind);
-                    //     result.Add(new Position(surfacePointA + N * paintHeight, -N, surfacePointA));
-                    //
-                    //     var surfacePointB = t.p3 + (t.p1 - t.p3) * ((i + 1) * step - remind);
-                    //     result.Add(new Position(surfacePointB + N * paintHeight, -N, surfacePointB));
-                    // }
                 }
                 else if (r2 > r3 && r2 > r1) {
                     ProcessBigTriangleArea(ref result, h2, r2 / 2, t.p2, t.p3, t.p1, N);

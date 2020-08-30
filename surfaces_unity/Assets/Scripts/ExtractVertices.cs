@@ -22,6 +22,10 @@ public class ExtractVertices : MonoBehaviour {
     public bool drawOriginPath = false;
     public bool drawFromOriginToSurfacePath = false;
 
+    public PathFinderType pathFinderType;
+    public float paintRadius;
+    public float paintHeight;
+
     private List<Position> path = null;
 
     [DllImport("msvcrt.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -447,7 +451,8 @@ public class ExtractVertices : MonoBehaviour {
         var normalizedTriangles = VertexHelper.NormalizeTriangles(baseTriangles);
         var subTriangles = VertexHelper.GetAllRawSubTriangles(normalizedTriangles, h);
 
-        path = PathFinder.GetInstance().GetPath(ref baseTriangles);
+        var pathFinder = PathFinderFactory.Create(PathFinderType.GraphBasedPathFinder, 0.2f, 0.3f);
+        path = pathFinder.GetPath(ref baseTriangles);
 
         var chunks = new List<TriangleChunk>{
             new TriangleChunk(baseTriangles, ColorType.Default, 0.9f, true),

@@ -9,8 +9,6 @@ namespace PathFinders
         public float paintHeight;
         public float paintRadius;
 
-        private static GraphBasedPathFinder instance = null;
-
         public GraphBasedPathFinder(float aPaintRadius, float aPaintHeight) {
             paintHeight = aPaintHeight;
             paintRadius = aPaintRadius;

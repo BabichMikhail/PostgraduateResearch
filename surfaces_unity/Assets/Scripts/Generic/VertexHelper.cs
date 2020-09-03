@@ -34,6 +34,10 @@ namespace Generic
             public Triangle GetRawTriangle() {
                 return new Triangle(p1, p2, p3);
             }
+
+            public float GetDistance(Vector3 p) {
+                return Mathf.Sqrt(Mathf.Pow(A * p.x + B * p.y + C * p.z + D, 2) / (A * A + B * B + C * C));
+            }
         }
 
         public class Edge {

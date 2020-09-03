@@ -451,7 +451,7 @@ public class ExtractVertices : MonoBehaviour {
         var normalizedTriangles = VertexHelper.NormalizeTriangles(baseTriangles);
         var subTriangles = VertexHelper.GetAllRawSubTriangles(normalizedTriangles, h);
 
-        var pathFinder = PathFinderFactory.Create(PathFinderType.GraphBasedPathFinder, 0.2f, 0.3f);
+        var pathFinder = PathFinderFactory.Create(pathFinderType, paintRadius, paintHeight);
         path = pathFinder.GetPath(ref baseTriangles);
 
         var chunks = new List<TriangleChunk>{

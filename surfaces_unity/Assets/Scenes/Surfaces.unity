@@ -231,7 +231,12 @@ MonoBehaviour:
   h: 0.4
   drawSubTriangles: 0
   drawNormals: 0
-  searchPaths: 0
+  drawSurfacePath: 0
+  drawOriginPath: 0
+  drawFromOriginToSurfacePath: 0
+  pathFinderType: 1
+  paintRadius: 1
+  paintHeight: 2
 --- !u!1 &1093202271
 GameObject:
   m_ObjectHideFlags: 0

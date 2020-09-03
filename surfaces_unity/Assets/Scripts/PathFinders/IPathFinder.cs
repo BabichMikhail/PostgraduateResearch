@@ -19,6 +19,7 @@ namespace PathFinders
 
     public enum PathFinderType {
         GraphBasedPathFinder,
+        IntersectionsWithSurfacesPathFinder,
     }
 
     public interface IPathFinder {
@@ -31,6 +32,9 @@ namespace PathFinders
             switch (type) {
                 case PathFinderType.GraphBasedPathFinder:
                     result = new GraphBasedPathFinder(paintRadius, paintHeight);
+                    break;
+                case PathFinderType.IntersectionsWithSurfacesPathFinder:
+                    result = new IntersectionsWithSurfacesPathFinder(paintRadius, paintHeight);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

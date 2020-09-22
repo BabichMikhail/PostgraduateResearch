@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 131537720}
   - component: {fileID: 131537724}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: PaintObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,15 +228,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
-  h: 0.4
+  h: 1
   drawSubTriangles: 0
   drawNormals: 0
-  drawSurfacePath: 0
+  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
+    type: 3}
+  paintSpeed: 0
+  drawSurfacePath: 1
   drawOriginPath: 0
   drawFromOriginToSurfacePath: 0
   pathFinderType: 1
-  paintRadius: 1
-  paintHeight: 2
+  paintRadius: 10
+  paintHeight: 30
 --- !u!1 &1093202271
 GameObject:
   m_ObjectHideFlags: 0

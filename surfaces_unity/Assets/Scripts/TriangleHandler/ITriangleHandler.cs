@@ -4,6 +4,6 @@ using Generic;
 namespace TriangleHandler
 {
     public interface ITriangleHandler {
-        List<VertexHelper.Triangle> GetTriangles();
+        List<Triangle> GetTriangles();
     }
 }

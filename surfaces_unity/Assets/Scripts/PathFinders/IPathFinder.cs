@@ -12,8 +12,9 @@ namespace PathFinders
 
         public Position(Vector3 aOriginPosition, Vector3 aPaintDirection, Vector3 aSurfacePosition) {
             originPosition = aOriginPosition;
-            paintDirection = aPaintDirection;
+            paintDirection = aPaintDirection.normalized;
             surfacePosition = aSurfacePosition;
+            Debug.Assert((paintDirection - (surfacePosition - originPosition).normalized).magnitude < 10e-4);
         }
     }
 
@@ -23,7 +24,7 @@ namespace PathFinders
     }
 
     public interface IPathFinder {
-        List<Position> GetPath(ref List<VertexHelper.Triangle> triangles);
+        List<Position> GetPath(ref List<Triangle> triangles);
     }
 
     public class PathFinderFactory {

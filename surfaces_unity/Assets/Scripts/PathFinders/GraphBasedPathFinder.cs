@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+using Point = Generic.Point;
+using Triangle = Generic.Triangle;
 
 namespace PathFinders
 {
@@ -33,7 +37,7 @@ namespace PathFinders
             }
         }
 
-        private void ProcessTriangle(ref List<Position> result, VertexHelper.Triangle t) {
+        private void ProcessTriangle(ref List<Position> result, Triangle t) {
             var N = t.GetPlane().GetNormal();
             var R = t.GetRadiusOfTheCircumscribedCircle();
             if (R > paintRadius) {
@@ -60,7 +64,7 @@ namespace PathFinders
             }
         }
 
-        public List<Position> GetPath(ref List<VertexHelper.Triangle> triangles) {
+        public List<Position> GetPath(ref List<Triangle> triangles) {
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
             if (triangles.Count == 0) {
@@ -70,8 +74,8 @@ namespace PathFinders
             var trianglesByVertex = VertexHelper.GetTrianglesByVertex(triangles);
             var trianglesByEdge = VertexHelper.GetTrianglesByEdge(triangles);
 
-            var processedTriangles = new Dictionary<VertexHelper.Triangle, bool>();
-            var trianglesSequence = new List<VertexHelper.Triangle>();
+            var processedTriangles = new Dictionary<Triangle, bool>();
+            var trianglesSequence = new List<Triangle>();
 
             {
                 var initialVertex = triangles[Random.Range(0, triangles.Count)].p1;
@@ -85,7 +89,7 @@ namespace PathFinders
                     var startCount = trianglesSequence.Count;
                     foreach (var edge in trianglesSequence.Last().GetEdges()) {
                         var ok = false;
-                        if (edge.HasVertex(initialVertex)) {
+                        if (edge.HasPoint(initialVertex)) {
                             foreach (var otherTriangle in trianglesByEdge[edge]) {
                                 if (!processedTriangles.ContainsKey(otherTriangle)) {
                                     trianglesSequence.Add(otherTriangle);
@@ -133,10 +137,10 @@ namespace PathFinders
                     if (initialVertex == Vector3.zero) {
                         var nearestTriangleIndex = -1;
                         var nearestVertexIndex = -1;
-                        var nearestDistance = 0.0f;
+                        var nearestDistance = 0.0;
                         for (var i = 0; i < triangles.Count; ++i) {
                             if (!processedTriangles.ContainsKey(triangles[i])) {
-                                var vertices = triangles[i].GetVertices();
+                                var vertices = triangles[i].GetPoints();
                                 for (var j = 0; j < vertices.Count; ++j) {
                                     var hasProcessedTriangles = false;
                                     var hasUnprocessedTriangles = false;
@@ -148,7 +152,7 @@ namespace PathFinders
 
                                     if (hasProcessedTriangles && hasUnprocessedTriangles) {
                                         var distance = nearestTriangleIndex != -1
-                                            ? (triangles[nearestTriangleIndex].GetVertices()[nearestVertexIndex] - vertices[j]).sqrMagnitude
+                                            ? (triangles[nearestTriangleIndex].GetPoints()[nearestVertexIndex] - vertices[j]).sqrMagnitude
                                             : 0;
                                         if (nearestVertexIndex == -1 || distance < nearestDistance) {
                                             nearestTriangleIndex = i;
@@ -164,7 +168,7 @@ namespace PathFinders
                             break;
                         }
 
-                        initialVertex = triangles[nearestTriangleIndex].GetVertices()[nearestVertexIndex];
+                        initialVertex = triangles[nearestTriangleIndex].GetPoints()[nearestVertexIndex];
                         trianglesSequence.Add(triangles[nearestTriangleIndex]);
                         processedTriangles.Add(triangles[nearestTriangleIndex], true);
                     }
@@ -172,7 +176,7 @@ namespace PathFinders
                     while (true) {
                         var startCount = trianglesSequence.Count;
                         foreach (var edge in trianglesSequence.Last().GetEdges()) {
-                            if (edge.HasVertex(initialVertex)) {
+                            if (edge.HasPoint(initialVertex)) {
                                 foreach (var t in trianglesByEdge[edge]) {
                                     if (!processedTriangles.ContainsKey(t)) {
                                         trianglesSequence.Add(t);

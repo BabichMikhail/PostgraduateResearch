@@ -11,12 +11,20 @@ using UnityEngine;
 using VertexHandler;
 using Debug = UnityEngine.Debug;
 using Vector3 = UnityEngine.Vector3;
+using Point = Generic.Point;
+using Triangle = Generic.Triangle;
 
 public class ExtractVertices : MonoBehaviour {
     public Material material;
     public float h;
     public bool drawSubTriangles;
     public bool drawNormals;
+    public GameObject paintRobotPrefab;
+    public float paintSpeed;
+
+    private GameObject paintRobot;
+    private float paintTime;
+    private int currentPathIndex = -1;
 
     public bool drawSurfacePath = false;
     public bool drawOriginPath = false;
@@ -62,7 +70,7 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private interface ITriangleBuilder {
-        List<VertexHelper.Triangle> getTriangles(List<Vector3> vertices);
+        List<Triangle> getTriangles(List<Vector3> vertices);
     }
 
     private class MyTriangleBuilder : ITriangleBuilder {
@@ -86,12 +94,12 @@ public class ExtractVertices : MonoBehaviour {
             // Debug.Log("Search: " + currentVertex.x + " " + currentVertex.y + " " + currentVertex.z);
 
             // Debug.Log("Found : " + index + " " + sortedVertices[index].x + " " + sortedVertices[index].y + " " + sortedVertices[index].z);
-            for (var i = index - 1; i >= 0 && Math.Abs(getValueFunc(sortedVertices[index - 1]) - getValueFunc(sortedVertices[i])) < ACCURACY; --i) {
+            for (var i = index - 1; i >= 0 && Mathf.Abs(getValueFunc(sortedVertices[index - 1]) - getValueFunc(sortedVertices[i])) < ACCURACY; --i) {
                 items.Add(sortedVertices[i]);
                 // Debug.Log("Add: " + i + " " + sortedVertices[i].x + " " + sortedVertices[i].y + " " + sortedVertices[i].z);
             }
 
-            for (var i = index + 1; i < sortedVertices.Count && Math.Abs(getValueFunc(sortedVertices[index + 1]) - getValueFunc(sortedVertices[i])) < ACCURACY; ++i) {
+            for (var i = index + 1; i < sortedVertices.Count && Mathf.Abs(getValueFunc(sortedVertices[index + 1]) - getValueFunc(sortedVertices[i])) < ACCURACY; ++i) {
                 items.Add(sortedVertices[i]);
                 // Debug.Log("Add: " + i + " " + sortedVertices[i].x + " " + sortedVertices[i].y + " " + sortedVertices[i].z);
             }
@@ -100,14 +108,14 @@ public class ExtractVertices : MonoBehaviour {
             return items;
         }
 
-        public List<VertexHelper.Triangle> getTriangles(List<Vector3> vertices) {
+        public List<Triangle> getTriangles(List<Vector3> vertices) {
             // Debug.Log("Initialize");
             // foreach (var vertex in vertices) {
             //     // Debug.Log("Vertex: " + vertex.x + " " + vertex.y + " " + vertex.z);
             // }
 
             // Debug.Log("Initialized");
-            var triangles = new List<VertexHelper.Triangle>();
+            var triangles = new List<Triangle>();
 
             var indexValue = 0;
             var indexByVertex = new Dictionary<Vector3, int>();
@@ -141,15 +149,10 @@ public class ExtractVertices : MonoBehaviour {
                         var vertex = vertices[index];
                         // Debug.Log("Process Vertex: " + vertex.x + " " + vertex.y + " " + vertex.z);
 
-                        // Debug.Log("Process x");
                         var items = getNearestVertices(vertex, vertices, item => item.x);
-                        // Debug.Log("Process y");
                         items.AddRange(getNearestVertices(vertex, vertices, item => item.y));
-                        // Debug.Log("Process z");
                         items.AddRange(getNearestVertices(vertex, vertices, item => item.z));
-                        // Debug.Log(items.Count);
                         var uniqueItems = items.Distinct().ToList();
-                        // Debug.Log(uniqueItems.Count);
                         var log = "Items:";
                         foreach (var item in items) {
                             log += item.x + " " + item.y + " " + item.z + "\n";
@@ -159,18 +162,18 @@ public class ExtractVertices : MonoBehaviour {
                         uniqueItems.Sort(new VectorComparer(x => Vector3.SqrMagnitude(x - vertex), ACCURACY));
 
                         var maxI = 1;
-                        while (maxI < uniqueItems.Count && Math.Abs(Vector3.SqrMagnitude(vertex - uniqueItems[1]) - Vector3.SqrMagnitude(vertex - uniqueItems[maxI])) < ACCURACY) {
+                        while (maxI < uniqueItems.Count && Mathf.Abs(Vector3.SqrMagnitude(vertex - uniqueItems[1]) - Vector3.SqrMagnitude(vertex - uniqueItems[maxI])) < ACCURACY) {
                             ++maxI;
                         }
 
                         // Debug.Log("MaxI: " + maxI);
 
                         for (var i = 0; i < maxI; ++i) {
-                            for (var j = i + 1; j < Math.Max(2, maxI); ++j) {
+                            for (var j = i + 1; j < Mathf.Max(2, maxI); ++j) {
                                 var usedI = processed.ContainsKey(indexByVertex[uniqueItems[i]]);
                                 var usedJ = processed.ContainsKey(indexByVertex[uniqueItems[j]]);
                                 if (!(processed.ContainsKey(indexByVertex[uniqueItems[i]]) ^ processed.ContainsKey(indexByVertex[uniqueItems[j]]))) {
-                                    var triangle = new VertexHelper.Triangle(
+                                    var triangle = new Triangle(
                                         vertex,
                                         uniqueItems[i],
                                         uniqueItems[j]
@@ -182,7 +185,7 @@ public class ExtractVertices : MonoBehaviour {
                                     triangles.Add(triangle);
 
                                     var line = "Add Triangle: ";
-                                    foreach (var v in triangle.GetVertices()) {
+                                    foreach (var v in triangle.GetPoints()) {
                                         line += "(" + v.x + "  " + " " + v.y + " " + v.z + ") ";
                                     }
 
@@ -203,8 +206,8 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private class GreedyBuilder : ITriangleBuilder {
-        public List<VertexHelper.Triangle> getTriangles(List<Vector3> vertices) {
-            var triangles = new List<VertexHelper.Triangle>();
+        public List<Triangle> getTriangles(List<Vector3> vertices) {
+            var triangles = new List<Triangle>();
 
             var usedVertices = new Dictionary<int, bool>();
 
@@ -228,7 +231,7 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private class DelaunayTriangulation : ITriangleBuilder {
-        public List<VertexHelper.Triangle> getTriangles(List<Vector3> vertices) {
+        public List<Triangle> getTriangles(List<Vector3> vertices) {
             var lines = new List<string> {vertices.Count.ToString()};
             for (var i = 0; i < vertices.Count; ++i) {
                 lines.Add(vertices[i].x + " " + vertices[i].y + " " + vertices[i].z);
@@ -236,7 +239,7 @@ public class ExtractVertices : MonoBehaviour {
             var root = Utils.GetPyCoreProjectPath();
             File.WriteAllLines(Path.Combine(root, "vertices.txt"), lines);
 
-            var triangles = new List<VertexHelper.Triangle>();
+            var triangles = new List<Triangle>();
             var start = new ProcessStartInfo();
 
             start.FileName = Path.Combine(root, "venv", "Scripts", "python.exe");
@@ -271,7 +274,7 @@ public class ExtractVertices : MonoBehaviour {
                     float x2 = (float)double.Parse(parts[3]), y2 = (float)double.Parse(parts[4]), z2 = (float)double.Parse(parts[5]);
                     float x3 = (float)double.Parse(parts[6]), y3 = (float)double.Parse(parts[7]), z3 = (float)double.Parse(parts[8]);
 
-                    triangles.Add(new VertexHelper.Triangle(new Vector3(x1, y1, z1), new Vector3(x2, y2, z2), new Vector3(x3, y3, z3)));
+                    triangles.Add(new Triangle(new Vector3(x1, y1, z1), new Vector3(x2, y2, z2), new Vector3(x3, y3, z3)));
                 }
             }
 
@@ -302,11 +305,11 @@ public class ExtractVertices : MonoBehaviour {
 
     struct TriangleChunk {
         public ColorType colorType;
-        public List<VertexHelper.Triangle> triangles;
+        public List<Triangle> triangles;
         public float colorAlpha;
         public bool drawTwoSide;
 
-        public TriangleChunk(List<VertexHelper.Triangle> aTriangles, ColorType aColorType, float aColorAlpha, bool aDrawTwoSide) {
+        public TriangleChunk(List<Triangle> aTriangles, ColorType aColorType, float aColorAlpha, bool aDrawTwoSide) {
             triangles = aTriangles;
             colorType = aColorType;
             colorAlpha = aColorAlpha;
@@ -340,14 +343,14 @@ public class ExtractVertices : MonoBehaviour {
         float maxCoord = -1000000;
         foreach (var chunk in chunks) {
             foreach (var triangle in chunk.triangles) {
-                foreach (var vertex in triangle.GetVertices()) {
-                    minCoord = Math.Min(minCoord, vertex.x);
-                    minCoord = Math.Min(minCoord, vertex.y);
-                    minCoord = Math.Min(minCoord, vertex.z);
+                foreach (var vertex in triangle.GetPoints()) {
+                    minCoord = Mathf.Min(minCoord, (float)vertex.x);
+                    minCoord = Mathf.Min(minCoord, (float)vertex.y);
+                    minCoord = Mathf.Min(minCoord, (float)vertex.z);
 
-                    maxCoord = Math.Max(maxCoord, vertex.x);
-                    maxCoord = Math.Max(maxCoord, vertex.y);
-                    maxCoord = Math.Max(maxCoord, vertex.z);
+                    maxCoord = Mathf.Max(maxCoord, (float)vertex.x);
+                    maxCoord = Mathf.Max(maxCoord, (float)vertex.y);
+                    maxCoord = Mathf.Max(maxCoord, (float)vertex.z);
                 }
             }
         }
@@ -360,7 +363,7 @@ public class ExtractVertices : MonoBehaviour {
         var colors = new List<Color>();
         foreach (var chunk in chunks) {
             foreach (var triangle in chunk.triangles) {
-                foreach (var vertex in triangle.GetVertices()) {
+                foreach (var vertex in triangle.GetPoints()) {
                     if (!verticesDict.ContainsKey(vertex)) {
                         verticesDict[vertex] = vertices.Count;
                         vertices.Add(vertexHandler.PrepareVertex(vertex));
@@ -368,8 +371,8 @@ public class ExtractVertices : MonoBehaviour {
 
                         var newColor = Color.white;
                         if (chunk.colorType == ColorType.Default) {
-                            float elem = (3 * maxCoord - vertex.x - vertex.y - vertex.z) / 3.0f / (maxCoord - minCoord);
-                            newColor = new Color(0, elem, 0, chunk.colorAlpha);
+                            var elem = (3 * maxCoord - vertex.x - vertex.y - vertex.z) / 3.0f / (maxCoord - minCoord);
+                            newColor = new Color(0, (float)elem, 0, chunk.colorAlpha);
                         }
                         else if (chunk.colorType == ColorType.Random) {
                             newColor = myColors[index % myColors.Count];
@@ -395,7 +398,7 @@ public class ExtractVertices : MonoBehaviour {
                 }
 
                 if (chunk.drawTwoSide) {
-                    var points = triangle.GetVertices();
+                    var points = triangle.GetPoints();
                     points.Reverse();
                     foreach (var vertex in points) {
                         trianglesDescriptions.Add(verticesDict[vertex]);
@@ -428,7 +431,7 @@ public class ExtractVertices : MonoBehaviour {
         //mr.material = new Material(Shader.Find("Diffuse"));
     }
 
-    private List<VertexHelper.Triangle> GetTriangles() {
+    private List<Triangle> GetTriangles() {
         // // var vertices = GetEllipsoidVertices();
         // var vertices = vertexHandler.GetVertices();
         // Debug.Log(vertices.Count);
@@ -437,7 +440,13 @@ public class ExtractVertices : MonoBehaviour {
         // var builder = new DelaunayTriangulation();
         // // return VertexHelper.GetAllRawSubTriangles(builder.getTriangles(vertices), 1.0f);
         // return builder.getTriangles(vertices);
-        return new StlTriangleHandler(Path.Combine(Utils.GetDataFolder(), "sample1", "data.stl")).GetTriangles();
+
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+        var result = new StlTriangleHandler(Path.Combine(Utils.GetDataFolder(), "sample1", "data.stl")).GetTriangles();
+        watch.Stop();
+        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of reading figure");
+
+        return result;
     }
 
     private void Awake() {
@@ -448,8 +457,8 @@ public class ExtractVertices : MonoBehaviour {
 
     public void Start() {
         var baseTriangles = GetTriangles();
-        var normalizedTriangles = VertexHelper.NormalizeTriangles(baseTriangles);
-        var subTriangles = VertexHelper.GetAllRawSubTriangles(normalizedTriangles, h);
+        // var normalizedTriangles = VertexHelper.NormalizeTriangles(baseTriangles);
+        var subTriangles = VertexHelper.GetAllRawSubTriangles(baseTriangles, h);
 
         var pathFinder = PathFinderFactory.Create(pathFinderType, paintRadius, paintHeight);
         path = pathFinder.GetPath(ref baseTriangles);
@@ -468,31 +477,84 @@ public class ExtractVertices : MonoBehaviour {
             foreach (var t in subTriangles) {
                 var obj = Instantiate(new GameObject(), t.O, Quaternion.identity);
                 var lineRenderer = obj.AddComponent<LineRenderer>();
-                lineRenderer.SetPositions(new Vector3[] { t.O, t.O + t.GetPlane().GetNormal() * 4 });
+                lineRenderer.SetPositions(new Vector3[] { t.O, (t.O + t.GetPlane().GetNormal() * 4) });
             }
+        }
+
+        paintRobot = Instantiate(paintRobotPrefab);
+        paintRobot.transform.position = path.First().originPosition;
+        paintRobot.transform.LookAt(Vector3.zero);
+        paintRobot.SetActive(false);
+        // paintRobot.transform.LookAt(path.First().originPosition + path.First().paintDirection);
+        currentPathIndex = 0;
+    }
+
+    private void MoveRobot(float time) {
+        var position = path[currentPathIndex];
+        // var position.surfacePosition = (position.originPosition + position.paintDirection).normalized;
+        // Debug.Log((position.paintDirection - (position.surfacePosition - position.originPosition).normalized).magnitude);
+        // Debug.Assert((position.paintDirection - (position.surfacePosition - position.originPosition).normalized).magnitude < 10e-4);
+        if (paintRobot.transform.forward == position.paintDirection && paintRobot.transform.position == position.originPosition) {
+            ++currentPathIndex;
+        }
+        else if (paintRobot.transform.forward == position.paintDirection) {
+            var robotPosition = paintRobot.transform.position;
+            var maxMoveTime = (position.originPosition - robotPosition).magnitude / paintSpeed;
+            var moveTime = Mathf.Min(time, maxMoveTime);
+            paintRobot.transform.position = robotPosition + moveTime * paintSpeed * (position.originPosition - robotPosition).normalized;
+        }
+        else if (true) {
+            paintRobot.transform.position = position.originPosition;
+            paintRobot.transform.LookAt(position.surfacePosition);
+
+            // --------
+            // var q = position.paintDirection.normalized;
+            // var e = Vector3.Cross(paintRobot.transform.up, q);
+            // paintRobot.transform.rotation = Quaternion.Euler(transform.rotation.x + q.x, transform.rotation.y + q.y, transform.rotation.z + q.z);
+            // var qwe = paintRobot.transform.forward;
+            var w = "qwe";
+        }
+    }
+
+    private void FixedUpdate() {
+        if (currentPathIndex >= 0 && path.Count > currentPathIndex) {
+            MoveRobot(Time.deltaTime);
         }
     }
 
     private void OnDrawGizmos() {
         if (path != null) {
             if (drawFromOriginToSurfacePath) {
+                Gizmos.color = Color.magenta;
                 foreach (var pos in path) {
                     Gizmos.DrawLine(pos.originPosition, pos.surfacePosition);
                 }
             }
 
+            Gizmos.color = Color.black;
             for (var i = 0; i < path.Count - 1; ++i) {
                 var pos1 = path[i];
                 var pos2 = path[i + 1];
-
                 if (drawOriginPath) {
                     Gizmos.DrawLine(pos1.originPosition, pos2.originPosition);
                 }
+            }
 
+            Gizmos.color = Color.blue;
+            for (var i = 0; i < path.Count - 1; ++i) {
+                var pos1 = path[i];
+                var pos2 = path[i + 1];
                 if (drawSurfacePath) {
                     Gizmos.DrawLine(pos1.surfacePosition, pos2.surfacePosition);
                 }
             }
+        }
+
+        if (paintRobot != null) {
+            var t = paintRobot.transform;
+            var tp = t.position;
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(tp, tp + paintHeight * t.forward);
         }
     }
 }

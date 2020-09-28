@@ -5,10 +5,10 @@ using UnityEngine;
 namespace Generic
 {
     public class VertexHelper {
-        public static Dictionary<Vector3, List<Triangle>> GetTrianglesByVertex(List<Triangle> triangles) {
-            var result = new Dictionary<Vector3, List<Triangle>>();
+        public static Dictionary<Point, List<Triangle>> GetTrianglesByVertex(List<Triangle> triangles) {
+            var result = new Dictionary<Point, List<Triangle>>();
             foreach (var triangle in triangles) {
-                var keys = new List<Vector3>{
+                var keys = new List<Point>{
                     triangle.p1,
                     triangle.p2,
                     triangle.p3,
@@ -58,7 +58,7 @@ namespace Generic
                 var plane = t.GetPlane();
                 var step = plane.GetNormal() * h;
                 var subPlane1 = new Plane(t.p1 + step, t.p2 + step, t.p3 + step);
-                subTriangles.Add(subPlane1.GetRawTriangle());
+                // subTriangles.Add(subPlane1.GetRawTriangle());
             }
 
             return subTriangles;
@@ -163,8 +163,8 @@ namespace Generic
                 var step = plane.GetNormal() * h;
                 var subPlane1 = new Plane(t.p1 + step, t.p2 + step, t.p3 + step);
                 var subPlane2 = new Plane(t.p1 - step, t.p2 - step, t.p3 - step);
-                subTriangles.Add(subPlane1.GetRawTriangle());
-                subTriangles.Add(subPlane2.GetRawTriangle());
+                // subTriangles.Add(subPlane1.GetRawTriangle());
+                // subTriangles.Add(subPlane2.GetRawTriangle());
             }
 
             return subTriangles;
@@ -183,9 +183,9 @@ namespace Generic
 
         public static void RunMathTests() {
             {
-                var p1 = new Vector3(1, 2, -2);
-                var p2 = new Vector3(3, -2, 1);
-                var p3 = new Vector3(5, 1, -4);
+                var p1 = new Point(1, 2, -2);
+                var p2 = new Point(3, -2, 1);
+                var p3 = new Point(5, 1, -4);
 
                 var plane = new Plane(p1, p2, p3);
                 Debug.Assert(Mathf.Abs(plane.A - 11) < 1e-3);

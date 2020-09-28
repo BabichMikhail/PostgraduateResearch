@@ -1,18 +1,19 @@
+using System;
 using UnityEngine;
 
 namespace Generic
 {
-    public class Plane {
+    public struct Plane {
         public float A;
         public float B;
         public float C;
         public float D;
 
-        private Vector3 p1;
-        private Vector3 p2;
-        private Vector3 p3;
+        private Point p1;
+        private Point p2;
+        private Point p3;
 
-        public Plane(Vector3 aP1, Vector3 aP2, Vector3 aP3) {
+        public Plane(Point aP1, Point aP2, Point aP3) {
             p1 = aP1;
             p2 = aP2;
             p3 = aP3;
@@ -23,20 +24,29 @@ namespace Generic
             D = -(p1.x * A + p1.y * B + p1.z * C);
         }
 
-        public Vector3 GetNormal() {
-            return new Vector3(A, B, C).normalized;
+        public Point GetNormal() {
+            return new Point(A, B, C).normalized;
         }
 
-        public Triangle GetRawTriangle() {
-            return new Triangle(p1, p2, p3);
+        // public Triangle GetRawTriangle() {
+        //     return new Triangle(p1, p2, p3);
+        // }
+
+        public Point GetSomePoint() {
+            return new Point(0, 0, -D / C);
         }
 
-        public float GetDistance(Vector3 p) {
-            return Mathf.Abs(A * p.x + B * p.y + C * p.z + D) / GetDenominator();
+        public double GetDistance(Point p) {
+            return Math.Abs((double)A * (double)p.x + (double)B * (double)p.y + (double)C * (double)p.z + (double)D) /
+                   Math.Sqrt((double)A * (double)A + (double)B * (double)B + (double)C * (double)C);
+            // return Math.Sqrt(Math.Pow((double)A * (double)p.x + (double)B * (double)p.y + (double)C * (double)p.z + (double)D, 2) /
+            //        Math.Abs((double)A * (double)A + (double)B * (double)B + (double)C * (double)C));
         }
 
-        public float GetDenominator() {
-            return Mathf.Sqrt(A * A + B * B + C * C);
+        public double GetDenominator() {
+            return Math.Sqrt((double)A * (double)A + (double)B * (double)B + (double)C * (double)C);
         }
+
+        public override int GetHashCode() => new Point(A, B, C).GetHashCode() + new Point(A, B, D).GetHashCode();
     }
 }

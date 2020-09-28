@@ -16,8 +16,8 @@ namespace TriangleHandler
             filePath = aFilePath;
         }
 
-        private Vector3 LoadBinaryVertex(byte[] bytes, int firstByteIndex) {
-            return new Vector3(
+        private Point LoadBinaryVertex(byte[] bytes, int firstByteIndex) {
+            return new Point(
                 BitConverter.ToSingle(bytes, firstByteIndex),
                 BitConverter.ToSingle(bytes, firstByteIndex + 8),
                 BitConverter.ToSingle(bytes, firstByteIndex + 4)
@@ -50,11 +50,10 @@ namespace TriangleHandler
             return result;
         }
 
-        private Vector3 LoadASCIIVertex(string line, string linePrefix) {
+        private Point LoadASCIIVertex(string line, string linePrefix) {
             line = line.Trim();
-            Debug.Assert(line.Substring(0, "facet normal ".Length) == "facet normal ");
+            Debug.Assert(line.Substring(0, linePrefix.Length) == linePrefix);
 
-            // Debug.Log(line);
             var numbers = new List<string>();
             foreach (var item in line.Split()) {
                 if (item.Length > 0) {
@@ -64,13 +63,13 @@ namespace TriangleHandler
 
             var count = numbers.Count;
             Debug.Assert(numbers.Count == 4 || numbers.Count == 5);
-            return new Vector3(
+            return new Point(
                 float.Parse(numbers[count - 3], CultureInfo.InvariantCulture),
                 float.Parse(numbers[count - 2], CultureInfo.InvariantCulture),
                 float.Parse(numbers[count - 1], CultureInfo.InvariantCulture));
         }
 
-        private List<Triangle> ParseASCIIFormat(string aFilePath) {
+        private List<Triangle> ParseAsciiFormat(string aFilePath) {
             var result = new List<Triangle>();
             var lines = File.ReadAllLines(aFilePath);
 
@@ -89,8 +88,21 @@ namespace TriangleHandler
                 var p1 = LoadASCIIVertex(filteredLines[j + 2], "vertex");
                 var p2 = LoadASCIIVertex(filteredLines[j + 3], "vertex");
                 var p3 = LoadASCIIVertex(filteredLines[j + 4], "vertex");
+
                 var t = new Triangle(p1, p2, p3);
-                Debug.Assert(t.GetPlane().GetNormal().normalized == n.normalized);
+                var tn = t.GetPlane().GetNormal();
+                var maxD = 0.1f;
+                if ((tn.normalized - n.normalized).magnitude > maxD) {
+                    t = new Triangle(p2, p1, p3);
+                    tn = t.GetPlane().GetNormal();
+                }
+
+                if ((tn.normalized - n.normalized).magnitude >= maxD) {
+                    var q = (tn.normalized - n.normalized).magnitude;
+                    Debug.Assert(false);
+                }
+
+                Debug.Assert((t.GetPlane().GetNormal().normalized - n.normalized).magnitude < maxD);
                 result.Add(t);
             }
 
@@ -101,7 +113,7 @@ namespace TriangleHandler
             List<Triangle> result;
             var text = File.ReadAllText(filePath);
             if (text.Substring(0, "solid ".Length) == "solid ") {
-                result = ParseASCIIFormat(filePath);
+                result = ParseAsciiFormat(filePath);
             }
             else {
                 result = ParseBinaryFormat(filePath);

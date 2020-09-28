@@ -18,7 +18,7 @@ namespace PathFinders
             paintRadius = aPaintRadius;
         }
 
-        private void ProcessBigTriangleArea(ref List<Position> result, float triangleHeight, float remind, Vector3 p1, Vector3 p2, Vector3 p3, Vector3 N) {
+        private void ProcessBigTriangleArea(ref List<Position> result, float triangleHeight, float remind, Point p1, Point p2, Point p3, Point N) {
             // var remind = r1 / 2;
             // var k = (t.l2 * t.l2 - t.l3 * t.l3 + t.l1 * t.l1) / (2 * t.l1 * t.l1);
             // var H = t.p3 + (t.p2 - t.p3) * k;
@@ -116,7 +116,7 @@ namespace PathFinders
                 newTriangleCount = 0;
 
                 while (true) {
-                    var initialVertex = Vector3.zero;
+                    var initialVertex = Point.zero;
                     foreach (var edge in trianglesSequence.Last().GetEdges()) {
                         var ok = false;
                         foreach (var t in trianglesByEdge[edge]) {
@@ -134,7 +134,7 @@ namespace PathFinders
                         }
                     }
 
-                    if (initialVertex == Vector3.zero) {
+                    if (initialVertex == Point.zero) {
                         var nearestTriangleIndex = -1;
                         var nearestVertexIndex = -1;
                         var nearestDistance = 0.0;
@@ -213,7 +213,7 @@ namespace PathFinders
             Debug.Log(result.Count);
             watch.Stop();
             Debug.Log(watch.ElapsedMilliseconds + " ms. Time for calculation of paths");
-            
+
             return result;
         }
     }

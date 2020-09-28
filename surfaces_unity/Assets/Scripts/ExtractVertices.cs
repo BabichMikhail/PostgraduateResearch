@@ -174,9 +174,9 @@ public class ExtractVertices : MonoBehaviour {
                                 var usedJ = processed.ContainsKey(indexByVertex[uniqueItems[j]]);
                                 if (!(processed.ContainsKey(indexByVertex[uniqueItems[i]]) ^ processed.ContainsKey(indexByVertex[uniqueItems[j]]))) {
                                     var triangle = new Triangle(
-                                        vertex,
-                                        uniqueItems[i],
-                                        uniqueItems[j]
+                                        new Point(vertex),
+                                        new Point(uniqueItems[i]),
+                                        new Point(uniqueItems[j])
                                     );
                                     // var triangle = new List<Vector3>();
                                     // triangle.Add(vertex);
@@ -274,7 +274,7 @@ public class ExtractVertices : MonoBehaviour {
                     float x2 = (float)double.Parse(parts[3]), y2 = (float)double.Parse(parts[4]), z2 = (float)double.Parse(parts[5]);
                     float x3 = (float)double.Parse(parts[6]), y3 = (float)double.Parse(parts[7]), z3 = (float)double.Parse(parts[8]);
 
-                    triangles.Add(new Triangle(new Vector3(x1, y1, z1), new Vector3(x2, y2, z2), new Vector3(x3, y3, z3)));
+                    triangles.Add(new Triangle(new Point(x1, y1, z1), new Point(x2, y2, z2), new Point(x3, y3, z3)));
                 }
             }
 
@@ -364,9 +364,9 @@ public class ExtractVertices : MonoBehaviour {
         foreach (var chunk in chunks) {
             foreach (var triangle in chunk.triangles) {
                 foreach (var vertex in triangle.GetPoints()) {
-                    if (!verticesDict.ContainsKey(vertex)) {
-                        verticesDict[vertex] = vertices.Count;
-                        vertices.Add(vertexHandler.PrepareVertex(vertex));
+                    if (!verticesDict.ContainsKey(vertex.ToV3())) {
+                        verticesDict[vertex.ToV3()] = vertices.Count;
+                        vertices.Add(vertexHandler.PrepareVertex(vertex.ToV3()));
                         uv.Add(new Vector2(0.7f, 0.3f));
 
                         var newColor = Color.white;
@@ -394,14 +394,14 @@ public class ExtractVertices : MonoBehaviour {
                     }
 
                     // Debug.Log(vertex);
-                    trianglesDescriptions.Add(verticesDict[vertex]);
+                    trianglesDescriptions.Add(verticesDict[vertex.ToV3()]);
                 }
 
                 if (chunk.drawTwoSide) {
                     var points = triangle.GetPoints();
                     points.Reverse();
                     foreach (var vertex in points) {
-                        trianglesDescriptions.Add(verticesDict[vertex]);
+                        trianglesDescriptions.Add(verticesDict[vertex.ToV3()]);
                     }
                 }
 
@@ -470,19 +470,19 @@ public class ExtractVertices : MonoBehaviour {
         if (drawSubTriangles) {
             chunks.Add(new TriangleChunk(subTriangles, ColorType.Red, 0.2f, true));
         }
-        
+
         SetVertices(chunks);
 
         if (drawNormals) {
             foreach (var t in subTriangles) {
-                var obj = Instantiate(new GameObject(), t.O, Quaternion.identity);
+                var obj = Instantiate(new GameObject(), t.O.ToV3(), Quaternion.identity);
                 var lineRenderer = obj.AddComponent<LineRenderer>();
-                lineRenderer.SetPositions(new Vector3[] { t.O, (t.O + t.GetPlane().GetNormal() * 4) });
+                lineRenderer.SetPositions(new Vector3[] { t.O.ToV3(), (t.O + t.GetPlane().GetNormal() * 4).ToV3() });
             }
         }
 
         paintRobot = Instantiate(paintRobotPrefab);
-        paintRobot.transform.position = path.First().originPosition;
+        paintRobot.transform.position = path.First().originPosition.ToV3();
         paintRobot.transform.LookAt(Vector3.zero);
         paintRobot.SetActive(false);
         // paintRobot.transform.LookAt(path.First().originPosition + path.First().paintDirection);
@@ -494,18 +494,18 @@ public class ExtractVertices : MonoBehaviour {
         // var position.surfacePosition = (position.originPosition + position.paintDirection).normalized;
         // Debug.Log((position.paintDirection - (position.surfacePosition - position.originPosition).normalized).magnitude);
         // Debug.Assert((position.paintDirection - (position.surfacePosition - position.originPosition).normalized).magnitude < 10e-4);
-        if (paintRobot.transform.forward == position.paintDirection && paintRobot.transform.position == position.originPosition) {
+        if (paintRobot.transform.forward == position.paintDirection.ToV3() && paintRobot.transform.position == position.originPosition.ToV3()) {
             ++currentPathIndex;
         }
-        else if (paintRobot.transform.forward == position.paintDirection) {
+        else if (paintRobot.transform.forward == position.paintDirection.ToV3()) {
             var robotPosition = paintRobot.transform.position;
-            var maxMoveTime = (position.originPosition - robotPosition).magnitude / paintSpeed;
+            var maxMoveTime = (position.originPosition.ToV3() - robotPosition).magnitude / paintSpeed;
             var moveTime = Mathf.Min(time, maxMoveTime);
-            paintRobot.transform.position = robotPosition + moveTime * paintSpeed * (position.originPosition - robotPosition).normalized;
+            paintRobot.transform.position = robotPosition + moveTime * paintSpeed * (position.originPosition.ToV3() - robotPosition).normalized;
         }
         else if (true) {
-            paintRobot.transform.position = position.originPosition;
-            paintRobot.transform.LookAt(position.surfacePosition);
+            paintRobot.transform.position = position.originPosition.ToV3();
+            paintRobot.transform.LookAt(position.surfacePosition.ToV3());
 
             // --------
             // var q = position.paintDirection.normalized;
@@ -527,7 +527,7 @@ public class ExtractVertices : MonoBehaviour {
             if (drawFromOriginToSurfacePath) {
                 Gizmos.color = Color.magenta;
                 foreach (var pos in path) {
-                    Gizmos.DrawLine(pos.originPosition, pos.surfacePosition);
+                    Gizmos.DrawLine(pos.originPosition.ToV3(), pos.surfacePosition.ToV3());
                 }
             }
 
@@ -536,7 +536,7 @@ public class ExtractVertices : MonoBehaviour {
                 var pos1 = path[i];
                 var pos2 = path[i + 1];
                 if (drawOriginPath) {
-                    Gizmos.DrawLine(pos1.originPosition, pos2.originPosition);
+                    Gizmos.DrawLine(pos1.originPosition.ToV3(), pos2.originPosition.ToV3());
                 }
             }
 
@@ -545,7 +545,7 @@ public class ExtractVertices : MonoBehaviour {
                 var pos1 = path[i];
                 var pos2 = path[i + 1];
                 if (drawSurfacePath) {
-                    Gizmos.DrawLine(pos1.surfacePosition, pos2.surfacePosition);
+                    Gizmos.DrawLine(pos1.surfacePosition.ToV3(), pos2.surfacePosition.ToV3());
                 }
             }
         }

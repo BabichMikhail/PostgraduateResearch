@@ -6,11 +6,11 @@ using UnityEngine;
 namespace PathFinders
 {
     public class Position {
-        public readonly Vector3 originPosition;
-        public readonly Vector3 paintDirection;
-        public readonly Vector3 surfacePosition;
+        public readonly Point originPosition;
+        public readonly Point paintDirection;
+        public readonly Point surfacePosition;
 
-        public Position(Vector3 aOriginPosition, Vector3 aPaintDirection, Vector3 aSurfacePosition) {
+        public Position(Point aOriginPosition, Point aPaintDirection, Point aSurfacePosition) {
             originPosition = aOriginPosition;
             paintDirection = aPaintDirection.normalized;
             surfacePosition = aSurfacePosition;

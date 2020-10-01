@@ -9,11 +9,19 @@ namespace PathFinders
         public readonly Point originPosition;
         public readonly Point paintDirection;
         public readonly Point surfacePosition;
+        public readonly PointType pointType;
 
-        public Position(Point aOriginPosition, Point aPaintDirection, Point aSurfacePosition) {
+        public enum PointType {
+            START,
+            MIDDLE,
+            FINISH,
+        }
+
+        public Position(Point aOriginPosition, Point aPaintDirection, Point aSurfacePosition, PointType aPointType) {
             originPosition = aOriginPosition;
             paintDirection = aPaintDirection.normalized;
             surfacePosition = aSurfacePosition;
+            pointType = aPointType;
             Debug.Assert((paintDirection - (surfacePosition - originPosition).normalized).magnitude < 10e-4);
         }
     }

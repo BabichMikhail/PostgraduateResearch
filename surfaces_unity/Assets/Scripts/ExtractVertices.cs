@@ -519,7 +519,7 @@ public class ExtractVertices : MonoBehaviour {
             for (var i = 0; i < path.Count - 1; ++i) {
                 var pos1 = path[i];
                 var pos2 = path[i + 1];
-                if (drawOriginPath) {
+                if (drawOriginPath && pos2.pointType != Position.PointType.START) {
                     Gizmos.DrawLine(pos1.originPosition.ToV3(), pos2.originPosition.ToV3());
                 }
             }
@@ -528,7 +528,7 @@ public class ExtractVertices : MonoBehaviour {
             for (var i = 0; i < path.Count - 1; ++i) {
                 var pos1 = path[i];
                 var pos2 = path[i + 1];
-                if (drawSurfacePath) {
+                if (drawSurfacePath && pos2.pointType != Position.PointType.START) {
                     Gizmos.DrawLine(pos1.surfacePosition.ToV3(), pos2.surfacePosition.ToV3());
                 }
             }

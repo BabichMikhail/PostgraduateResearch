@@ -30,10 +30,10 @@ namespace PathFinders
                 }
 
                 var surfacePointA = p2 + (p1 - p2) * ((i + 1) * step - remind) / (p1 - p2).magnitude;
-                result.Add(new Position(surfacePointA + N * paintHeight, -N, surfacePointA));
+                result.Add(new Position(surfacePointA + N * paintHeight, -N, surfacePointA, Position.PointType.MIDDLE));
 
                 var surfacePointB = p3 + (p1 - p3) * ((i + 1) * step - remind) / (p1 - p3).magnitude;
-                result.Add(new Position(surfacePointB + N * paintHeight, -N, surfacePointB));
+                result.Add(new Position(surfacePointB + N * paintHeight, -N, surfacePointB, Position.PointType.MIDDLE));
             }
         }
 
@@ -60,7 +60,7 @@ namespace PathFinders
                 }
             }
             else {
-                result.Add(new Position(t.O + N * paintHeight, -N, t.O));
+                result.Add(new Position(t.O + N * paintHeight, -N, t.O, Position.PointType.MIDDLE));
             }
         }
 

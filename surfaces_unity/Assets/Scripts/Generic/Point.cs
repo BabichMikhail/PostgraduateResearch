@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Generic
 {
-    public class Point { // TODO use Point instead Vector3
+    public class Point : IEquatable<Point>, IFormattable { // TODO use Point instead Vector3
         public float x;
         public float y;
         public float z;
@@ -46,6 +46,17 @@ namespace Generic
             return new Vector3(x, y, z);
         }
 
-        public override int GetHashCode() => ToV3().GetHashCode(); //x.GetHashCode() ^ y.GetHashCode() << 2 ^ z.GetHashCode() >> 2;
+        public bool Equals(Point other) {
+            return this == other;
+        }
+
+        public override int GetHashCode() => x.GetHashCode() ^ y.GetHashCode() << 2 ^ z.GetHashCode() >> 2;
+        public override string ToString() {
+            return $"({x} {y} {z})";
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider) {
+            return ToString();
+        }
     }
 }

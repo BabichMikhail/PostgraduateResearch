@@ -4,6 +4,7 @@ using System.Linq;
 using Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Experimental.AI;
 using Edge = Generic.Edge;
 using Plane = Generic.Plane;
 using Point = Generic.Point;
@@ -80,20 +81,17 @@ namespace PathFinders
             plane1.D -= (plane1D - 10) * (float)plane1.GetDenominator();
             plane2.D += (plane2D - 10) * (float)plane2.GetDenominator();
 
-            // var baseDistance = 1000000.0;
-            // var distance1 = 1000000.0;
-            // var distance2 = 1000000.0;
-            // foreach (var t in triangles) {
-            //     foreach (var p in t.GetPoints()) {
-            //         // For debug.
-            //         baseDistance = basePlane.GetDistance(p);
-            //         distance1 = plane1.GetDistance(p);
-            //         distance2 = plane2.GetDistance(p);
-            //     }
-            // }
+            {
+                var maxDistance = plane2.GetDistance(plane1.GetSomePoint());
+                foreach (var t in triangles) {
+                    foreach (var p in t.GetPoints()) {
+                        Debug.Assert(plane1.GetDistance(p) < maxDistance);
+                        Debug.Assert(plane2.GetDistance(p) < maxDistance);
+                    }
+                }
+            }
 
             var lineWidth = paintRadius;
-            // var pathParts = new List<TrianglePath>();
             var edgeByAddedPoint = new Dictionary<Point, Edge>();
             var pathPartsByDistance = new Dictionary<double, List<TrianglePath>>();
             foreach (var t in triangles) {
@@ -108,10 +106,8 @@ namespace PathFinders
 
                 var edges = t.GetEdges();
                 for (var distance = Math.Ceiling(minDistance / lineWidth) * lineWidth; distance <= maxDistance; distance += lineWidth) {
-                    var vertices = new List<Point>();
-                    var firstEdge = edges.First();
-                    var minTDistance = basePlane.GetDistance(firstEdge.p1);
-                    var maxTDistance = basePlane.GetDistance(firstEdge.p1);
+                    var minTDistance = basePlane.GetDistance(edges.First().p1);
+                    var maxTDistance = basePlane.GetDistance(edges.First().p1);
 
                     foreach (var e in edges) {
                         foreach (var p in e.GetPoints()) {
@@ -121,19 +117,19 @@ namespace PathFinders
                         }
                     }
 
-                    if (maxTDistance - minTDistance > 1e-4) {
+                    var vertices = new List<Point>();
+                    if (maxTDistance - minTDistance >= 0) {
                         foreach (var e in edges) {
                             var d1 = basePlane.GetDistance(e.p1);
                             var d2 = basePlane.GetDistance(e.p2);
 
                             var minD = Math.Min(d1, d2);
                             var maxD = Math.Max(d1, d2);
-                            if (maxD - minD > 1e-4 && minD - distance <= 1e-4 && distance - maxD <= 1e-4) {
+                            if (maxD >= minD && minD <= distance && distance <= maxD) {
                                 // vertices.Add(e.p1 + (e.p2 - e.p1) * (float)((distance - d1) / (d2 - d1)));
                                 // var point = (e.p1 * (float)(d2 - d1) + (e.p2 - e.p1) * (float)(distance - d1)) / (float)(d2 - d1);
                                 var point = GetPointUsingBinarySearch(e.p1, e.p2, basePlane, distance);
-                                var testDistance = basePlane.GetDistance(point);
-                                if (Math.Abs(testDistance - distance) > 1e-4) {
+                                if (Math.Abs(basePlane.GetDistance(point) - distance) > 1e-4) {
                                     Debug.Assert(false);
                                 }
 
@@ -144,51 +140,248 @@ namespace PathFinders
                             }
                         }
 
-                        vertices = GetFilteredPoints(vertices, t, basePlane);
+                        var fPoints = GetFilteredPoints(vertices, t, basePlane);
 
-                        if (vertices.Count == 2) {
-                            var v0d = basePlane.GetDistance(vertices[0]);
-                            var v1d = basePlane.GetDistance(vertices[1]);
-                            if (Math.Abs(v0d - v1d) > 1e-4) {
-                                Debug.Assert(false);
-                            }
-                            // Debug.Assert(Math.Abs(basePlane.GetDistance(vertices[0]) - basePlane.GetDistance(vertices[1])) <= 1e-4);
+                        Edge newEdge = null;
+                        if (fPoints.Count == 1 && vertices.Count == 2 && fPoints.GetHashCode() == vertices[0].GetHashCode() && vertices[0].GetHashCode() == vertices[1].GetHashCode()) {
+                            newEdge = new Edge(fPoints[0], fPoints[0]);
+                        }
+                        else if (fPoints.Count == 2) {
+                            newEdge = new Edge(fPoints[0], fPoints[1]);
+                        }
 
-                            var v1 = vertices[0];
-                            var v2 = vertices[1];
-                            if (v2.x < v1.x) {
-                                var v = v1;
-                                v1 = v2;
-                                v2 = v;
-                            }
+                        if (newEdge is null) {
+                            Debug.Log(false);
+                        }
 
-                            if ((v1 - v2).sqrMagnitude > 1e-4) {
-                                if (!pathPartsByDistance.ContainsKey(distance)) {
-                                    pathPartsByDistance.Add(distance, new List<TrianglePath>());
-                                }
-                                pathPartsByDistance[distance].Add(new TrianglePath(t, new Edge(v1, v2)));
+                        if (!(newEdge is null)) {
+                            if (!pathPartsByDistance.ContainsKey(distance)) {
+                                pathPartsByDistance.Add(distance, new List<TrianglePath>());
                             }
+                            pathPartsByDistance[distance].Add(new TrianglePath(t, newEdge));
                         }
                     }
                 }
             }
 
-            var sign = 1;
-            var result = new List<Position>();
+            var fixedPathPartsByDistance = new Dictionary<double, List<TrianglePath>>();
             foreach (var pathPart in pathPartsByDistance) {
-                // var edgesByPoint = new Dictionary<Point, List<Edge>>();
-                var triangleByPoint = new Dictionary<Point, Triangle>();
+                var edgesByPoint = new Dictionary<Point, List<Edge>>();
+                foreach (var tp in pathPart.Value) {
+                    AddEdge(ref edgesByPoint, tp.edge.p1, tp.edge);
+                    AddEdge(ref edgesByPoint, tp.edge.p2, tp.edge);
+                    // AddEdge(ref edgesByPoint, tp.edge.p1, edgeByAddedPoint[tp.edge.p1]);
+                    // AddEdge(ref edgesByPoint, tp.edge.p2, edgeByAddedPoint[tp.edge.p2]);
+                }
+
+                var singlePoints = new List<Point>();
+                var doublePoints = new List<Point>();
+                var wrongPoints = new List<Point>();
+                foreach (var ep in edgesByPoint) {
+                    if (ep.Value.Count == 1) {
+                        singlePoints.Add(ep.Key);
+                    }
+                    else if (ep.Value.Count == 2) {
+                        doublePoints.Add(ep.Key);
+                    }
+                    else {
+                        wrongPoints.Add(ep.Key);
+                    }
+                }
+
+                if (wrongPoints.Count > 0) {
+                    Debug.Assert(false);
+                }
+
+                var substitutes = new Dictionary<Point, Point>();
+                var processedPointIndexes = new Dictionary<int, bool>();
+                for (var i = 0; i < singlePoints.Count; ++i) {
+                    var minDistance = 0.0;
+                    var nearestIdx = -1;
+                    for (var j = i + 1; j < singlePoints.Count; ++j) {
+                        var d = (singlePoints[i] - singlePoints[j]).magnitude;
+                        if (i != j && !processedPointIndexes.ContainsKey(i) && !processedPointIndexes.ContainsKey(j) && (nearestIdx == -1 || minDistance > d)) {
+                            nearestIdx = j;
+                            minDistance = d;
+                        }
+                    }
+
+                    if (nearestIdx != -1) {
+                        processedPointIndexes.Add(i, true);
+                        processedPointIndexes.Add(nearestIdx, true);
+
+                        var m = (singlePoints[i] + singlePoints[nearestIdx]) / 2;
+                        substitutes.Add(singlePoints[i], m);
+                        substitutes.Add(singlePoints[nearestIdx], m);
+
+                        Debug.Assert((singlePoints[i] - singlePoints[nearestIdx]).magnitude < 1e-5);
+                    }
+                }
+
+                var trianglePaths = new List<TrianglePath>();
+                foreach (var tp in pathPart.Value) {
+                    var p1 = tp.edge.p1;
+                    if (substitutes.ContainsKey(p1)) {
+                        p1 = substitutes[p1];
+                    }
+
+                    var p2 = tp.edge.p2;
+                    if (substitutes.ContainsKey(p2)) {
+                        p2 = substitutes[p2];
+                    }
+
+                    var edge = new Edge(p1, p2);
+                    trianglePaths.Add(new TrianglePath(tp.triangle, edge));
+                }
+
+                fixedPathPartsByDistance.Add(pathPart.Key, trianglePaths);
+
+                Debug.Assert(true);
+            }
+
+            // pathPartsByDistance = fixedPathPartsByDistance;
+
+            var result = new List<Position>();
+            foreach (var pathPart in fixedPathPartsByDistance) {
+                foreach (var tp in pathPart.Value) {
+                    var t = tp.triangle;
+                    var e = tp.edge;
+
+                    var n = t.GetPlane().GetNormal();
+                    var d = n / 1e-2f;
+                    result.Add(new Position(e.p1 + n, -n, e.p1));
+                    result.Add(new Position(e.p2 + n, -n, e.p1));
+                }
+            }
+
+            return result;
+
+            var sign = 1;
+            var id = 0;
+            foreach (var pathPart in pathPartsByDistance) {
+                var edgesByPoint = new Dictionary<Point, List<Edge>>();
+                // var triangleByPoint = new Dictionary<Point, Triangle>();
                 // var triangleByEdge = new Dictionary<Edge, Triangle>();
                 foreach (var tp in pathPart.Value) {
+                    // tp.edge.id = id;
+                    ++id;
+
+                    AddEdge(ref edgesByPoint, tp.edge.p1, tp.edge);
+                    AddEdge(ref edgesByPoint, tp.edge.p2, tp.edge);
                     // AddEdge(ref edgesByPoint, tp.edge.p1, edgeByAddedPoint[tp.edge.p1]);
                     // AddEdge(ref edgesByPoint, tp.edge.p2, edgeByAddedPoint[tp.edge.p2]);
                     if (tp.edge is null) {
                         Debug.Assert(false);
                     }
 
-                    AddTriangle(ref triangleByPoint, tp.edge.p1, tp.triangle);
-                    AddTriangle(ref triangleByPoint, tp.edge.p2, tp.triangle);
+                    // AddTriangle(ref triangleByPoint, tp.edge.p1, tp.triangle);
+                    // AddTriangle(ref triangleByPoint, tp.edge.p2, tp.triangle);
                     // AddTriangle(ref triangleByEdge, tp.edge, tp.triangle);
+                }
+
+                // foreach (var ep in edgesByPoint) {
+                //     
+                // }
+
+                while (true) {
+                    var edgeSubstitutes = new Dictionary<Edge, Edge>();
+                    foreach (var ep in edgesByPoint) {
+                        if (ep.Value.Count == 2) {
+                            continue;
+                            // fixedEdgesByPoint.Add(ep.Key, ep.Value);
+                        }
+                        else if (ep.Value.Count % 2 == 0 && ep.Value.Count > 2) {
+                            var edges = ep.Value.ToList();
+                            var j = 1;
+                            // fixedEdgesByPoint.Add(ep.Key, new List<Edge>{edges[0], edges[1]});
+                            for (var i = 1; i < edges.Count / 2; ++i) {
+                                var e1 = edges[2 * i];
+                                var e2 = edges[2 * i + 1];
+
+                                Edge newE1 = null;
+                                Edge newE2 = null;
+                                var newP = ep.Key + new Point(0, 0, 1e-4f * j); ++j;
+                                if (e1.p1 == ep.Key) {
+                                    newE1 = new Edge(newP, e1.p2);
+                                }
+                                else if (e1.p2 == ep.Key) {
+                                    newE1 = new Edge(e1.p1, newP);
+                                }
+
+                                if (e2.p1 == ep.Key) {
+                                    newE2 = new Edge(newP, e2.p2);
+                                }
+                                else if (e2.p2 == ep.Key) {
+                                    newE2 = new Edge(e2.p1, newP);
+                                }
+
+                                if (!edgeSubstitutes.ContainsKey(e1)) {
+                                    // newE1.id = id;
+                                    ++id;
+                                    edgeSubstitutes.Add(e1, newE1);
+                                }
+
+                                if (!edgeSubstitutes.ContainsKey(e2)) {
+                                    // newE2.id = id;
+                                    ++id;
+                                    edgeSubstitutes.Add(e2, newE2);
+                                }
+                                // fixedEdgesByPoint.Add(newP, new List<Edge>{e1, e2});
+                            }
+
+                            break;
+                        }
+                    }
+
+                    if (edgeSubstitutes.Count == 0) {
+                        break;
+                    }
+
+                    var addedEdges = new Dictionary<Edge, bool>();
+                    var fixedEdgesByPoint = new Dictionary<Point, List<Edge>>();
+                    foreach (var ep in edgesByPoint) {
+                        var edges = ep.Value.ToList();
+                        foreach (var e in edges) {
+                            if (edgeSubstitutes.ContainsKey(e) || e is null) {
+                                Debug.Assert(true);
+                            }
+                            var newEdge = edgeSubstitutes.ContainsKey(e) ? edgeSubstitutes[e] : e;
+                            if (!addedEdges.ContainsKey(newEdge)) {
+                                AddEdge(ref fixedEdgesByPoint, newEdge.p1, newEdge);
+                                AddEdge(ref fixedEdgesByPoint, newEdge.p2, newEdge);
+                                addedEdges.Add(newEdge, true);
+                            }
+                        }
+                    }
+                    edgesByPoint = fixedEdgesByPoint;
+
+                    foreach (var ep in edgesByPoint) {
+                        if (ep.Value.Count > 2) {
+                            Debug.Assert(false);
+                        }
+
+                        if (ep.Value.Count != 2) {
+                            Debug.Assert(false);
+                        }
+
+                        if (ep.Value.Count % 2 != 0) {
+                            Debug.Assert(false);
+                        }
+                    }
+                }
+
+                foreach (var ep in edgesByPoint) {
+                    if (ep.Value.Count > 2) {
+                        Debug.Assert(false);
+                    }
+
+                    if (ep.Value.Count != 2) {
+                        Debug.Assert(false);
+                    }
+
+                    if (ep.Value.Count % 2 != 0) {
+                        Debug.Assert(false);
+                    }
                 }
 
                 var duplicatePoints = 0; // for debug
@@ -239,17 +432,19 @@ namespace PathFinders
                 var toPlane = sign > 0 ? plane2 : plane1;
                 var trianglePaths = pathPart.Value.OrderBy(v => Math.Min(fromPlane.GetDistance(v.edge.p1), fromPlane.GetDistance(v.edge.p2))).ToList();
                 var tp11111111112 = pathPart.Value.OrderBy(v => Math.Max(toPlane.GetDistance(v.edge.p1), toPlane.GetDistance(v.edge.p2))).ToList();
+                tp11111111112.Reverse();
 
-                var dfromto = toPlane.GetDistance(fromPlane.GetSomePoint());
-                var dtofrom = fromPlane.GetDistance(toPlane.GetSomePoint());
-                Debug.Assert(Math.Abs(dfromto - dtofrom) < 1e-4);
+
+                Debug.Assert(Math.Abs(toPlane.GetDistance(fromPlane.GetSomePoint()) - fromPlane.GetDistance(toPlane.GetSomePoint())) < 1e-4);
+                var str = "";
                 for (var i = 0; i < trianglePaths.Count; ++i) {
                     var e1 = trianglePaths[i].edge;
                     var e2 = tp11111111112[i].edge;
-                    var d1 = Math.Min(fromPlane.GetDistance(e1.p1), fromPlane.GetDistance(e1.p2));
-                    var d11 = Math.Min(fromPlane.GetDistance(e2.p1), fromPlane.GetDistance(e2.p2));
-                    var d2 = Math.Max(toPlane.GetDistance(e2.p1), toPlane.GetDistance(e2.p2));
-                    var d21 = Math.Max(toPlane.GetDistance(e1.p1), toPlane.GetDistance(e1.p2));
+                    str += e1.p1.ToString() + ", " + e1.p2.ToString() + " | " + e2.p1.ToString() + ", " + e2.p2.ToString() + "\n";
+                    // var d1 = Math.Min(fromPlane.GetDistance(e1.p1), fromPlane.GetDistance(e1.p2));
+                    // var d11 = Math.Min(fromPlane.GetDistance(e2.p1), fromPlane.GetDistance(e2.p2));
+                    // var d2 = Math.Max(toPlane.GetDistance(e2.p1), toPlane.GetDistance(e2.p2));
+                    // var d21 = Math.Max(toPlane.GetDistance(e1.p1), toPlane.GetDistance(e1.p2));
                     Debug.Assert(e1 == e2);
                 }
 
@@ -261,10 +456,10 @@ namespace PathFinders
 
                 // var usedEdges = new Dictionary<Edge, bool>();
 
-                var subResult1 = GetSubResult(true, firstPoint, lastPoint, points, fromPlane, triangleByPoint);
-                var subResult2 = GetSubResult(false, firstPoint, lastPoint, points, fromPlane, triangleByPoint);
-                // var subResult1 = GetSubResult(true, edgesByPoint, firstPoint, lastPoint, triangleByEdge);
-                // var subResult2 = GetSubResult(false, edgesByPoint, firstPoint, lastPoint, triangleByEdge);
+                // var subResult1 = GetSubResult(true, firstPoint, lastPoint, points, fromPlane, triangleByPoint);
+                // var subResult2 = GetSubResult(false, firstPoint, lastPoint, points, fromPlane, triangleByPoint);
+                var subResult1 = GetOldSubResult(true, edgesByPoint, fromPlane, toPlane);
+                var subResult2 = GetOldSubResult(false, edgesByPoint, fromPlane, toPlane);
 
                 var maxY1 = -100000.0f;
                 foreach (var item in subResult1) {
@@ -411,11 +606,11 @@ namespace PathFinders
                     }
                 }
 
-                foreach (var p in triangle.GetPoints()) {
-                    var d = basePlane.GetDistance(p);
-                    if (Math.Abs(d - d1) < 1e-3 && Math.Abs(d - d2) < 1e-3) {
-                        newVertices.Add(p);
-                    }
+                if (d1 < d2) {
+                    newVertices.Add(vertices[i1]);
+                }
+                else {
+                    newVertices.Add(vertices[i2]);
                 }
 
                 Debug.Assert(newVertices.Count == 2);
@@ -445,7 +640,7 @@ namespace PathFinders
         }
 
         void AddEdge(ref Dictionary<Point, List<Edge>> d, Point p, Edge e) {
-            var p0 = PreparePoint(p);
+            var p0 = p;
             if (d.ContainsKey(p0)) {
                 d[p0].Add(e);
             }
@@ -472,19 +667,66 @@ namespace PathFinders
             d.Add(p, t);
         }
 
+        List<Position> GetOldSubResult(bool isForwardDirection, Dictionary<Point, List<Edge>> edgesByPoint, Plane fromPlane, Plane toPlane) {
+            var subResult = new List<Position>();
+
+            var edgeDict = new Dictionary<Edge, bool>();
+            foreach (var ep in edgesByPoint) {
+                foreach (var e in ep.Value) {
+                    if (!edgeDict.ContainsKey(e)) {
+                        edgeDict.Add(e, true);
+                    }
+                }
+            }
+
+            Debug.Assert(edgeDict.Count == edgesByPoint.Count);
+            var edges = edgeDict.Keys.ToList();
+            var sequences = GetSequences(edges, edgesByPoint);
+            throw new Exception("qwe");
+
+            return subResult;
+        }
+
+        List<List<Point>> GetSequences(List<Edge> edges, Dictionary<Point, List<Edge>> edgesByPoint) {
+            var processedEdge = new Dictionary<Edge, bool>();
+            var sequences = new List<List<Point>>();
+            while (processedEdge.Count < edges.Count) {
+                Edge baseEdge = null;
+                foreach (var e in edges) {
+                    if (!processedEdge.ContainsKey(e)) {
+                        baseEdge = e;
+                    }
+                }
+
+                var sequence = new List<Point>();
+                while (true) {
+                    processedEdge.Add(baseEdge, true);
+                    sequence.Add(baseEdge.p1);
+
+                    Edge nextEdge = null;
+                    foreach (var e in edgesByPoint[baseEdge.p1]) {
+                        if (!processedEdge.ContainsKey(e)) {
+                            nextEdge = e;
+                            break;
+                        }
+                    }
+
+                    baseEdge = nextEdge;
+                    if (baseEdge is null) {
+                        break;
+                    }
+                }
+
+                sequences.Add(sequence);
+            }
+
+            return sequences;
+        }
+
         List<Position> GetSubResult(bool isForwardDirection, Point firstPoint, Point lastPoint, List<Point> points, Plane fromPlane, Dictionary<Point, Triangle> triangleByPoint) {
 
         // List<Position> GetSubResult(bool isForwardDirection, Dictionary<Point, List<Edge>> edgesByPoint, Point firstPoint, Point lastPoint, Dictionary<Edge, Triangle> triangleByEdge) {
             var subResult = new List<Position>();
-            // var usedEdges = new Dictionary<Edge, bool>();
-
-            // points.Sort((p1, p2) => fromPlane.GetDistance(p1) > fromPlane.GetDistance(p2) ? 1 : -1);
-            // var pointToId = new Dictionary<Point, int>();
-            // var id = 0;
-            // foreach (var p in points) {
-            //     ++id;
-            //     pointToId.Add(p, id);
-            // }
 
             var processedPoints = new Dictionary<Point, bool>();
             var sequences = new List<List<Point>>();
@@ -504,106 +746,11 @@ namespace PathFinders
                 sequences.Add(s);
             }
 
-            // List<Point> forwardPoints = new List<Point>(), backwardPoints = new List<Point>();
-            // foreach (var p in points) {
-            //     var t = triangleByPoint[p];
-            //     if (p == firstPoint) {
-            //         forwardPoints.Add(p);
-            //         backwardPoints.Add(p);
-            //     }
-            //
-            //     if (t.GetPlane().GetNormal().y >= 0) {
-            //         forwardPoints.Add(p);
-            //     }
-            //     else {
-            //         backwardPoints.Add(p);
-            //     }
-            // }
-
-            {
-                // var edges = edgesByPoint[PreparePoint(firstPoint)];
-                // Debug.Assert(edges.Count == 2);
-                // if (edges.Count == 1) {
-                //     Debug.Assert(false);
-                //     return subResult; // Магия. Такого не должно быть, но оно есть :(
-                // }
-                // var e1 = edges[0];
-                // var e2 = edges[1];
-
-                // var p1 = e1.p1 == firstPoint ? e1.p2 : e1.p1;
-                // var p2 = e2.p1 == firstPoint ? e2.p2 : e2.p1;
-                // var p1 = nearestPointsToPoint[firstPoint].p1;
-                // var p2 = nearestPointsToPoint[firstPoint].p2;
-                // var p1 = forwardPoints.First();
-                // var p2 = backwardPoints.First();
-                //
-                // List<Point> targetPoints;
-                //
-                // var nextPoint = p1;
-                // // var targetEdge = e1;
-                // if (isForwardDirection) {
-                //     nextPoint = p2;
-                //     targetPoints = forwardPoints;
-                //     // targetEdge = e2;
-                // }
-                //
-                // else {
-                //     // targetEdge = e2;
-                //     targetPoints = backwardPoints;
-                //     nextPoint = p2;
-                // }
-                // // usedEdges.Add(targetEdge, true);
-                //
-                // for (var i = 0; i < targetPoints.Count - 1; ++i) {
-                //     var triangle = triangleByPoint[targetPoints[i]];
-                //     var n = triangle.GetPlane().GetNormal();
-                //     subResult.Add(new Position(targetPoints[i] + n, -n, targetPoints[i]));
-                //     subResult.Add(new Position(targetPoints[i + 1] + n, -n, targetPoints[i + 1]));
-                // }
-
-                // // var triangle = triangleByEdge[targetEdge];
-                // var triangle = triangleByPoint[firstPoint];
-                // var n = triangle.GetPlane().GetNormal();
-                // subResult.Add(new Position(firstPoint + n, -n, firstPoint));
-                //
-                // // var targetPoint = targetEdge.p1 == firstPoint ? targetEdge.p2 : targetEdge.p1;
-                // subResult.Add(new Position(nextPoint + n, -n, nextPoint));
-            }
-
-            // var usedPoints = new Dictionary<Point, bool>();
-            // while (subResult.Last().surfacePosition != lastPoint) {
-            //     var position = subResult.Last();
-            //     var ok = false;
-            //     foreach (var point in nearestPointsToPoint[position.surfacePosition].GetPoints()) {
-            //         if (!usedPoints.ContainsKey(point)) {
-            //             var N = triangleByPoint[point].GetPlane().GetNormal();
-            //             subResult.Add(new Position(position.surfacePosition + N * paintHeight, -N, position.surfacePosition));
-            //             subResult.Add(new Position(point + N * paintHeight, -N, point));
-            //             usedPoints.Add(point, true);
-            //             ok = true;
-            //         }
-            //     }
-            //     // foreach (var edge in edgesByPoint[PreparePoint(position.surfacePosition)]) {
-            //     //     if (!usedEdges.ContainsKey(edge)) {
-            //     //         var nextPoint = position.surfacePosition == edge.p1 ? edge.p2 : edge.p1;
-            //     //         var N = triangleByEdge[edge].GetPlane().GetNormal();
-            //     //         subResult.Add(new Position(position.surfacePosition + N, -N, position.surfacePosition));
-            //     //         subResult.Add(new Position(nextPoint + N, -N, nextPoint));
-            //     //         usedEdges.Add(edge, true);
-            //     //         ok = true;
-            //     //     }
-            //     // }
-            //
-            //     if (!ok) {
-            //         break;
-            //     }
-            // }
-
             return subResult;
         }
 
         List<Point> GetSequence(Point firstPoint, List<Point> points, Dictionary<Point, Triangle> triangleByPoint) {
-            var result = new List<Point>();
+            var sequence = new List<Point>();
             var pointsByTriangle = new Dictionary<Triangle, List<Point>>();
             foreach (var point in points) {
                 var t = triangleByPoint[point];
@@ -632,14 +779,14 @@ namespace PathFinders
                     }
                 }
 
-                result.Add(currentPoint);
+                sequence.Add(currentPoint);
             }
 
-            for (var i = 0; i < result.Count - 1; ++i) {
-                Debug.Assert(result[i] != result[i + 1]);
+            for (var i = 0; i < sequence.Count - 1; ++i) {
+                Debug.Assert(sequence[i] != sequence[i + 1]);
             }
 
-            return result;
+            return sequence;
         }
     }
 }

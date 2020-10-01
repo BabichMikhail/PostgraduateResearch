@@ -14,7 +14,9 @@ using Vector3 = UnityEngine.Vector3;
 using Point = Generic.Point;
 using Triangle = Generic.Triangle;
 
+[RequireComponent(typeof(MeshFilter))]
 public class ExtractVertices : MonoBehaviour {
+    public String SampleName;
     public Material material;
     public float h;
     public bool drawSubTriangles;
@@ -307,13 +309,11 @@ public class ExtractVertices : MonoBehaviour {
         public ColorType colorType;
         public List<Triangle> triangles;
         public float colorAlpha;
-        public bool drawTwoSide;
 
-        public TriangleChunk(List<Triangle> aTriangles, ColorType aColorType, float aColorAlpha, bool aDrawTwoSide) {
+        public TriangleChunk(List<Triangle> aTriangles, ColorType aColorType, float aColorAlpha) {
             triangles = aTriangles;
             colorType = aColorType;
             colorAlpha = aColorAlpha;
-            drawTwoSide = aDrawTwoSide;
         }
     }
 
@@ -336,7 +336,7 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void SetVertices(List<TriangleChunk> chunks) {
-        var mf = gameObject.GetComponentsInChildren<MeshFilter>().First();
+        var mf = gameObject.GetComponent<MeshFilter>();
         mf.mesh.Clear();
 
         float minCoord = 1000000;
@@ -358,7 +358,6 @@ public class ExtractVertices : MonoBehaviour {
         var index = 0;
         var verticesDict = new Dictionary<Vector3, int>();
         var vertices = new List<Vector3>();
-        var uv = new List<Vector2>();
         var trianglesDescriptions = new List<int>();
         var colors = new List<Color>();
         foreach (var chunk in chunks) {
@@ -367,7 +366,6 @@ public class ExtractVertices : MonoBehaviour {
                     if (!verticesDict.ContainsKey(vertex.ToV3())) {
                         verticesDict[vertex.ToV3()] = vertices.Count;
                         vertices.Add(vertexHandler.PrepareVertex(vertex.ToV3()));
-                        uv.Add(new Vector2(0.7f, 0.3f));
 
                         var newColor = Color.white;
                         if (chunk.colorType == ColorType.Default) {
@@ -393,24 +391,8 @@ public class ExtractVertices : MonoBehaviour {
                         ++index;
                     }
 
-                    // Debug.Log(vertex);
                     trianglesDescriptions.Add(verticesDict[vertex.ToV3()]);
                 }
-
-                if (chunk.drawTwoSide) {
-                    var points = triangle.GetPoints();
-                    points.Reverse();
-                    foreach (var vertex in points) {
-                        trianglesDescriptions.Add(verticesDict[vertex.ToV3()]);
-                    }
-                }
-
-                //
-                // var line = "Triangle: ";
-                // foreach (var v in points)  {
-                //     line += "(" + v.x + "  "  + " " + v.y + " " + v.z + ") ";
-                // }
-                // Debug.Log(line);
             }
         }
 
@@ -420,15 +402,16 @@ public class ExtractVertices : MonoBehaviour {
         }
         Debug.Log(count);
 
-        mf.mesh.SetVertices(vertices);
-        mf.mesh.SetTriangles(trianglesDescriptions, 0, false);
-        // mf.mesh.bounds
-        //mf.mesh.SetUVs(0, uv);
-        mf.mesh.SetColors(colors);
+        var mesh = mf.mesh;
+        mesh.Clear();
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = trianglesDescriptions.ToArray();
+        mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
+        mesh.RecalculateTangents();
 
         var mr = gameObject.GetComponent<MeshRenderer>();
         mr.material = material;
-        //mr.material = new Material(Shader.Find("Diffuse"));
     }
 
     private List<Triangle> GetTriangles() {
@@ -441,8 +424,9 @@ public class ExtractVertices : MonoBehaviour {
         // // return VertexHelper.GetAllRawSubTriangles(builder.getTriangles(vertices), 1.0f);
         // return builder.getTriangles(vertices);
 
-        var watch = System.Diagnostics.Stopwatch.StartNew();
-        var result = new StlTriangleHandler(Path.Combine(Utils.GetDataFolder(), "sample1", "data.stl")).GetTriangles();
+        var watch = Stopwatch.StartNew();
+        var result = new StlTriangleHandler(Path.Combine(Utils.GetDataFolder(), SampleName, "data.stl")).GetTriangles();
+        // var result = new UnityObjectTriangleHandler(gameObject).GetTriangles();
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of reading figure");
 
@@ -464,21 +448,21 @@ public class ExtractVertices : MonoBehaviour {
         path = pathFinder.GetPath(ref baseTriangles);
 
         var chunks = new List<TriangleChunk>{
-            new TriangleChunk(baseTriangles, ColorType.Default, 0.9f, true),
+            new TriangleChunk(baseTriangles, ColorType.Default, 0.9f),
         };
 
         if (drawSubTriangles) {
-            chunks.Add(new TriangleChunk(subTriangles, ColorType.Red, 0.2f, true));
+            chunks.Add(new TriangleChunk(subTriangles, ColorType.Red, 0.2f));
         }
 
         SetVertices(chunks);
 
         if (drawNormals) {
-            foreach (var t in subTriangles) {
-                var obj = Instantiate(new GameObject(), t.O.ToV3(), Quaternion.identity);
-                var lineRenderer = obj.AddComponent<LineRenderer>();
-                lineRenderer.SetPositions(new Vector3[] { t.O.ToV3(), (t.O + t.GetPlane().GetNormal() * 4).ToV3() });
-            }
+            // foreach (var t in subTriangles) {
+            //     var obj = Instantiate(new GameObject(), t.O.ToV3(), Quaternion.identity);
+            //     var lineRenderer = obj.AddComponent<LineRenderer>();
+            //     lineRenderer.SetPositions(new Vector3[] { t.O.ToV3(), (t.O + t.GetPlane().GetNormal() * 4).ToV3() });
+            // }
         }
 
         paintRobot = Instantiate(paintRobotPrefab);

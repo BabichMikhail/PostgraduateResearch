@@ -38,13 +38,29 @@ namespace TriangleHandler
 
             var result = new List<Triangle>();
             for (var i = 0; i < triangleCount; ++i) {
-                var firstByteIndex = BINARY_HEADER_LENGTH + 4 + 50 * i;
+                var firstByteIndex = BINARY_HEADER_LENGTH + 4 + (12 + 12 + 12 + 12 + 2) * i;
                 var n = LoadBinaryVertex(bytes, firstByteIndex);
                 var p1 = LoadBinaryVertex(bytes, firstByteIndex + 12);
                 var p2 = LoadBinaryVertex(bytes, firstByteIndex + 24);
                 var p3 = LoadBinaryVertex(bytes, firstByteIndex + 36);
+                var byteCount = BitConverter.ToUInt16(bytes, firstByteIndex + 48);
 
-                result.Add(new Triangle(p1, p2, p3));
+                var t = new Triangle(p1, p2, p3);
+                var tn = t.GetPlane().GetNormal();
+                var maxD = 0.1f;
+                if ((tn.normalized - n.normalized).magnitude > maxD) {
+                    t = new Triangle(p2, p1, p3);
+                    tn = t.GetPlane().GetNormal();
+                }
+
+                if ((tn.normalized - n.normalized).magnitude >= maxD) {
+                    var q = (tn.normalized - n.normalized).magnitude;
+                    Debug.Assert(false);
+                }
+
+                Debug.Assert((t.GetPlane().GetNormal().normalized - n.normalized).magnitude < maxD);
+
+                result.Add(t);
             }
 
             return result;
@@ -112,7 +128,7 @@ namespace TriangleHandler
         public List<Triangle> GetTriangles() {
             List<Triangle> result;
             var text = File.ReadAllText(filePath);
-            if (text.Substring(0, "solid ".Length) == "solid ") {
+            if (text.Substring(0, "solid ".Length) == "solid " && text.Contains("facet normal")) {
                 result = ParseAsciiFormat(filePath);
             }
             else {

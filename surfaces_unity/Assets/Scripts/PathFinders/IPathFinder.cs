@@ -22,7 +22,7 @@ namespace PathFinders
             paintDirection = aPaintDirection.normalized;
             surfacePosition = aSurfacePosition;
             pointType = aPointType;
-            Debug.Assert((paintDirection - (surfacePosition - originPosition).normalized).magnitude < 10e-4);
+            Debug.Assert((paintDirection - (surfacePosition - originPosition).normalized).magnitude < 1e-4);
         }
     }
 

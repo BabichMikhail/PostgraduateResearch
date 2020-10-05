@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Generic;
-using Unity.Profiling;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.Experimental.AI;
 using Edge = Generic.Edge;
 using Plane = Generic.Plane;
 using Point = Generic.Point;
@@ -98,8 +94,6 @@ namespace PathFinders
                 foreach (var tp in pathPart.Value) {
                     AddEdge(ref edgesByPoint, tp.edge.p1, tp.edge);
                     AddEdge(ref edgesByPoint, tp.edge.p2, tp.edge);
-                    // AddEdge(ref edgesByPoint, tp.edge.p1, edgeByAddedPoint[tp.edge.p1]);
-                    // AddEdge(ref edgesByPoint, tp.edge.p2, edgeByAddedPoint[tp.edge.p2]);
                 }
 
                 var singlePoints = new List<Point>();
@@ -142,7 +136,7 @@ namespace PathFinders
                         substitutes.Add(singlePoints[i], m);
                         substitutes.Add(singlePoints[nearestIdx], m);
 
-                        Debug.Assert((singlePoints[i] - singlePoints[nearestIdx]).magnitude < 1e-5);
+                        Debug.Assert((singlePoints[i] - singlePoints[nearestIdx]).magnitude < 1e-4);
                     }
                 }
 
@@ -179,7 +173,7 @@ namespace PathFinders
                 var normals = new List<Point>();
                 foreach (var tp in pathPart.Value) {
                     edges.Add(tp.edge);
-                    originalNormals.Add(tp.triangle.GetPlane().GetNormal());
+                    originalNormals.Add(tp.triangle.GetPlane().GetNormal().normalized);
                 }
 
                 var pointsDict = new Dictionary<Point, bool>();
@@ -208,74 +202,15 @@ namespace PathFinders
 
                 var points = pointsDict.Keys.ToList();
 
-                var k1 = 0;
-                var k2 = 0;
-                var pointToId = new Dictionary<Point, int>();
-                var processedPoints = new Dictionary<int, bool>();
-                for (var i = 0; i < points.Count; ++i) {
-                    if (fromPlane.GetDistance(points[i]) < fromPlane.GetDistance(points[k1])) {
-                        k1 = i;
-                    }
-
-                    if (fromPlane.GetDistance(points[i]) > fromPlane.GetDistance(points[k2])) {
-                        k2 = i;
-                    }
-
-                    pointToId.Add(points[i], i);
-                }
-
-                var subResult = new List<Position>();
-                subResult.Add(new Position(points[k1] + originalNormals[k1], originalNormals[k1], points[k1], Position.PointType.MIDDLE));
-                processedPoints.Add(k1, true);
-                while (!processedPoints.ContainsKey(k2)) {
-                    var nextPointIds = new List<int>();
-
-                    bool canBeNextPoint(int k) => !processedPoints.ContainsKey(k) && fromPlane.GetDistance(points[k]) > fromPlane.GetDistance(points[k1]);
-                    foreach (var edge in edgesByPoint[points[k1]]) {
-                        if (canBeNextPoint(pointToId[edge.p1])) {
-                            nextPointIds.Add(pointToId[edge.p1]);
-                        }
-
-                        if (canBeNextPoint(pointToId[edge.p2])) {
-                            nextPointIds.Add(pointToId[edge.p2]);
-                        }
-                    }
-
-                    var k3 = -1;
-                    if (nextPointIds.Count > 0) {
-                        var dy = points[k1].y;
-                        var dz = points[k1].z;
-                        k3 = nextPointIds[0];
-                        foreach (var i in nextPointIds) {
-                            var p1 = points[k3];
-                            var p2 = points[i];
-                            var d = Math.Abs(p1.z - dz) < 10e-2 || Math.Abs(p2.z - dz) < 10e-2 ? 1 : 0;
-                            if (fromPlane.GetDistance(points[k1]) < fromPlane.GetDistance(p2) && (p1.y - dy) / (p1.z - dz + d) < (p2.y - dy) / (p1.z - dz + d)) {
-                                k3 = i;
-                            }
-                        }
-                    }
-                    else {
-                        for (var i = 0; i < points.Count; ++i) {
-                            if (canBeNextPoint(i) && (k3 == -1 || fromPlane.GetDistance(points[i]) < fromPlane.GetDistance(points[k3]))) {
-                                k3 = i;
-                            }
-                        }
-                    }
-
-                    if (k3 == -1) {
-                        throw new Exception("Magic");
-                    }
-
-                    subResult.Add(new Position(points[k3] + originalNormals[k1], originalNormals[k1], points[k3], Position.PointType.MIDDLE));
-                    subResult.Add(new Position(points[k3] + originalNormals[k3], originalNormals[k3], points[k3], Position.PointType.MIDDLE));
-                    processedPoints.Add(k3, true);
-                    k1 = k3;
-                }
+                // var subResult = getBodyPoints(points, fromPlane, toPlane, originalNormals, edgesByPoint);
+                var subResult = getBodyPoints2(points, fromPlane, toPlane, originalNormals, edgesByPoint);
 
                 {
                     var i0 = 0;
-                    var i1 = 1;
+                    var i1 = i0 + 1;
+                    while (subResult[i0].surfacePosition == subResult[i1].surfacePosition) {
+                        ++i1;
+                    }
 
                     var pos0 = subResult[i0];
                     var n0 = subResult[i0].paintDirection;
@@ -289,7 +224,10 @@ namespace PathFinders
 
                 {
                     var i0 = subResult.Count - 1;
-                    var i1 = subResult.Count - 2;
+                    var i1 = i0 - 1;
+                    while (subResult[i0].surfacePosition == subResult[i1].surfacePosition) {
+                        --i1;
+                    }
 
                     var pos0 = subResult[i0];
                     var n0 = subResult[i0].paintDirection;
@@ -410,6 +348,403 @@ namespace PathFinders
             }
 
             return vertices;
+        }
+
+        List<Position> getBodyPoints(List<Point> points, Plane fromPlane, Plane toPlane, List<Point> originalNormals, Dictionary<Point, List<Edge>> edgesByPoint) {
+            var k1 = 0;
+            var k2 = 0;
+            var pointToId = new Dictionary<Point, int>();
+            var processedPoints = new Dictionary<int, bool>();
+            for (var i = 0; i < points.Count; ++i) {
+                if (fromPlane.GetDistance(points[i]) < fromPlane.GetDistance(points[k1])) {
+                    k1 = i;
+                }
+
+                if (fromPlane.GetDistance(points[i]) > fromPlane.GetDistance(points[k2])) {
+                    k2 = i;
+                }
+
+                pointToId.Add(points[i], i);
+            }
+
+            var subResult = new List<Position>();
+            subResult.Add(new Position(points[k1] + originalNormals[k1] * paintHeight, -originalNormals[k1] * paintHeight, points[k1], Position.PointType.MIDDLE));
+            processedPoints.Add(k1, true);
+            while (!processedPoints.ContainsKey(k2)) {
+                var nextPointIds = new List<int>();
+
+                bool canBeNextPoint(int k) => !processedPoints.ContainsKey(k) && fromPlane.GetDistance(points[k]) > fromPlane.GetDistance(points[k1]);
+                foreach (var edge in edgesByPoint[points[k1]]) {
+                    if (canBeNextPoint(pointToId[edge.p1])) {
+                        nextPointIds.Add(pointToId[edge.p1]);
+                    }
+
+                    if (canBeNextPoint(pointToId[edge.p2])) {
+                        nextPointIds.Add(pointToId[edge.p2]);
+                    }
+                }
+
+                var k3 = -1;
+                if (nextPointIds.Count > 0) {
+                    var dy = points[k1].y;
+                    var dz = points[k1].z;
+                    k3 = nextPointIds[0];
+                    foreach (var i in nextPointIds) {
+                        var p1 = points[k3];
+                        var p2 = points[i];
+                        var d = Math.Abs(p1.z - dz) < 10e-2 || Math.Abs(p2.z - dz) < 10e-2 ? 1 : 0;
+                        if (canBeNextPoint(i) && fromPlane.GetDistance(points[k1]) < fromPlane.GetDistance(p2) && (p1.y - dy) / (p1.z - dz + d) < (p2.y - dy) / (p1.z - dz + d)) {
+                            k3 = i;
+                        }
+                    }
+                }
+                else {
+                    for (var i = 0; i < points.Count; ++i) {
+                        if (canBeNextPoint(i) && (k3 == -1 || fromPlane.GetDistance(points[i]) < fromPlane.GetDistance(points[k3]))) {
+                            k3 = i;
+                        }
+                    }
+                }
+
+                if (k3 == -1) {
+                    throw new Exception("Magic");
+                }
+
+                subResult.Add(new Position(points[k3] + originalNormals[k1] * paintHeight, -originalNormals[k1], points[k3], Position.PointType.MIDDLE));
+                subResult.Add(new Position(points[k3] + originalNormals[k3] * paintHeight, -originalNormals[k3], points[k3], Position.PointType.MIDDLE));
+                processedPoints.Add(k3, true);
+                k1 = k3;
+            }
+
+            return subResult;
+        }
+
+        List<Position> getBodyPoints2(List<Point> points, Plane fromPlane, Plane toPlane, List<Point> originalNormals, Dictionary<Point, List<Edge>> edgesByPoint) {
+            var sequences = getSequences(points, edgesByPoint, fromPlane);
+
+            var nearestPoints = new List<Point>();
+            var farestPoints = new List<Point>();
+            foreach (var sequence in sequences) {
+                var p1 = sequence[0];
+                var p2 = sequence[0];
+                for (var j = 1; j < sequence.Count; ++j) {
+                    if (fromPlane.GetDistance(sequence[j]) < fromPlane.GetDistance(p1)) {
+                        p1 = sequence[j];
+                    }
+
+                    if (fromPlane.GetDistance(sequence[j]) > fromPlane.GetDistance(p2)) {
+                        p2 = sequence[j];
+                    }
+                }
+
+                nearestPoints.Add(p1);
+                farestPoints.Add(p2);
+            }
+
+            var orderedSequenceIds = new List<int>();
+            {
+                var usedSequenceIds = new Dictionary<int, bool>();
+                while (true) {
+                    var s1 = -1;
+                    for (var i = 0; i < sequences.Count; ++i) {
+                        if (!usedSequenceIds.ContainsKey(i) && (s1 == -1 || fromPlane.GetDistance(nearestPoints[i]) < fromPlane.GetDistance(nearestPoints[s1]))) {
+                            s1 = i;
+                        }
+                    }
+
+                    if (s1 == -1) {
+                        break;
+                    }
+
+                    var nextSequenceIds = new List<int> {s1};
+                    var fromDistance = fromPlane.GetDistance(nearestPoints[s1]);
+                    var toDistance = fromPlane.GetDistance(farestPoints[s1]);
+                    for (var i = 0; i < sequences.Count; ++i) {
+                        var distance = fromPlane.GetDistance(nearestPoints[i]);
+                        if (i != s1 && !usedSequenceIds.ContainsKey(i) && distance >= fromDistance && distance <= toDistance) {
+                            nextSequenceIds.Add(i);
+                        }
+                    }
+
+                    var sequenceHeight = new Dictionary<int, float>();
+                    foreach (var i in nextSequenceIds) {
+                        for (var j = 0; j < sequences[i].Count; ++j) {
+                            if (fromPlane.GetDistance(sequences[i][j]) >= fromDistance && fromPlane.GetDistance(sequences[i][j]) <= toDistance) {
+                                sequenceHeight.Add(i, sequences[i][j].y);
+                                break;
+                            }
+                        }
+                    }
+
+                    var nextId = -1;
+                    foreach (var sh in sequenceHeight) {
+                        if (nextId == -1 || sh.Value > sequenceHeight[nextId]) {
+                            nextId = sh.Key;
+                        }
+                    }
+
+                    usedSequenceIds.Add(nextId, true);
+                    orderedSequenceIds.Add(nextId);
+                }
+            }
+
+            var distancesBetweenSequences = new List<List<double>>();
+            var nearestPointIdsBetweenSequences = new List<List<int>>();
+            {
+                for (var i = 0; i < sequences.Count; ++i) {
+                    distancesBetweenSequences.Add(new List<double>());
+                    nearestPointIdsBetweenSequences.Add(new List<int>());
+                    for (var j = 0; j < sequences.Count; ++j) {
+                        distancesBetweenSequences[i].Add(0.0);
+                        nearestPointIdsBetweenSequences[i].Add(-1);
+                    }
+                }
+
+                var maxDistance = fromPlane.GetDistance(toPlane.GetSomePoint()) + 1;
+                for (var i = 0; i < sequences.Count; ++i) {
+                    for (var j = i + 1; j < sequences.Count; ++j) {
+                        var minDistance = maxDistance * 10000;
+                        var k0 = -1;
+                        var p0 = -1;
+                        for (var k = 0; k < sequences[i].Count; ++k) {
+                            for (var p = 0; p < sequences[j].Count; ++p) {
+                                var newDistance = (sequences[i][k] - sequences[j][p]).magnitude;
+                                Debug.Assert(maxDistance > newDistance);
+                                if (newDistance < minDistance) {
+                                    minDistance = newDistance;
+                                    k0 = k;
+                                    p0 = p;
+                                }
+                            }
+                        }
+
+                        if (k0 == -1 || p0 == -1) {
+                            Debug.Assert(false);
+                        }
+
+                        distancesBetweenSequences[i][j] = minDistance;
+                        distancesBetweenSequences[j][i] = minDistance;
+                        nearestPointIdsBetweenSequences[i][j] = k0;
+                        nearestPointIdsBetweenSequences[j][i] = p0;
+                    }
+                }
+
+                Debug.Assert(true);
+            }
+
+            var newOrderedSequenceIds = new List<int>();
+            {
+                var usedSequenceIds = new Dictionary<int, bool>();
+                {
+                    var sId = 0;
+                    var pId = 0;
+                    for (var i = 0; i < sequences.Count; ++i) {
+                        for (var j = 0; j < sequences[i].Count; ++j) {
+                            if (fromPlane.GetDistance(sequences[sId][pId]) > fromPlane.GetDistance(sequences[i][j])) {
+                                sId = i;
+                                pId = j;
+                            }
+                        }
+                    }
+
+                    newOrderedSequenceIds.Add(sId);
+                    usedSequenceIds.Add(sId, true);
+
+                    while (usedSequenceIds.Count < sequences.Count) {
+                        var nextId = -1;
+                        for (var i = 0; i < sequences.Count; ++i) {
+                            if (!usedSequenceIds.ContainsKey(i)) {
+                                if (nextId == -1 || distancesBetweenSequences[sId][nextId] > distancesBetweenSequences[sId][i]) {
+                                    nextId = i;
+                                }
+                            }
+                        }
+
+                        newOrderedSequenceIds.Add(nextId);
+                        usedSequenceIds.Add(nextId, true);
+                        sId = nextId;
+                    }
+                }
+            }
+            orderedSequenceIds = newOrderedSequenceIds;
+
+            var normalByPoint = new Dictionary<Point, Point>();
+            for (var i = 0; i < points.Count; ++i) {
+                normalByPoint.Add(points[i], originalNormals[i]);
+            }
+
+            var firstLastSequencePoints = new List<KeyValuePair<int, int>>();
+            var subResult = new List<Position>();
+            for (var i = 0; i < orderedSequenceIds.Count; ++i) {
+                var id = orderedSequenceIds[i];
+                var sequence = sequences[id];
+
+                var firstId = -1;
+                if (firstLastSequencePoints.Count == 0) {
+                    var pId = 0;
+                    for (var j = 1; j < sequence.Count; ++j) {
+                        if (fromPlane.GetDistance(sequence[j]) < fromPlane.GetDistance(sequence[pId])) {
+                            pId = j;
+                        }
+                    }
+
+                    firstId = pId;
+                }
+                else {
+                    firstId = nearestPointIdsBetweenSequences[id][orderedSequenceIds[i - 1]];
+                }
+
+                var lastId = -1;
+                if (firstLastSequencePoints.Count == sequences.Count - 1) {
+                    var pId = 0;
+                    for (var j = 1; j < sequence.Count; ++j) {
+                        if (toPlane.GetDistance(sequence[j]) < toPlane.GetDistance(sequence[pId])) {
+                            pId = j;
+                        }
+                    }
+
+                    lastId = pId;
+                }
+                else {
+                    lastId = nearestPointIdsBetweenSequences[id][orderedSequenceIds[i + 1]];
+                }
+
+                if (firstId == -1 || lastId == -1) {
+                    Debug.Assert(false);
+                }
+
+                firstLastSequencePoints.Add(new KeyValuePair<int, int>(firstId, lastId));
+            }
+
+            var newSequences = new List<List<Point>>();
+            for (var k = 0; k < firstLastSequencePoints.Count; ++k) {
+                var first = firstLastSequencePoints[k].Key;
+                var last = firstLastSequencePoints[k].Value;
+                var sequence = sequences[orderedSequenceIds[k]];
+
+                var sequence1 = new List<Point>();
+                var sequence2 = new List<Point>();
+
+                // Debug.Log(first + " " + last + " " + sequence.Count);
+                if (last >= first) {
+                    for (var i = first; i <= last; ++i) {
+                        sequence1.Add(sequence[i]);
+                    }
+
+                    for (var i = first; i >= 0; --i) {
+                        sequence2.Add(sequence[i]);
+                    }
+
+                    for (var i = sequence.Count - 1; i >= last; --i) {
+                        sequence2.Add(sequence[i]);
+                    }
+                }
+                else {
+                    for (var i = first; i < sequence.Count; ++i) {
+                        sequence1.Add(sequence[i]);
+                    }
+
+                    for (var i = 0; i <= last; ++i) {
+                        sequence1.Add(sequence[i]);
+                    }
+
+                    for (var i = first; i >= last; --i) {
+                        sequence2.Add(sequence[i]);
+                    }
+                }
+
+                var newSequence = sequence1;
+                if (first != last && sequence2[1].y > sequence1[1].y) {
+                    newSequence = sequence2;
+                }
+
+                newSequences.Add(newSequence);
+            }
+
+            foreach (var sequence in newSequences) {
+                foreach (var point in sequence) {
+                    subResult.Add(new Position(point + normalByPoint[point] * paintHeight, -normalByPoint[point], point, Position.PointType.MIDDLE));
+                }
+            }
+            // foreach (var id in orderedSequenceIds) {
+            //     foreach (var point in sequences[id]){
+            //         subResult.Add(new Position(point + normalByPoint[point] * paintHeight, -normalByPoint[point], point, Position.PointType.MIDDLE));
+            //     }
+            // }
+
+            // foreach (var id in orderedSequenceIds) {
+            //     foreach (var point in sequences[id]){
+            //         subResult.Add(new Position(point + normalByPoint[point] * paintHeight, -normalByPoint[point], point, Position.PointType.MIDDLE));
+            //     }
+            // }
+
+            return subResult;
+        }
+
+        List<List<Point>> getSequences(List<Point> points, Dictionary<Point, List<Edge>> edgesByPoint, Plane fromPlane) {
+            var result = new List<List<Point>>();
+            var processedPoints = new Dictionary<Point, int>();
+
+            bool canProcessPoint(Point p, ref Dictionary<Point, bool> localProcessedPoints) {
+                return !localProcessedPoints.ContainsKey(p) && (!processedPoints.ContainsKey(p) || processedPoints[p] < edgesByPoint[p].Count / 2);
+            }
+
+            void processPoint(Point p, ref Dictionary<Point, bool> localProcessedPoints) {
+                localProcessedPoints.Add(p, true);
+                if (!processedPoints.ContainsKey(p)) {
+                    processedPoints.Add(p, 1);
+                }
+                else {
+                    ++processedPoints[p];
+                }
+            }
+
+            while (processedPoints.Count < points.Count) {
+                var localProcessedPoints = new Dictionary<Point, bool>();
+                var k1 = -1;
+                var minD = 0.0;
+                for (var i = 0; i < points.Count; ++i) {
+                    var d = fromPlane.GetDistance(points[i]);
+                    if (canProcessPoint(points[i], ref localProcessedPoints) && (k1 == -1 || minD > d)) {
+                        minD = d;
+                        k1 = i;
+                    }
+                }
+
+                var basePoint = points[k1];
+                processPoint(basePoint, ref localProcessedPoints);
+
+                var sequence = new List<Point>();
+                sequence.Add(basePoint);
+                while (true) {
+                    var nextPoints = new List<Point>();
+                    foreach (var edge in edgesByPoint[basePoint]) {
+                        if (canProcessPoint(edge.p1, ref localProcessedPoints)) {
+                            nextPoints.Add(edge.p1);
+                        }
+
+                        if (canProcessPoint(edge.p2, ref localProcessedPoints)) {
+                            nextPoints.Add(edge.p2);
+                        }
+                    }
+
+                    if (nextPoints.Count == 0 && edgesByPoint[basePoint].Count < 2) {
+                        throw new Exception("Magic");
+                    }
+
+                    if (nextPoints.Count == 0) {
+                        break;
+                    }
+
+                    basePoint = nextPoints[0];
+                    sequence.Add(basePoint);
+                    processPoint(basePoint, ref localProcessedPoints);
+                }
+
+                result.Add(sequence);
+            }
+
+            return result;
         }
 
         Dictionary<double, List<TrianglePath>> SplitObjectByDistance(Plane basePlane, List<Triangle> triangles) {

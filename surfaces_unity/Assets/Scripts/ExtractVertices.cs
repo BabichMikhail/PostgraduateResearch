@@ -4,23 +4,22 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using Generic;
 using PathFinders;
 using TriangleHandler;
 using UnityEngine;
+using UnityEngine.UI;
 using VertexHandler;
 using Debug = UnityEngine.Debug;
 using Vector3 = UnityEngine.Vector3;
 using Point = Generic.Point;
 using Triangle = Generic.Triangle;
+using VertexHelper = Generic.VertexHelper;
 
 [RequireComponent(typeof(MeshFilter))]
 public class ExtractVertices : MonoBehaviour {
     public String SampleName;
     public Material material;
     public float h;
-    public bool drawSubTriangles;
-    public bool drawNormals;
     public GameObject paintRobotPrefab;
     public float paintSpeed;
 
@@ -36,6 +35,10 @@ public class ExtractVertices : MonoBehaviour {
     public float paintRadius;
     public float paintHeight;
 
+    private Button calculatePathButton = null;
+    private Button drawFigureButton = null;
+    private GameObject rotationCube = null;
+    private List<Triangle> baseTriangles = null;
     private List<Position> path = null;
 
     [DllImport("msvcrt.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -320,10 +323,6 @@ public class ExtractVertices : MonoBehaviour {
     private List<Vector3> GetVertices()  {
         var vertices = new List<Vector3>();
         foreach (var mf in gameObject.GetComponentsInChildren<MeshFilter>()) {
-            // foreach (var v in mf.mesh.vertices) {
-            //     vertices.Add(new Vector3(v.x * transform.localScale.x, v.y * transform.localScale.y));
-            // }
-
             vertices.AddRange(mf.mesh.vertices);
             Debug.Log(mf.mesh.vertices.Length);
             Debug.Log(mf.mesh.subMeshCount);
@@ -362,14 +361,14 @@ public class ExtractVertices : MonoBehaviour {
         var colors = new List<Color>();
         foreach (var chunk in chunks) {
             foreach (var triangle in chunk.triangles) {
-                foreach (var vertex in triangle.GetPoints()) {
-                    if (!verticesDict.ContainsKey(vertex.ToV3())) {
-                        verticesDict[vertex.ToV3()] = vertices.Count;
-                        vertices.Add(vertexHandler.PrepareVertex(vertex.ToV3()));
+                foreach (var point in triangle.GetPoints()) {
+                    if (!verticesDict.ContainsKey(point.ToV3())) {
+                        verticesDict[point.ToV3()] = vertices.Count;
+                        vertices.Add(vertexHandler.PrepareVertex(point.ToV3()));
 
                         var newColor = Color.white;
                         if (chunk.colorType == ColorType.Default) {
-                            var elem = (3 * maxCoord - vertex.x - vertex.y - vertex.z) / 3.0f / (maxCoord - minCoord);
+                            var elem = (3 * maxCoord - point.x - point.y - point.z) / 3.0f / (maxCoord - minCoord);
                             newColor = new Color(0, (float)elem, 0, chunk.colorAlpha);
                         }
                         else if (chunk.colorType == ColorType.Random) {
@@ -391,7 +390,7 @@ public class ExtractVertices : MonoBehaviour {
                         ++index;
                     }
 
-                    trianglesDescriptions.Add(verticesDict[vertex.ToV3()]);
+                    trianglesDescriptions.Add(verticesDict[point.ToV3()]);
                 }
             }
         }
@@ -440,40 +439,73 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     public void Start() {
-        var baseTriangles = GetTriangles();
-        // var normalizedTriangles = VertexHelper.NormalizeTriangles(baseTriangles);
-        var subTriangles = VertexHelper.GetAllRawSubTriangles(baseTriangles, h);
+        calculatePathButton = GameObject.Find("CalculateButton").GetComponent<Button>();
+        calculatePathButton.onClick.AddListener(NeedReinitializePath);
 
-        var pathFinder = PathFinderFactory.Create(pathFinderType, paintRadius, paintHeight);
-        path = pathFinder.GetPath(ref baseTriangles);
+        drawFigureButton = GameObject.Find("DrawFigureButton").GetComponent<Button>();
+        drawFigureButton.onClick.AddListener(InitializeFigure);
 
+        rotationCube = GameObject.Find("RotationCube");
+
+        baseTriangles = GetTriangles();
+    }
+
+    private List<Triangle> GetFigureTriangles() {
+        var rotatedTriangles = new List<Triangle>();
+        var rotation = rotationCube.transform.rotation;
+        foreach (var triangle in baseTriangles) {
+            var newTriangle = new Triangle(new Point(rotation * triangle.p1.ToV3()), new Point(rotation * triangle.p2.ToV3()), new Point(rotation * triangle.p3.ToV3()));
+            rotatedTriangles.Add(newTriangle);
+        }
+
+        return rotatedTriangles;
+    }
+
+    private void InitializeFigure() {
+        var triangles = GetFigureTriangles();
         var chunks = new List<TriangleChunk>{
-            new TriangleChunk(baseTriangles, ColorType.Default, 0.9f),
+            new TriangleChunk(triangles, ColorType.Default, 0.9f),
         };
 
-        if (drawSubTriangles) {
-            chunks.Add(new TriangleChunk(subTriangles, ColorType.Red, 0.2f));
+        SetVertices(chunks);
+    }
+
+    private bool needInitializePath = false;
+
+    private void NeedReinitializePath() {
+        needInitializePath = true;
+    }
+
+    private void InitializePath() {
+        if (path != null) {
+            return;
         }
+        // var normalizedTriangles = VertexHelper.NormalizeTriangles(baseTriangles);
+        // var subTriangles = VertexHelper.GetAllRawSubTriangles(baseTriangles, h);
+
+        var triangles = GetFigureTriangles();
+        var chunks = new List<TriangleChunk>{
+            new TriangleChunk(triangles, ColorType.Default, 0.9f),
+        };
 
         SetVertices(chunks);
 
-        if (drawNormals) {
-            // foreach (var t in subTriangles) {
-            //     var obj = Instantiate(new GameObject(), t.O.ToV3(), Quaternion.identity);
-            //     var lineRenderer = obj.AddComponent<LineRenderer>();
-            //     lineRenderer.SetPositions(new Vector3[] { t.O.ToV3(), (t.O + t.GetPlane().GetNormal() * 4).ToV3() });
-            // }
-        }
+        var watch = Stopwatch.StartNew();
+        var pathFinder = PathFinderFactory.Create(pathFinderType, paintRadius, paintHeight);
+        path = pathFinder.GetPath(ref triangles);
+        watch.Stop();
+        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of path calculation");
 
-        paintRobot = Instantiate(paintRobotPrefab);
-        paintRobot.transform.position = path.First().originPosition.ToV3();
-        paintRobot.transform.LookAt(Vector3.zero);
-        paintRobot.SetActive(false);
+        // paintRobot = Instantiate(paintRobotPrefab);
+        // paintRobot.transform.position = path.First().originPosition.ToV3();
+        // paintRobot.transform.LookAt(Vector3.zero);
+        // paintRobot.SetActive(false);
         // paintRobot.transform.LookAt(path.First().originPosition + path.First().paintDirection);
-        currentPathIndex = 0;
+        // currentPathIndex = 0;
     }
 
     private void MoveRobot(float time) {
+        return;
         var position = path[currentPathIndex];
         // var position.surfacePosition = (position.originPosition + position.paintDirection).normalized;
         // Debug.Log((position.paintDirection - (position.surfacePosition - position.originPosition).normalized).magnitude);
@@ -501,6 +533,11 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        if (needInitializePath) {
+            needInitializePath = false;
+            InitializePath();
+        }
+
         if (currentPathIndex >= 0 && path.Count > currentPathIndex) {
             MoveRobot(Time.deltaTime);
         }
@@ -529,12 +566,12 @@ public class ExtractVertices : MonoBehaviour {
                 var pos1 = path[i];
                 var pos2 = path[i + 1];
                 if (drawSurfacePath && pos2.pointType != Position.PointType.START) {
-                    Gizmos.DrawLine(pos1.surfacePosition.ToV3(), pos2.surfacePosition.ToV3());
+                    Gizmos.DrawLine(pos1.surfacePosition.ToV3() - pos1.paintDirection.ToV3() * 1e-4f, pos2.surfacePosition.ToV3() - pos1.paintDirection.ToV3() * 1e-4f);
                 }
             }
         }
 
-        if (paintRobot != null) {
+        if (false && paintRobot != null) {
             var t = paintRobot.transform;
             var tp = t.position;
             Gizmos.color = Color.red;

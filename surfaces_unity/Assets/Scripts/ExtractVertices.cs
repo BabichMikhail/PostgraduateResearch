@@ -559,6 +559,10 @@ public class ExtractVertices : MonoBehaviour {
                 if (drawOriginPath && pos2.pointType != Position.PointType.START) {
                     Gizmos.DrawLine(pos1.originPosition.ToV3(), pos2.originPosition.ToV3());
                 }
+
+                // if (pos2.pointType == Position.PointType.FINISH) {
+                //     break;
+                // }
             }
 
             Gizmos.color = Color.blue;
@@ -568,6 +572,10 @@ public class ExtractVertices : MonoBehaviour {
                 if (drawSurfacePath && pos2.pointType != Position.PointType.START) {
                     Gizmos.DrawLine(pos1.surfacePosition.ToV3() - pos1.paintDirection.ToV3() * 1e-4f, pos2.surfacePosition.ToV3() - pos1.paintDirection.ToV3() * 1e-4f);
                 }
+
+                // if (pos2.pointType == Position.PointType.FINISH) {
+                //     break;
+                // }
             }
         }
 

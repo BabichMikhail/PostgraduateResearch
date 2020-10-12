@@ -305,7 +305,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1460391419}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &131537724
 MonoBehaviour:
@@ -319,16 +319,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SampleName: sample1
+  sampleName: sample1
   material: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  h: 1
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
   paintSpeed: 0
   drawSurfacePath: 1
-  drawOriginPath: 0
-  drawFromOriginToSurfacePath: 0
-  pathFinderType: 1
+  drawOriginPath: 1
+  drawFromOriginToSurfacePath: 1
+  drawPathStepByStep: 0
+  pathFinderType: 0
   paintRadius: 200
   paintHeight: 300
   paintLateralAllowance: 0
@@ -365,7 +365,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1460391419}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &137775565
 MonoBehaviour:
@@ -379,16 +379,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SampleName: sample2
+  sampleName: sample2
   material: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  h: 1
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
   paintSpeed: 0
   drawSurfacePath: 1
-  drawOriginPath: 0
-  drawFromOriginToSurfacePath: 0
-  pathFinderType: 1
+  drawOriginPath: 1
+  drawFromOriginToSurfacePath: 1
+  drawPathStepByStep: 0
+  pathFinderType: 0
   paintRadius: 200
   paintHeight: 300
   paintLateralAllowance: 50
@@ -965,7 +965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &541864057
 Transform:
   m_ObjectHideFlags: 0
@@ -978,7 +978,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1460391419}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &541864058
 MonoBehaviour:
@@ -992,16 +992,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SampleName: sample4
+  sampleName: sample4
   material: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  h: 1
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
   paintSpeed: 0
   drawSurfacePath: 1
   drawOriginPath: 1
   drawFromOriginToSurfacePath: 1
-  pathFinderType: 1
+  drawPathStepByStep: 0
+  pathFinderType: 0
   paintRadius: 200
   paintHeight: 300
   paintLateralAllowance: 50
@@ -1085,7 +1085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &705964130
 Transform:
   m_ObjectHideFlags: 0
@@ -1098,7 +1098,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1460391419}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &705964131
 MonoBehaviour:
@@ -1112,16 +1112,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SampleName: sample3
+  sampleName: sample3
   material: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  h: 1
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
   paintSpeed: 0
   drawSurfacePath: 1
   drawOriginPath: 1
   drawFromOriginToSurfacePath: 1
-  pathFinderType: 1
+  drawPathStepByStep: 0
+  pathFinderType: 0
   paintRadius: 200
   paintHeight: 100
   paintLateralAllowance: 50
@@ -1186,126 +1186,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705964129}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &840425786
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1460391419}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_Name
-      value: sample1
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: b297ac53a00754f47a8aa0d624ea1536,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b297ac53a00754f47a8aa0d624ea1536, type: 3}
---- !u!1 &840425787 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b297ac53a00754f47a8aa0d624ea1536,
-    type: 3}
-  m_PrefabInstance: {fileID: 840425786}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &840425788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 840425787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SampleName: 
-  material: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
-  h: 1
-  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
-    type: 3}
-  paintSpeed: 0
-  drawSurfacePath: 1
-  drawOriginPath: 0
-  drawFromOriginToSurfacePath: 0
-  pathFinderType: 1
-  paintRadius: 200
-  paintHeight: 300
-  paintLateralAllowance: 0
-  paintLongitudinalAllowance: 0
---- !u!4 &840425789 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b297ac53a00754f47a8aa0d624ea1536,
-    type: 3}
-  m_PrefabInstance: {fileID: 840425786}
-  m_PrefabAsset: {fileID: 0}
---- !u!33 &840425790
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 840425787}
-  m_Mesh: {fileID: 0}
 --- !u!1 &845376096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,15 +1217,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SampleName: 
+  sampleName: 
   material: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  h: 1
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
   paintSpeed: 0
   drawSurfacePath: 1
   drawOriginPath: 0
   drawFromOriginToSurfacePath: 0
+  drawPathStepByStep: 0
   pathFinderType: 1
   paintRadius: 200
   paintHeight: 300
@@ -1707,7 +1587,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 845376100}
-  - {fileID: 840425789}
   - {fileID: 131537723}
   - {fileID: 137775564}
   - {fileID: 705964130}
@@ -1828,7 +1707,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1460391419}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1704227015
 MonoBehaviour:
@@ -1842,16 +1721,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SampleName: sample5
+  sampleName: sample5
   material: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  h: 1
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
   paintSpeed: 0
   drawSurfacePath: 1
-  drawOriginPath: 0
-  drawFromOriginToSurfacePath: 0
-  pathFinderType: 1
+  drawOriginPath: 1
+  drawFromOriginToSurfacePath: 1
+  drawPathStepByStep: 0
+  pathFinderType: 0
   paintRadius: 200
   paintHeight: 300
   paintLateralAllowance: 0

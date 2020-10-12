@@ -35,7 +35,7 @@ namespace PathFinders
 
         Point PreparePoint(Point v) {
             var precision = 1e4f;
-            return new Point(Mathf.Round(v.x * precision) / precision, Mathf.Round(v.y * precision) / precision, Mathf.Round(v.z * precision) / precision);
+            return new Point(Mathf.Round(v.X * precision) / precision, Mathf.Round(v.Y * precision) / precision, Mathf.Round(v.Z * precision) / precision);
         }
 
         public List<Position> GetPath(ref List<Triangle> originTriangles) {
@@ -50,9 +50,9 @@ namespace PathFinders
 
             var basePlane = new Plane(a, b, c);
 
-            var a1 = new Point(a.x * Mathf.Cos(Mathf.PI / 2) - a.z * Mathf.Sin(Mathf.PI / 2), a.y, a.x * Mathf.Sin(Mathf.PI / 2) + a.z * Mathf.Cos(Mathf.PI / 2));
-            var b1 = new Point(b.x * Mathf.Cos(Mathf.PI / 2) - b.z * Mathf.Sin(Mathf.PI / 2), b.y, b.x * Mathf.Sin(Mathf.PI / 2) + b.z * Mathf.Cos(Mathf.PI / 2));
-            var c1 = new Point(c.x * Mathf.Cos(Mathf.PI / 2) - c.z * Mathf.Sin(Mathf.PI / 2), c.y, c.x * Mathf.Sin(Mathf.PI / 2) + c.z * Mathf.Cos(Mathf.PI / 2));
+            var a1 = new Point(a.X * Mathf.Cos(Mathf.PI / 2) - a.Z * Mathf.Sin(Mathf.PI / 2), a.Y, a.X * Mathf.Sin(Mathf.PI / 2) + a.Z * Mathf.Cos(Mathf.PI / 2));
+            var b1 = new Point(b.X * Mathf.Cos(Mathf.PI / 2) - b.Z * Mathf.Sin(Mathf.PI / 2), b.Y, b.X * Mathf.Sin(Mathf.PI / 2) + b.Z * Mathf.Cos(Mathf.PI / 2));
+            var c1 = new Point(c.X * Mathf.Cos(Mathf.PI / 2) - c.Z * Mathf.Sin(Mathf.PI / 2), c.Y, c.X * Mathf.Sin(Mathf.PI / 2) + c.Z * Mathf.Cos(Mathf.PI / 2));
             var plane1 = new Plane(a1, b1, c1);
             var plane2 = new Plane(a1, b1, c1);
 
@@ -194,17 +194,17 @@ namespace PathFinders
                 {
                     var i0 = 0;
                     var i1 = i0 + 1;
-                    while (i1 < subResult.Count - 1 && (subResult[i0].surfacePosition - subResult[i1].surfacePosition).Magnitude < 2) {
+                    while (i1 < subResult.Count - 1 && (subResult[i0].SurfacePosition - subResult[i1].SurfacePosition).Magnitude < 2) {
                         ++i1;
                     }
 
                     var pos0 = subResult[i0];
                     var pos1 = subResult[i1];
-                    var pd = pos0.paintDirection;
-                    var surface0 = pos0.surfacePosition;
-                    var surface1 = pos1.surfacePosition;
+                    var pd = pos0.PaintDirection;
+                    var surface0 = pos0.SurfacePosition;
+                    var surface1 = pos1.SurfacePosition;
                     var dir = (surface0 - surface1).Normalized;
-                    result.Add(new Position(pos0.originPosition + dir * paintLongitudinalAllowance, pd, pos0.surfacePosition + dir * paintLongitudinalAllowance, Position.PointType.START));
+                    result.Add(new Position(pos0.OriginPosition + dir * paintLongitudinalAllowance, pd, pos0.SurfacePosition + dir * paintLongitudinalAllowance, Position.PositionType.Start));
                 }
 
                 result.AddRange(subResult);
@@ -212,17 +212,17 @@ namespace PathFinders
                 {
                     var i0 = subResult.Count - 1;
                     var i1 = i0 - 1;
-                    while (i1 > 0 && (subResult[i0].surfacePosition - subResult[i1].surfacePosition).Magnitude < 2) {
+                    while (i1 > 0 && (subResult[i0].SurfacePosition - subResult[i1].SurfacePosition).Magnitude < 2) {
                         --i1;
                     }
 
                     var pos0 = subResult[i0];
                     var pos1 = subResult[i1];
-                    var pd = pos0.paintDirection;
-                    var surface0 = pos0.surfacePosition;
-                    var surface1 = pos1.surfacePosition;
+                    var pd = pos0.PaintDirection;
+                    var surface0 = pos0.SurfacePosition;
+                    var surface1 = pos1.SurfacePosition;
                     var dir = (surface0 - surface1).Normalized;
-                    result.Add(new Position(pos0.originPosition + dir * paintLongitudinalAllowance, pd, pos0.surfacePosition + dir * paintLongitudinalAllowance, Position.PointType.FINISH));
+                    result.Add(new Position(pos0.OriginPosition + dir * paintLongitudinalAllowance, pd, pos0.SurfacePosition + dir * paintLongitudinalAllowance, Position.PositionType.Finish));
                 }
             }
 
@@ -392,7 +392,7 @@ namespace PathFinders
 
                             var n1 = normalByEdge[e];
                             if (le is null) {
-                                if (n1.y > -1 / Math.Sqrt(2) && (e0 is null || MyMath.GetDistance(fromPlane, e) < MyMath.GetDistance(fromPlane, e0))) {
+                                if (n1.Y > -1 / Math.Sqrt(2) && (e0 is null || MyMath.GetDistance(fromPlane, e) < MyMath.GetDistance(fromPlane, e0))) {
                                     e0 = e;
                                     de0 = de;
                                 }
@@ -425,8 +425,7 @@ namespace PathFinders
                             var n1 = normalByEdge[e];
                             var n2 = normalByEdge[le];
                             if (!usedEdges.ContainsKey(e) && (n1.Normalized - n2.Normalized).Magnitude < 0.6) {
-                                    cEdges.Add(e);
-                                // }
+                                cEdges.Add(e);
                             }
                         }
                     }
@@ -471,8 +470,8 @@ namespace PathFinders
                     }
 
                     var n = normalByEdge[edge];
-                    result.Add(new Position(p1 + n * paintHeight, -n, p1, Position.PointType.MIDDLE));
-                    result.Add(new Position(p2 + n * paintHeight, -n, p2, Position.PointType.MIDDLE));
+                    result.Add(new Position(p1 + n * paintHeight, -n, p1, Position.PositionType.Middle));
+                    result.Add(new Position(p2 + n * paintHeight, -n, p2, Position.PositionType.Middle));
                 }
             }
 

@@ -6,28 +6,27 @@ using UnityEngine;
 namespace PathFinders
 {
     public class Position {
-        public readonly Point originPosition;
-        public readonly Point paintDirection;
-        public readonly Point surfacePosition;
-        public readonly PointType pointType;
+        public readonly Point OriginPosition;
+        public readonly Point PaintDirection;
+        public readonly Point SurfacePosition;
+        public readonly PositionType Type;
 
-        public enum PointType {
-            START,
-            MIDDLE,
-            FINISH,
+        public enum PositionType {
+            Start,
+            Middle,
+            Finish,
         }
 
-        public Position(Point aOriginPosition, Point aPaintDirection, Point aSurfacePosition, PointType aPointType) {
-            originPosition = aOriginPosition;
-            paintDirection = aPaintDirection.Normalized;
-            surfacePosition = aSurfacePosition;
-            pointType = aPointType;
-            Debug.Assert((paintDirection - (surfacePosition - originPosition).Normalized).Magnitude < 1e-4);
+        public Position(Point aOriginPosition, Point aPaintDirection, Point aSurfacePosition, PositionType aType) {
+            OriginPosition = aOriginPosition;
+            PaintDirection = aPaintDirection.Normalized;
+            SurfacePosition = aSurfacePosition;
+            Type = aType;
+            Debug.Assert((PaintDirection - (SurfacePosition - OriginPosition).Normalized).Magnitude < 1e-4);
         }
     }
 
     public enum PathFinderType {
-        GraphBasedPathFinder,
         IntersectionsWithSurfacesPathFinder,
     }
 
@@ -35,13 +34,10 @@ namespace PathFinders
         List<Position> GetPath(ref List<Triangle> triangles);
     }
 
-    public class PathFinderFactory {
+    public static class PathFinderFactory {
         public static IPathFinder Create(PathFinderType type, float paintRadius, float paintHeight, float paintLateralAllowance, float paintLongitudinalAllowance) {
             IPathFinder result = null;
             switch (type) {
-                case PathFinderType.GraphBasedPathFinder:
-                    result = new GraphBasedPathFinder(paintRadius, paintHeight);
-                    break;
                 case PathFinderType.IntersectionsWithSurfacesPathFinder:
                     result = new IntersectionsWithSurfacesPathFinder(paintRadius, paintHeight, paintLateralAllowance, paintLongitudinalAllowance);
                     break;

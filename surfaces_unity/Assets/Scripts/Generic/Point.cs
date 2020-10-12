@@ -1,48 +1,40 @@
 using System;
-using UnityEngine;
 
 namespace Generic
 {
     public class Point : IEquatable<Point>, IFormattable {
-        public readonly float x;
-        public readonly float y;
-        public readonly float z;
+        public readonly float X;
+        public readonly float Y;
+        public readonly float Z;
 
         public Point(float ax, float ay, float az) {
-            x = ax;
-            y = ay;
-            z = az;
+            X = ax;
+            Y = ay;
+            Z = az;
         }
 
-        public Point(Vector3 vertex) {
-            x = vertex.x;
-            y = vertex.y;
-            z = vertex.z;
-        }
-
-        public float Magnitude => Mathf.Sqrt(SqrMagnitude);
-        public float SqrMagnitude => x * x + y * y + z * z;
-        public Point Normalized => new Point(x, y, z) / Magnitude;
+        public float Magnitude => (float)Math.Sqrt(SqrMagnitude);
+        public float SqrMagnitude => X * X + Y * Y + Z * Z;
+        public Point Normalized => new Point(X, Y, Z) / Magnitude;
         public static Point Zero => new Point(0, 0, 0);
 
-        public static Point operator +(Point a, Point b) => new Point(a.x + b.x, a.y + b.y, a.z + b.z);
-        public static Point operator -(Point a, Point b) => new Point(a.x - b.x, a.y - b.y, a.z - b.z);
-        public static Point operator /(Point a, float b) => new Point(a.x / b, a.y / b, a.z / b);
-        public static Point operator *(Point a, float b) => new Point(a.x * b, a.y * b, a.z * b);
+        public static Point operator +(Point a, Point b) => new Point(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+        public static Point operator -(Point a, Point b) => new Point(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+        public static Point operator /(Point a, float b) => new Point(a.X / b, a.Y / b, a.Z / b);
+        public static Point operator *(Point a, float b) => new Point(a.X * b, a.Y * b, a.Z * b);
         public static Point operator *(float a, Point b) => b * a;
-        public static Point operator -(Point a) => new Point(-a.x, -a.y, -a.z);
+        public static Point operator -(Point a) => new Point(-a.X, -a.Y, -a.Z);
         public static bool operator ==(Point a, Point b) {
-            var num1 = a.x - b.x;
-            var num2 = a.y - b.y;
-            var num3 = a.z - b.z;
+            var num1 = a.X - b.X;
+            var num2 = a.Y - b.Y;
+            var num3 = a.Z - b.Z;
             return num1 * num1 + num2 * num2 + num3 * num3 < 9.99999943962493E-11;
         }
 
         public static bool operator !=(Point a, Point b) => !(a == b);
-        public Vector3 ToV3() => new Vector3(x, y, z);
         public bool Equals(Point other) => this == other;
-        public override int GetHashCode() => x.GetHashCode() ^ y.GetHashCode() << 2 ^ z.GetHashCode() >> 2;
-        public override string ToString() => $"({x} {y} {z})";
+        public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode() << 2 ^ Z.GetHashCode() >> 2;
+        public override string ToString() => $"({X} {Y} {Z})";
         public string ToString(string format, IFormatProvider formatProvider) => ToString();
     }
 }

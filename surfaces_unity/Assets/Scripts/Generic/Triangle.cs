@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Generic
 {
@@ -14,8 +14,6 @@ namespace Generic
         public readonly float L2;
         public readonly float L3;
 
-        public Color DebugColor = Color.green;
-
         public Triangle(Point aP1, Point aP2, Point aP3) {
             P1 = aP1;
             P2 = aP2;
@@ -26,9 +24,9 @@ namespace Generic
             L3 = (P1 - P2).Magnitude;
 
             O = new Point(
-                (L3 * P3.x + L2 * P2.x + L1 * P1.x) / (L3 + L2 + L1),
-                (L3 * P3.y + L2 * P2.y + L1 * P1.y) / (L3 + L2 + L1),
-                (L3 * P3.z + L2 * P2.z + L1 * P1.z) / (L3 + L2 + L1)
+                (L3 * P3.X + L2 * P2.X + L1 * P1.X) / (L3 + L2 + L1),
+                (L3 * P3.Y + L2 * P2.Y + L1 * P1.Y) / (L3 + L2 + L1),
+                (L3 * P3.Z + L2 * P2.Z + L1 * P1.Z) / (L3 + L2 + L1)
             );
         }
 
@@ -56,7 +54,7 @@ namespace Generic
 
         public float GetSquare() {
             var p = GetSemiPerimeter();
-            return Mathf.Sqrt(p * (p - L1) * (p - L2) * (p - L3));
+            return (float)Math.Sqrt(p * (p - L1) * (p - L2) * (p - L3));
         }
 
         public static bool operator ==(Triangle a, Triangle b) {

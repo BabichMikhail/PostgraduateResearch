@@ -1,6 +1,6 @@
 namespace Generic
 {
-    public class MyUtils {
+    public static class MyUtils {
         public static void Swap(ref Point p1, ref Point p2) {
             var p0 = p1;
             p1 = p2;

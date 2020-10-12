@@ -1,4 +1,3 @@
-
 namespace Generic
 {
     public class Line {
@@ -18,13 +17,13 @@ namespace Generic
 
             var direction = P1 - P2;
 
-            P0X = direction.x;
-            P0Y = direction.y;
-            P0Z = direction.z;
+            P0X = direction.X;
+            P0Y = direction.Y;
+            P0Z = direction.Z;
 
-            X0 = P1.x;
-            Y0 = P1.y;
-            Z0 = P1.z;
+            X0 = P1.X;
+            Y0 = P1.Y;
+            Z0 = P1.Z;
         }
 
         public override int GetHashCode() => new Point(X0, Y0, Z0).GetHashCode() + new Point(P0X, P0Y, P0Z).GetHashCode();

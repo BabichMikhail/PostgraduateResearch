@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Generic
@@ -9,9 +10,9 @@ namespace Generic
             var result = new Dictionary<Point, List<Triangle>>();
             foreach (var triangle in triangles) {
                 var keys = new List<Point>{
-                    triangle.p1,
-                    triangle.p2,
-                    triangle.p3,
+                    triangle.P1,
+                    triangle.P2,
+                    triangle.P3,
                 };
 
                 foreach (var key in keys) {
@@ -31,12 +32,12 @@ namespace Generic
             var result = new Dictionary<Edge, List<Triangle>>();
             foreach (var triangle in triangles) {
                 var keys = new List<Edge>{
-                    new Edge(triangle.p1, triangle.p2),
-                    new Edge(triangle.p1, triangle.p3),
-                    new Edge(triangle.p2, triangle.p1),
-                    new Edge(triangle.p2, triangle.p3),
-                    new Edge(triangle.p3, triangle.p1),
-                    new Edge(triangle.p3, triangle.p2),
+                    new Edge(triangle.P1, triangle.P2),
+                    new Edge(triangle.P1, triangle.P3),
+                    new Edge(triangle.P2, triangle.P1),
+                    new Edge(triangle.P2, triangle.P3),
+                    new Edge(triangle.P3, triangle.P1),
+                    new Edge(triangle.P3, triangle.P2),
                 };
 
                 foreach (var key in keys) {
@@ -57,7 +58,7 @@ namespace Generic
             foreach (var t in triangles) {
                 var plane = t.GetPlane();
                 var step = plane.GetNormal() * h;
-                var subPlane1 = new Plane(t.p1 + step, t.p2 + step, t.p3 + step);
+                var subPlane1 = new Plane(t.P1 + step, t.P2 + step, t.P3 + step);
                 // subTriangles.Add(subPlane1.GetRawTriangle());
             }
 
@@ -70,44 +71,44 @@ namespace Generic
                 var bt = triangles[i];
 
                 {
-                    var t = new Triangle(bt.p1, bt.p2, bt.p3);
+                    var t = new Triangle(bt.P1, bt.P2, bt.P3);
                     var n = t.GetPlane().GetNormal();
 
-                    var st = new Triangle(t.p1 + n, t.p2 + n, t.p3 + n);
+                    var st = new Triangle(t.P1 + n, t.P2 + n, t.P3 + n);
                     var ok = true;
                     foreach (var tj in triangles) {
-                        ok = (tj.p1 - t.p1).sqrMagnitude <= (tj.p1 - st.p1).sqrMagnitude
-                             && (tj.p2 - t.p2).sqrMagnitude <= (tj.p2 - st.p2).sqrMagnitude
-                             && (tj.p3 - t.p3).sqrMagnitude <= (tj.p3 - st.p3).sqrMagnitude;
+                        ok = (tj.P1 - t.P1).SqrMagnitude <= (tj.P1 - st.P1).SqrMagnitude
+                             && (tj.P2 - t.P2).SqrMagnitude <= (tj.P2 - st.P2).SqrMagnitude
+                             && (tj.P3 - t.P3).SqrMagnitude <= (tj.P3 - st.P3).SqrMagnitude;
                         if (!ok) {
                             break;
                         }
                     }
 
                     if (ok) {
-                        baseTriangle = new Triangle(t.p1, t.p2, t.p3);
+                        baseTriangle = new Triangle(t.P1, t.P2, t.P3);
                         triangles[i] = baseTriangle;
                         break;
                     }
                 }
 
                 {
-                    var t = new Triangle(bt.p3, bt.p1, bt.p2);
+                    var t = new Triangle(bt.P3, bt.P1, bt.P2);
                     var n = t.GetPlane().GetNormal();
 
-                    var st = new Triangle(t.p1 + n, t.p2 + n, t.p3 + n);
+                    var st = new Triangle(t.P1 + n, t.P2 + n, t.P3 + n);
                     var ok = true;
                     foreach (var tj in triangles) {
-                        ok = (tj.p1 - t.p1).sqrMagnitude <= (tj.p1 - st.p1).sqrMagnitude
-                             && (tj.p2 - t.p2).sqrMagnitude <= (tj.p2 - st.p2).sqrMagnitude
-                             && (tj.p3 - t.p3).sqrMagnitude <= (tj.p3 - st.p3).sqrMagnitude;
+                        ok = (tj.P1 - t.P1).SqrMagnitude <= (tj.P1 - st.P1).SqrMagnitude
+                             && (tj.P2 - t.P2).SqrMagnitude <= (tj.P2 - st.P2).SqrMagnitude
+                             && (tj.P3 - t.P3).SqrMagnitude <= (tj.P3 - st.P3).SqrMagnitude;
                         if (!ok) {
                             break;
                         }
                     }
 
                     if (ok) {
-                        baseTriangle = new Triangle(t.p1, t.p2, t.p3);
+                        baseTriangle = new Triangle(t.P1, t.P2, t.P3);
                         triangles[i] = baseTriangle;
                         break;
                     }
@@ -132,21 +133,21 @@ namespace Generic
                         continue;
                     }
 
-                    var other = t.p1;
-                    if (other == key.p1 || other == key.p2) {
-                        other = t.p2;
+                    var other = t.P1;
+                    if (other == key.P1 || other == key.P2) {
+                        other = t.P2;
                     }
-                    if (other == key.p1 || other == key.p2) {
-                        other = t.p3;
+                    if (other == key.P1 || other == key.P2) {
+                        other = t.P3;
                     }
-                    Debug.Assert(other != key.p1 && other != key.p2);
+                    Debug.Assert(other != key.P1 && other != key.P2);
 
-                    var tNorm = new Triangle(other, key.p2, key.p1);
+                    var tNorm = new Triangle(other, key.P2, key.P1);
                     result.Add(tNorm);
 
-                    q.Enqueue(new Edge(tNorm.p1, tNorm.p2));
-                    q.Enqueue(new Edge(tNorm.p2, tNorm.p3));
-                    q.Enqueue(new Edge(tNorm.p3, tNorm.p1));
+                    q.Enqueue(new Edge(tNorm.P1, tNorm.P2));
+                    q.Enqueue(new Edge(tNorm.P2, tNorm.P3));
+                    q.Enqueue(new Edge(tNorm.P3, tNorm.P1));
 
                     processedTriangles[t] = true;
                 }
@@ -161,24 +162,13 @@ namespace Generic
             foreach (var t in triangles) {
                 var plane = t.GetPlane();
                 var step = plane.GetNormal() * h;
-                var subPlane1 = new Plane(t.p1 + step, t.p2 + step, t.p3 + step);
-                var subPlane2 = new Plane(t.p1 - step, t.p2 - step, t.p3 - step);
+                var subPlane1 = new Plane(t.P1 + step, t.P2 + step, t.P3 + step);
+                var subPlane2 = new Plane(t.P1 - step, t.P2 - step, t.P3 - step);
                 // subTriangles.Add(subPlane1.GetRawTriangle());
                 // subTriangles.Add(subPlane2.GetRawTriangle());
             }
 
             return subTriangles;
-        }
-
-        public static List<Triangle> MoveSurface(List<Triangle> triangles, float h) {
-            var result = new List<Triangle>();
-
-            var subTriangles = new List<Triangle>();
-            foreach (var triangle in triangles) {
-                subTriangles.Add(new Triangle(triangle.p1, triangle.p2, triangle.p3));
-            }
-
-            return result;
         }
 
         public static void RunMathTests() {

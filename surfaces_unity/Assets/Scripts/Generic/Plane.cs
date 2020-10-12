@@ -25,12 +25,8 @@ namespace Generic
         }
 
         public Point GetNormal() {
-            return new Point(A, B, C).normalized;
+            return new Point(A, B, C).Normalized;
         }
-
-        // public Triangle GetRawTriangle() {
-        //     return new Triangle(p1, p2, p3);
-        // }
 
         public Point GetSomePoint() {
             return new Point(0, 0, -D / C);
@@ -38,9 +34,7 @@ namespace Generic
 
         public double GetDistance(Point p) {
             return Math.Abs((double)A * (double)p.x + (double)B * (double)p.y + (double)C * (double)p.z + (double)D) /
-                   Math.Sqrt((double)A * (double)A + (double)B * (double)B + (double)C * (double)C);
-            // return Math.Sqrt(Math.Pow((double)A * (double)p.x + (double)B * (double)p.y + (double)C * (double)p.z + (double)D, 2) /
-            //        Math.Abs((double)A * (double)A + (double)B * (double)B + (double)C * (double)C));
+                Math.Sqrt((double)A * (double)A + (double)B * (double)B + (double)C * (double)C);
         }
 
         public double GetDenominator() {

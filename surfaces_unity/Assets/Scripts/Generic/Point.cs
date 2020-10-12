@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace Generic
 {
-    public class Point : IEquatable<Point>, IFormattable { // TODO use Point instead Vector3
-        public float x;
-        public float y;
-        public float z;
+    public class Point : IEquatable<Point>, IFormattable {
+        public readonly float x;
+        public readonly float y;
+        public readonly float z;
 
         public Point(float ax, float ay, float az) {
             x = ax;
@@ -20,10 +20,10 @@ namespace Generic
             z = vertex.z;
         }
 
-        public float magnitude => Mathf.Sqrt(sqrMagnitude);
-        public float sqrMagnitude => x * x + y * y + z * z;
-        public Point normalized => new Point(x, y, z) / magnitude;
-        public static Point zero => new Point(0, 0, 0);
+        public float Magnitude => Mathf.Sqrt(SqrMagnitude);
+        public float SqrMagnitude => x * x + y * y + z * z;
+        public Point Normalized => new Point(x, y, z) / Magnitude;
+        public static Point Zero => new Point(0, 0, 0);
 
         public static Point operator +(Point a, Point b) => new Point(a.x + b.x, a.y + b.y, a.z + b.z);
         public static Point operator -(Point a, Point b) => new Point(a.x - b.x, a.y - b.y, a.z - b.z);
@@ -38,25 +38,11 @@ namespace Generic
             return num1 * num1 + num2 * num2 + num3 * num3 < 9.99999943962493E-11;
         }
 
-        public static bool operator !=(Point a, Point b) {
-            return !(a == b);
-        }
-
-        public Vector3 ToV3() {
-            return new Vector3(x, y, z);
-        }
-
-        public bool Equals(Point other) {
-            return this == other;
-        }
-
+        public static bool operator !=(Point a, Point b) => !(a == b);
+        public Vector3 ToV3() => new Vector3(x, y, z);
+        public bool Equals(Point other) => this == other;
         public override int GetHashCode() => x.GetHashCode() ^ y.GetHashCode() << 2 ^ z.GetHashCode() >> 2;
-        public override string ToString() {
-            return $"({x} {y} {z})";
-        }
-
-        public string ToString(string format, IFormatProvider formatProvider) {
-            return ToString();
-        }
+        public override string ToString() => $"({x} {y} {z})";
+        public string ToString(string format, IFormatProvider formatProvider) => ToString();
     }
 }

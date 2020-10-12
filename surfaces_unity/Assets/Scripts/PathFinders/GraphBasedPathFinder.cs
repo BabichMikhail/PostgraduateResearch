@@ -29,10 +29,10 @@ namespace PathFinders
                     step -= remind;
                 }
 
-                var surfacePointA = p2 + (p1 - p2) * ((i + 1) * step - remind) / (p1 - p2).magnitude;
+                var surfacePointA = p2 + (p1 - p2) * ((i + 1) * step - remind) / (p1 - p2).Magnitude;
                 result.Add(new Position(surfacePointA + N * paintHeight, -N, surfacePointA, Position.PointType.MIDDLE));
 
-                var surfacePointB = p3 + (p1 - p3) * ((i + 1) * step - remind) / (p1 - p3).magnitude;
+                var surfacePointB = p3 + (p1 - p3) * ((i + 1) * step - remind) / (p1 - p3).Magnitude;
                 result.Add(new Position(surfacePointB + N * paintHeight, -N, surfacePointB, Position.PointType.MIDDLE));
             }
         }
@@ -42,21 +42,21 @@ namespace PathFinders
             var R = t.GetRadiusOfTheCircumscribedCircle();
             if (R > paintRadius) {
                 var s = t.GetSquare();
-                var h1 = 2 * s / t.l1;
-                var h2 = 2 * s / t.l2;
-                var h3 = 2 * s / t.l3;
+                var h1 = 2 * s / t.L1;
+                var h2 = 2 * s / t.L2;
+                var h3 = 2 * s / t.L3;
 
                 var r1 = paintRadius * (1 + Mathf.Floor(h1 / paintRadius)) - h1;
                 var r2 = paintRadius * (1 + Mathf.Floor(h2 / paintRadius)) - h2;
                 var r3 = paintRadius * (1 + Mathf.Floor(h3 / paintRadius)) - h3;
                 if (r1 > r2 && r1 > r3) {
-                    ProcessBigTriangleArea(ref result, h1, r1 / 2, t.p1, t.p2, t.p3, N);
+                    ProcessBigTriangleArea(ref result, h1, r1 / 2, t.P1, t.P2, t.P3, N);
                 }
                 else if (r2 > r3 && r2 > r1) {
-                    ProcessBigTriangleArea(ref result, h2, r2 / 2, t.p2, t.p3, t.p1, N);
+                    ProcessBigTriangleArea(ref result, h2, r2 / 2, t.P2, t.P3, t.P1, N);
                 }
                 else { // r3 > r2 && r3 > r1;
-                    ProcessBigTriangleArea(ref result, h3, r3 / 2, t.p3, t.p1, t.p2, N);
+                    ProcessBigTriangleArea(ref result, h3, r3 / 2, t.P3, t.P1, t.P2, N);
                 }
             }
             else {
@@ -78,7 +78,7 @@ namespace PathFinders
             var trianglesSequence = new List<Triangle>();
 
             {
-                var initialVertex = triangles[Random.Range(0, triangles.Count)].p1;
+                var initialVertex = triangles[Random.Range(0, triangles.Count)].P1;
                 var trianglesInVertex = trianglesByVertex[initialVertex];
                 var initialTriangle = trianglesInVertex[Random.Range(0, trianglesInVertex.Count)];
 
@@ -116,12 +116,12 @@ namespace PathFinders
                 newTriangleCount = 0;
 
                 while (true) {
-                    var initialVertex = Point.zero;
+                    var initialVertex = Point.Zero;
                     foreach (var edge in trianglesSequence.Last().GetEdges()) {
                         var ok = false;
                         foreach (var t in trianglesByEdge[edge]) {
                             if (!processedTriangles.ContainsKey(t)) {
-                                initialVertex = edge.p1;
+                                initialVertex = edge.P1;
                                 trianglesSequence.Add(t);
                                 processedTriangles.Add(t, true);
                                 ok = true;
@@ -134,7 +134,7 @@ namespace PathFinders
                         }
                     }
 
-                    if (initialVertex == Point.zero) {
+                    if (initialVertex == Point.Zero) {
                         var nearestTriangleIndex = -1;
                         var nearestVertexIndex = -1;
                         var nearestDistance = 0.0;
@@ -152,7 +152,7 @@ namespace PathFinders
 
                                     if (hasProcessedTriangles && hasUnprocessedTriangles) {
                                         var distance = nearestTriangleIndex != -1
-                                            ? (triangles[nearestTriangleIndex].GetPoints()[nearestVertexIndex] - vertices[j]).sqrMagnitude
+                                            ? (triangles[nearestTriangleIndex].GetPoints()[nearestVertexIndex] - vertices[j]).SqrMagnitude
                                             : 0;
                                         if (nearestVertexIndex == -1 || distance < nearestDistance) {
                                             nearestTriangleIndex = i;

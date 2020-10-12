@@ -19,10 +19,10 @@ namespace PathFinders
 
         public Position(Point aOriginPosition, Point aPaintDirection, Point aSurfacePosition, PointType aPointType) {
             originPosition = aOriginPosition;
-            paintDirection = aPaintDirection.normalized;
+            paintDirection = aPaintDirection.Normalized;
             surfacePosition = aSurfacePosition;
             pointType = aPointType;
-            Debug.Assert((paintDirection - (surfacePosition - originPosition).normalized).magnitude < 1e-4);
+            Debug.Assert((paintDirection - (surfacePosition - originPosition).Normalized).Magnitude < 1e-4);
         }
     }
 
@@ -36,14 +36,14 @@ namespace PathFinders
     }
 
     public class PathFinderFactory {
-        public static IPathFinder Create(PathFinderType type, float paintRadius, float paintHeight) {
+        public static IPathFinder Create(PathFinderType type, float paintRadius, float paintHeight, float paintLateralAllowance, float paintLongitudinalAllowance) {
             IPathFinder result = null;
             switch (type) {
                 case PathFinderType.GraphBasedPathFinder:
                     result = new GraphBasedPathFinder(paintRadius, paintHeight);
                     break;
                 case PathFinderType.IntersectionsWithSurfacesPathFinder:
-                    result = new IntersectionsWithSurfacesPathFinder(paintRadius, paintHeight);
+                    result = new IntersectionsWithSurfacesPathFinder(paintRadius, paintHeight, paintLateralAllowance, paintLongitudinalAllowance);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

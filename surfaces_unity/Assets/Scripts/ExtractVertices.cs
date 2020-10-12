@@ -13,7 +13,6 @@ using Debug = UnityEngine.Debug;
 using Vector3 = UnityEngine.Vector3;
 using Point = Generic.Point;
 using Triangle = Generic.Triangle;
-using VertexHelper = Generic.VertexHelper;
 
 [RequireComponent(typeof(MeshFilter))]
 public class ExtractVertices : MonoBehaviour {
@@ -30,10 +29,13 @@ public class ExtractVertices : MonoBehaviour {
     public bool drawSurfacePath = false;
     public bool drawOriginPath = false;
     public bool drawFromOriginToSurfacePath = false;
+    public bool drawPathStepByStep = false;
 
     public PathFinderType pathFinderType;
     public float paintRadius;
     public float paintHeight;
+    public float paintLateralAllowance;
+    public float paintLongitudinalAllowance;
 
     private Button calculatePathButton = null;
     private Button drawFigureButton = null;
@@ -454,7 +456,7 @@ public class ExtractVertices : MonoBehaviour {
         var rotatedTriangles = new List<Triangle>();
         var rotation = rotationCube.transform.rotation;
         foreach (var triangle in baseTriangles) {
-            var newTriangle = new Triangle(new Point(rotation * triangle.p1.ToV3()), new Point(rotation * triangle.p2.ToV3()), new Point(rotation * triangle.p3.ToV3()));
+            var newTriangle = new Triangle(new Point(rotation * triangle.P1.ToV3()), new Point(rotation * triangle.P2.ToV3()), new Point(rotation * triangle.P3.ToV3()));
             rotatedTriangles.Add(newTriangle);
         }
 
@@ -477,9 +479,6 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void InitializePath() {
-        if (path != null) {
-            return;
-        }
         // var normalizedTriangles = VertexHelper.NormalizeTriangles(baseTriangles);
         // var subTriangles = VertexHelper.GetAllRawSubTriangles(baseTriangles, h);
 
@@ -491,7 +490,7 @@ public class ExtractVertices : MonoBehaviour {
         SetVertices(chunks);
 
         var watch = Stopwatch.StartNew();
-        var pathFinder = PathFinderFactory.Create(pathFinderType, paintRadius, paintHeight);
+        var pathFinder = PathFinderFactory.Create(pathFinderType, paintRadius, paintHeight, paintLateralAllowance, paintLongitudinalAllowance);
         path = pathFinder.GetPath(ref triangles);
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of path calculation");
@@ -544,46 +543,40 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void OnDrawGizmos() {
+        var maxCount = drawPathStepByStep ? Math.Floor(Time.time * 3) : 1e9;
         if (path != null) {
             if (drawFromOriginToSurfacePath) {
                 Gizmos.color = Color.magenta;
-                foreach (var pos in path) {
+                for (var i = 0; i < (int) Math.Min(path.Count, maxCount); ++i) {
+                    var pos = path[i];
                     Gizmos.DrawLine(pos.originPosition.ToV3(), pos.surfacePosition.ToV3());
                 }
             }
 
             Gizmos.color = Color.black;
-            for (var i = 0; i < path.Count - 1; ++i) {
+            for (var i = 0; i < (int)Math.Min(path.Count - 1, maxCount); ++i) {
                 var pos1 = path[i];
                 var pos2 = path[i + 1];
-                if (drawOriginPath && pos2.pointType != Position.PointType.START) {
+                if (drawOriginPath && pos1.pointType != Position.PointType.FINISH) {
                     Gizmos.DrawLine(pos1.originPosition.ToV3(), pos2.originPosition.ToV3());
                 }
-
-                // if (pos2.pointType == Position.PointType.FINISH) {
-                //     break;
-                // }
             }
 
             Gizmos.color = Color.blue;
-            for (var i = 0; i < path.Count - 1; ++i) {
+            for (var i = 0; i < (int)Math.Min(path.Count - 1, maxCount); ++i) {
                 var pos1 = path[i];
                 var pos2 = path[i + 1];
-                if (drawSurfacePath && pos2.pointType != Position.PointType.START) {
+                if (drawSurfacePath && pos1.pointType != Position.PointType.FINISH) {
                     Gizmos.DrawLine(pos1.surfacePosition.ToV3() - pos1.paintDirection.ToV3() * 1e-4f, pos2.surfacePosition.ToV3() - pos1.paintDirection.ToV3() * 1e-4f);
                 }
-
-                // if (pos2.pointType == Position.PointType.FINISH) {
-                //     break;
-                // }
             }
         }
 
-        if (false && paintRobot != null) {
-            var t = paintRobot.transform;
-            var tp = t.position;
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(tp, tp + paintHeight * t.forward);
-        }
+        // if (paintRobot != null) {
+        //     var t = paintRobot.transform;
+        //     var tp = t.position;
+        //     Gizmos.color = Color.red;
+        //     Gizmos.DrawLine(tp, tp + paintHeight * t.forward);
+        // }
     }
 }

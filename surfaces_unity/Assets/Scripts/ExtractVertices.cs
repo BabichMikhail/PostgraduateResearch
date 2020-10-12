@@ -9,8 +9,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 using Vector3 = UnityEngine.Vector3;
-using Point = Generic.Point;
-using Triangle = Generic.Triangle;
+using Point = Library.Generic.Point;
+using Triangle = Library.Generic.Triangle;
 
 [RequireComponent(typeof(MeshFilter))]
 public class ExtractVertices : MonoBehaviour {
@@ -49,7 +49,7 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private Point VtoP(Vector3 v) => new Point(v.x, v.y, v.z);
-    private Vector3 PtoV(Point p) => new Vector3(p.X, p.Y, p.Z);
+    private Vector3 PtoV(Point p) => new Vector3(p.x, p.y, p.z);
 
     private void SetVertices(List<TriangleChunk> chunks) {
         var mf = gameObject.GetComponent<MeshFilter>();
@@ -111,7 +111,7 @@ public class ExtractVertices : MonoBehaviour {
         var rotatedTriangles = new List<Triangle>();
         var rotation = rotationCube.transform.rotation;
         foreach (var triangle in baseTriangles) {
-            rotatedTriangles.Add(new Triangle(VtoP(rotation * PtoV(triangle.P1)), VtoP(rotation * PtoV(triangle.P2)), VtoP(rotation * PtoV(triangle.P3))));
+            rotatedTriangles.Add(new Triangle(VtoP(rotation * PtoV(triangle.p1)), VtoP(rotation * PtoV(triangle.p2)), VtoP(rotation * PtoV(triangle.p3))));
         }
 
         return rotatedTriangles;
@@ -156,7 +156,7 @@ public class ExtractVertices : MonoBehaviour {
                 Gizmos.color = Color.magenta;
                 for (var i = 0; i < (int) Math.Min(path.Count, maxCount); ++i) {
                     var pos = path[i];
-                    Gizmos.DrawLine(PtoV(pos.OriginPosition), PtoV(pos.SurfacePosition));
+                    Gizmos.DrawLine(PtoV(pos.originPosition), PtoV(pos.surfacePosition));
                 }
             }
 
@@ -164,8 +164,8 @@ public class ExtractVertices : MonoBehaviour {
             for (var i = 0; i < (int)Math.Min(path.Count - 1, maxCount); ++i) {
                 var pos1 = path[i];
                 var pos2 = path[i + 1];
-                if (drawOriginPath && pos1.Type != Position.PositionType.Finish) {
-                    Gizmos.DrawLine(PtoV(pos1.OriginPosition), PtoV(pos2.OriginPosition));
+                if (drawOriginPath && pos1.type != Position.PositionType.Finish) {
+                    Gizmos.DrawLine(PtoV(pos1.originPosition), PtoV(pos2.originPosition));
                 }
             }
 
@@ -173,8 +173,8 @@ public class ExtractVertices : MonoBehaviour {
             for (var i = 0; i < (int)Math.Min(path.Count - 1, maxCount); ++i) {
                 var pos1 = path[i];
                 var pos2 = path[i + 1];
-                if (drawSurfacePath && pos1.Type != Position.PositionType.Finish) {
-                    Gizmos.DrawLine(PtoV(pos1.SurfacePosition) - PtoV(pos1.PaintDirection) * 1e-4f, PtoV(pos2.SurfacePosition) - PtoV(pos1.PaintDirection) * 1e-4f);
+                if (drawSurfacePath && pos1.type != Position.PositionType.Finish) {
+                    Gizmos.DrawLine(PtoV(pos1.surfacePosition) - PtoV(pos1.paintDirection) * 1e-4f, PtoV(pos2.surfacePosition) - PtoV(pos1.paintDirection) * 1e-4f);
                 }
             }
         }

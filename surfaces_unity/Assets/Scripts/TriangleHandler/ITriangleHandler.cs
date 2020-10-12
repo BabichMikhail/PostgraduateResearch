@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Generic;
+using Library.Generic;
 
 namespace TriangleHandler
 {

@@ -18,4 +18,8 @@ public static class Utils {
     public static string GetDataFolder() {
         return Path.Combine(GetRootFolder(), "data");
     }
+
+    public static string GetStoreFolder() {
+        return Path.Combine(GetRootFolder(), "store");
+    }
 }

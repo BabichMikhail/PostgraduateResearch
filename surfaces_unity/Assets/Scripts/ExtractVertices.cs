@@ -51,6 +51,7 @@ public class ExtractVertices : MonoBehaviour {
     public float paintLateralAllowance;
     public float paintLongitudinalAllowance;
     public float paintSpeed = 1.0f;
+    public float paintRobotScale = 1.0f;
     public float maxPaintRobotSpeed = 0.0f;
     public float maxPaintRobotAcceleration = 0.0f;
     public int maxPaintRobotPathSimplifyIterations = 10;
@@ -62,6 +63,7 @@ public class ExtractVertices : MonoBehaviour {
     private Button calculatePathButton = null;
     private Button simplifyPathButton = null;
     private Button createPaintRobotsButtons = null;
+    private Button resetGeneratedPointsButton = null;
     private GameObject rotationCube = null;
     private List<Triangle> baseTriangles = null;
     private List<Position> path = null;
@@ -138,6 +140,9 @@ public class ExtractVertices : MonoBehaviour {
 
         createPaintRobotsButtons = GameObject.Find("CreatePaintRobotsButton").GetComponent<Button>();
         createPaintRobotsButtons.onClick.AddListener(CreatePaintRobots);
+
+        resetGeneratedPointsButton = GameObject.Find("ResetGeneratedPointsButton").GetComponent<Button>();
+        resetGeneratedPointsButton.onClick.AddListener(ResetGeneratedPoints);
 
         rotationCube = GameObject.Find("RotationCube");
 
@@ -309,7 +314,18 @@ public class ExtractVertices : MonoBehaviour {
             var robot = Instantiate(paintRobotPrefab, PtoV(pos.point), Quaternion.LookRotation(PtoV(pos.direction), Vector3.up));
             var controller = robot.GetComponent<PaintRobotController>();
             controller.SetMaxSpeed(maxPaintRobotSpeed * scaleGameToWorld);
+            controller.SetPaintHeight(paintHeight);
+            controller.SetPaintRadius(paintRadius);
+            controller.SetPointGenerationSpeed(100);
+            robot.transform.localScale *= paintRobotScale;
             paintRobots.Add(robot);
+        }
+    }
+
+    private void ResetGeneratedPoints() {
+        foreach (var pr in paintRobots) {
+            var controller = pr.GetComponent<PaintRobotController>();
+            controller.ResetGeneratedPoints();
         }
     }
 
@@ -605,14 +621,6 @@ public class ExtractVertices : MonoBehaviour {
                         Gizmos.DrawLine(PtoV(pos1.surfacePoint) - PtoV(pos1.paintDirection) * 5 * 1e-4f, PtoV(pos2.surfacePoint) - PtoV(pos2.paintDirection) * 5 * 1e-4f);
                     }
                 }
-            }
-        }
-
-        if (!(paintRobots is null)) {
-            Gizmos.color = Color.red;
-            foreach (var pr in paintRobots) {
-                var position = pr.transform.position;
-                Gizmos.DrawLine(position, position + pr.transform.forward * 30);
             }
         }
     }

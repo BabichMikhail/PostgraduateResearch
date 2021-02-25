@@ -4,12 +4,14 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using Library.PathApproximation;
 using Library.RobotPathBuilder;
 using PathFinders;
 using TriangleHandler;
 using UnityEngine;
-using UnityEngine.UI;
+using Application = UnityEngine.Application;
+using Button = UnityEngine.UI.Button;
 using Debug = UnityEngine.Debug;
 using Plane = Library.Generic.Plane;
 using Vector3 = UnityEngine.Vector3;
@@ -54,12 +56,15 @@ public class ExtractVertices : MonoBehaviour {
     public float scaleGameToWorld = 1.0f;
     public float timeScale = 1.0f;
 
-    private Button savePathDataButton = null;
+    private Button exportPathDataButton = null;
     private Button drawFigureButton = null;
     private Button calculatePathButton = null;
     private Button simplifyPathButton = null;
-    private Button createPaintRobotsButtons = null;
+    private Button createPaintRobotsButton = null;
     private Button resetGeneratedPointsButton = null;
+    private Button savePathDataButton = null;
+    private Button loadPathDataButton = null;
+
     private GameObject rotationCube = null;
     private List<Triangle> baseTriangles = null;
     private List<Position> path = null;
@@ -120,9 +125,9 @@ public class ExtractVertices : MonoBehaviour {
         return result;
     }
 
-    public void Start() {
-        savePathDataButton = GameObject.Find("SavePathDataButton").GetComponent<Button>();
-        savePathDataButton.onClick.AddListener(SavePathData);
+    public void Awake() {
+        exportPathDataButton = GameObject.Find("ExportPathDataButton").GetComponent<Button>();
+        exportPathDataButton.onClick.AddListener(ExportPathData);
 
         drawFigureButton = GameObject.Find("DrawFigureButton").GetComponent<Button>();
         drawFigureButton.onClick.AddListener(InitializeFigure);
@@ -133,11 +138,17 @@ public class ExtractVertices : MonoBehaviour {
         simplifyPathButton = GameObject.Find("SimplifyPathButton").GetComponent<Button>();
         simplifyPathButton.onClick.AddListener(SimplifyPath);
 
-        createPaintRobotsButtons = GameObject.Find("CreatePaintRobotsButton").GetComponent<Button>();
-        createPaintRobotsButtons.onClick.AddListener(CreatePaintRobots);
+        createPaintRobotsButton = GameObject.Find("CreatePaintRobotsButton").GetComponent<Button>();
+        createPaintRobotsButton.onClick.AddListener(CreatePaintRobots);
 
         resetGeneratedPointsButton = GameObject.Find("ResetGeneratedPointsButton").GetComponent<Button>();
         resetGeneratedPointsButton.onClick.AddListener(ResetGeneratedPoints);
+
+        savePathDataButton = GameObject.Find("SavePathDataButton").GetComponent<Button>();
+        savePathDataButton.onClick.AddListener(SavePathData);
+
+        loadPathDataButton = GameObject.Find("LoadPathDataButton").GetComponent<Button>();
+        loadPathDataButton.onClick.AddListener(LoadPathData);
 
         rotationCube = GameObject.Find("RotationCube");
 
@@ -335,6 +346,157 @@ public class ExtractVertices : MonoBehaviour {
         }
     }
 
+    private void SavePathData() {
+        var dialog = new SaveFileDialog {
+            InitialDirectory = Application.dataPath,
+            Filter = "text files (*.txt)|*.txt",
+            RestoreDirectory = false
+        };
+
+        if (dialog.ShowDialog() == DialogResult.OK) {
+            var robotsData = new List<DataExport.RobotPathProcessorData>();
+            var id = 0;
+            foreach (var rpp in robotPathProcessors) {
+                var drawingPositions = new List<Position>();
+                if (paintRobots.Count == robotPathProcessors.Count) {
+                    drawingPositions = paintRobots[id].GetComponent<PaintRobotController>().GetDrawingPositions();
+                }
+                robotsData.Add(new DataExport.RobotPathProcessorData(id, rpp, drawingPositions));
+                ++id;
+            }
+
+            var pathData = new List<DataExport.PositionData>();
+            foreach (var position in path) {
+                pathData.Add(new DataExport.PositionData(position));
+            }
+
+            var linearPathData = new List<DataExport.PositionData>();
+            foreach (var position in linearPath) {
+                linearPathData.Add(new DataExport.PositionData(position));
+            }
+
+            var data = new DataExport.PathData {
+                settings = new DataExport.SceneSettings {
+                    sampleName = sampleName,
+
+                    drawSurfacePath = drawSurfacePath,
+                    drawOriginPath = drawOriginPath,
+                    drawFromOriginToSurfacePath = drawFromOriginToSurfacePath,
+                    drawFoundPath = drawFoundPath,
+                    drawApproximatedPath = drawApproximatedPath,
+                    drawPathStepByStep = drawPathStepByStep,
+                    drawDiffWithLinearPath = drawDiffWithLinearPath,
+                    drawLinearPath = drawLinearPath,
+                    drawApproximatedPathWithSpeed = drawApproximatedPathWithSpeed,
+                    drawApproximatedPathWithAcceleration = drawApproximatedPathWithAcceleration,
+
+                    paintRadius = paintRadius,
+                    paintHeight = paintHeight,
+                    paintLateralAllowance = paintLateralAllowance,
+                    paintLongitudinalAllowance = paintLongitudinalAllowance,
+                    paintSpeed = paintSpeed,
+                    paintRobotScale = paintRobotScale,
+                    pointPerSecondDrawingSpeed = pointPerSecondDrawingSpeed,
+                    maxPointCount = maxPointCount,
+                    maxPaintRobotSpeed = maxPaintRobotSpeed,
+                    maxPaintRobotAcceleration = maxPaintRobotAcceleration,
+                    maxPaintRobotPathSimplifyIterations = maxPaintRobotPathSimplifyIterations,
+                    scaleGameToWorld = scaleGameToWorld,
+                    timeScale = timeScale,
+                },
+                rotationCube = new DataExport.ObjectRotation(rotationCube.transform.rotation),
+                robots = robotsData,
+                path = pathData,
+                linearPath = linearPathData,
+            };
+
+            File.WriteAllText(dialog.FileName, JsonUtility.ToJson(data));
+            Debug.Log(dialog.FileName);
+        }
+    }
+
+    private void applyLoadedData(DataExport.PathData data) {
+        var settings = data.settings;
+        Debug.Assert(settings.sampleName == sampleName);
+
+        drawSurfacePath = settings.drawSurfacePath;
+        drawOriginPath = settings.drawOriginPath;
+        drawFromOriginToSurfacePath = settings.drawFromOriginToSurfacePath;
+        drawFoundPath = settings.drawFoundPath;
+        drawApproximatedPath = settings.drawApproximatedPath;
+        drawPathStepByStep = settings.drawPathStepByStep;
+        drawDiffWithLinearPath = settings.drawDiffWithLinearPath;
+        drawLinearPath = settings.drawLinearPath;
+        drawApproximatedPathWithSpeed = settings.drawApproximatedPathWithSpeed;
+        drawApproximatedPathWithAcceleration = settings.drawApproximatedPathWithAcceleration;
+
+        paintRadius = settings.paintRadius;
+        paintHeight = settings.paintHeight;
+        paintLateralAllowance = settings.paintLateralAllowance;
+        paintLongitudinalAllowance = settings.paintLongitudinalAllowance;
+        paintSpeed = settings.paintSpeed;
+        paintRobotScale = settings.paintRobotScale;
+        pointPerSecondDrawingSpeed = settings.pointPerSecondDrawingSpeed;
+        maxPointCount = settings.maxPointCount;
+        maxPaintRobotSpeed = settings.maxPaintRobotSpeed;
+        maxPaintRobotAcceleration = settings.maxPaintRobotAcceleration;
+        maxPaintRobotPathSimplifyIterations = settings.maxPaintRobotPathSimplifyIterations;
+        scaleGameToWorld = settings.scaleGameToWorld;
+        timeScale = settings.timeScale;
+
+        rotationCube.transform.rotation = data.rotationCube.GetQuaternion();
+
+        DrawFigure(GetFigureTriangles());
+
+        path = new List<Position>();
+        foreach (var positionData in data.path) {
+            path.Add(positionData.GetPosition());
+        }
+
+        linearPath = new List<Position>();
+        foreach (var positionData in data.linearPath) {
+            path.Add(positionData.GetPosition());
+        }
+
+        robotPathProcessors = new List<RobotPathProcessor>();
+        foreach (var rd in data.robots) {
+            robotPathProcessors.Add(rd.GetRobotPathProcessor());
+        }
+        UpdateRobotPathWithSpeed();
+        CreatePaintRobots();
+
+        var i = 0;
+        foreach (var rd in data.robots) {
+            paintRobots[i].GetComponent<PaintRobotController>().SetDrawingPositions(rd.GetDrawingPositions());
+            ++i;
+        }
+    }
+
+    private void LoadPathData() {
+        var dialog = new OpenFileDialog {
+            InitialDirectory = Application.dataPath,
+            Filter = "text files (*.txt)|*.txt",
+            RestoreDirectory = false
+        };
+
+        if (dialog.ShowDialog() == DialogResult.OK) {
+            var pathData = JsonUtility.FromJson<DataExport.PathData>(File.ReadAllText(dialog.FileName));
+            Debug.Log(dialog.FileName);
+
+            var root = GameObject.Find("Objects");
+            var settings = pathData.settings;
+            for (var i = 0; i < root.transform.childCount; ++i) {
+                var child = root.transform.GetChild(i).gameObject;
+                var controller = child.GetComponent<ExtractVertices>();
+                var active = controller.sampleName == settings.sampleName;
+                child.SetActive(active);
+                if (active) {
+                    controller.applyLoadedData(pathData);
+                }
+            }
+        }
+    }
+
     private void MoveRobot(float time) {
         if (!(robotPathProcessors is null) && (robotPathProcessors.Count == paintRobots.Count)) {
             var i = 0;
@@ -377,7 +539,7 @@ public class ExtractVertices : MonoBehaviour {
         );
     }
 
-    private void SavePathData() {
+    private void ExportPathData() {
         if (!(robotPathProcessors is null)) {
             foreach (var rp in robotPathProcessors) {
                 rp.SetBaseSpeed(1.0f);

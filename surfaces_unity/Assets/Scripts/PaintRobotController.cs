@@ -66,7 +66,7 @@ public class PaintRobotController : MonoBehaviour {
     }
 
     public static Color GetSpeedColor(float speed, float maxSpeed) {
-        var color = Color.white;
+        Color color;
         if (speed <= 0.95f * maxSpeed) {
             color = Color.green;
         }
@@ -114,8 +114,8 @@ public class PaintRobotController : MonoBehaviour {
     }
 
     private int firstNewIndex = 0;
-    private readonly List<Vector3> trianglePoints = new List<Vector3>();
-    private readonly List<Position> drawPositions = new List<Position>();
+    private List<Vector3> trianglePoints = new List<Vector3>();
+    private List<Position> drawingPositions = new List<Position>();
 
     private Position GetPaintPosition() {
         var t = transform;
@@ -205,6 +205,15 @@ public class PaintRobotController : MonoBehaviour {
         return candidates.Count > 0 ? candidates.First() : null;
     }
 
+    public List<Position> GetDrawingPositions() {
+        return drawingPositions;
+    }
+
+    public void SetDrawingPositions(List<Position> aPositions) {
+        drawingPositions = aPositions;
+        // TODO trianglePoints;
+    }
+
     private void FixedUpdate() {
         var count = Mathf.RoundToInt(pointsPerSecond * Time.deltaTime);
 
@@ -219,11 +228,11 @@ public class PaintRobotController : MonoBehaviour {
         for (var i = 0; i < count; ++i) {
             var point = new Vector3(NextGaussian(0, standardDeviation), 0, NextGaussian(0, standardDeviation));
 
-            var drawDirection = (Utils.VtoP(mean + point) - paintPosition.originPoint).Normalized;
-            var drawPosition = new Position(paintPosition.originPoint, drawDirection, Utils.VtoP(mean + point), Position.PositionType.Middle);
-            var positionOnSurface = TryGetPositionOnSurface(drawPosition);
+            var drawingDirection = (Utils.VtoP(mean + point) - paintPosition.originPoint).Normalized;
+            var drawingPosition = new Position(paintPosition.originPoint, drawingDirection, Utils.VtoP(mean + point), Position.PositionType.Middle);
+            var positionOnSurface = TryGetPositionOnSurface(drawingPosition);
             if (!(positionOnSurface is null)) {
-                drawPositions.Add(positionOnSurface);
+                drawingPositions.Add(positionOnSurface);
             }
 
             const int vCount = 3;
@@ -257,7 +266,7 @@ public class PaintRobotController : MonoBehaviour {
 
         Gizmos.DrawSphere(position + direction * paintHeight, 0.3f);
 
-        foreach (var p in drawPositions.OrderByDescending(x => Vector3.Distance(Camera.current.transform.position, Utils.PtoV(x.surfacePoint)))) {
+        foreach (var p in drawingPositions.OrderByDescending(x => Vector3.Distance(Camera.current.transform.position, Utils.PtoV(x.surfacePoint)))) {
             Gizmos.DrawSphere(Utils.PtoV(p.surfacePoint), pointRadius);
         }
     }

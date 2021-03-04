@@ -69,7 +69,7 @@ public class ExtractVertices : MonoBehaviour {
     private List<Triangle> baseTriangles = null;
     private List<Position> path = null;
     private List<Position> linearPath = null;
-    private List<RobotPathProcessor> robotPathProcessors = null;
+    private List<RobotPathProcessor> robotPathProcessors = new List<RobotPathProcessor>();
     private GameObject paintPointsHolder = null;
     private int currentPointCount = 0;
 
@@ -102,7 +102,7 @@ public class ExtractVertices : MonoBehaviour {
         }
 
         var count = chunks.Sum(chunk => chunk.Triangles.Count);
-        Debug.Log(count);
+        Debug.Log("Triangle count: " + chunks.Sum(chunk => chunk.Triangles.Count));
 
         var mesh = mf.mesh;
         mesh.Clear();
@@ -225,7 +225,7 @@ public class ExtractVertices : MonoBehaviour {
         robotPathProcessors = pathBuilder.Build(linearPath, paintSpeed * scaleGameToWorld);
 
         watch.Stop();
-        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of robot paths calculation");
+        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of robot path processors building");
     }
 
     private List<int> GetBadRobotPathItemIndexes(RobotPath robotPath) {
@@ -319,10 +319,6 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void CreatePaintRobots() {
-        if (robotPathProcessors is null) {
-            return;
-        }
-
         var objectTriangles = GetFigureTriangles();
         paintRobots = new List<GameObject>();
         foreach (var rpp in robotPathProcessors) {
@@ -498,7 +494,8 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void MoveRobot(float time) {
-        if (!(robotPathProcessors is null) && (robotPathProcessors.Count == paintRobots.Count)) {
+        Debug.Assert(robotPathProcessors.Count == paintRobots.Count || paintRobots.Count == 0);
+        if (robotPathProcessors.Count == paintRobots.Count) {
             var i = 0;
             var isFinished = true;
             foreach (var rp in robotPathProcessors) {

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Library.Generic;
 using Library.PathApproximation;
 using Library.RobotPathBuilder;
 using PathFinders;
@@ -58,12 +59,13 @@ public class ExtractVertices : MonoBehaviour {
 
     private Button exportPathDataButton = null;
     private Button drawFigureButton = null;
-    private Button calculatePathButton = null;
+    private Button initializePathButton = null;
     private Button simplifyPathButton = null;
     private Button createPaintRobotsButton = null;
     private Button resetGeneratedPointsButton = null;
     private Button savePathDataButton = null;
     private Button loadPathDataButton = null;
+    private Button calculateTexturePaintButton = null;
 
     private GameObject rotationCube = null;
     private List<Triangle> baseTriangles = null;
@@ -132,8 +134,8 @@ public class ExtractVertices : MonoBehaviour {
         drawFigureButton = GameObject.Find("DrawFigureButton").GetComponent<Button>();
         drawFigureButton.onClick.AddListener(InitializeFigure);
 
-        calculatePathButton = GameObject.Find("CalculateButton").GetComponent<Button>();
-        calculatePathButton.onClick.AddListener(InitializePath);
+        initializePathButton = GameObject.Find("InitializePathButton").GetComponent<Button>();
+        initializePathButton.onClick.AddListener(InitializePath);
 
         simplifyPathButton = GameObject.Find("SimplifyPathButton").GetComponent<Button>();
         simplifyPathButton.onClick.AddListener(SimplifyPath);
@@ -149,6 +151,9 @@ public class ExtractVertices : MonoBehaviour {
 
         loadPathDataButton = GameObject.Find("LoadPathDataButton").GetComponent<Button>();
         loadPathDataButton.onClick.AddListener(LoadPathData);
+
+        calculateTexturePaintButton = GameObject.Find("CalculateTexturePaintButton").GetComponent<Button>();
+        calculateTexturePaintButton.onClick.AddListener(CalculateTexturePaint);
 
         rotationCube = GameObject.Find("RotationCube");
 
@@ -190,6 +195,8 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void InitializePath() {
+        Debug.Log("InitializePath");
+
         var triangles = GetFigureTriangles();
         DrawFigure(triangles);
 
@@ -491,6 +498,89 @@ public class ExtractVertices : MonoBehaviour {
                 }
             }
         }
+    }
+
+    private int LowerIndex(List<Triangle> triangles, Func<Triangle, float> f, float value) {
+        var a = -1;
+        var b = triangles.Count - 1;
+
+        while (b - a > 1) {
+            var m = (a + b) / 2;
+            var v = f(triangles[m]);
+            if (v < value) {
+                a = m;
+            }
+            else {
+                b = m;
+            }
+        }
+
+        return b;
+    }
+
+    private List<Triangle> GetTrianglesInRadius(List<Triangle> triangles, Func<Triangle, float> f, float min, float max) {
+        var a = LowerIndex(triangles, f, min);
+        var b = LowerIndex(triangles, f, max);
+        return triangles.GetRange(a, b - a + 1);
+    }
+
+    private void CalculateTexturePaint() {
+        if (path is null) {
+            Debug.Log("Unable to CalculateTexturePaint. Path is null");
+            return;
+        }
+
+        Debug.Log("CalculateTexturePaint");
+        var triangles = GetFigureTriangles();
+
+        var watch = Stopwatch.StartNew();
+
+        var app = new LinearApproximation(false);
+        var fakePath = app.Approximate(path, 30.0f, triangles);
+        Debug.Log("Position count: " + fakePath.Count);
+
+        float XFunc(Triangle t) => Mathf.Min(t.p1.x, t.p2.x, t.p3.x);
+        float YFunc(Triangle t) => Mathf.Min(t.p1.y, t.p2.y, t.p3.y);
+        float ZFunc(Triangle t) => Mathf.Min(t.p1.z, t.p2.z, t.p3.z);
+
+        var xTriangles = triangles.OrderBy(XFunc).ToList();
+        var yTriangles = triangles.OrderBy(YFunc).ToList();
+        var zTriangles = triangles.OrderBy(ZFunc).ToList();
+
+        watch.Stop();
+        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of prepare triangles");
+
+        watch.Restart();
+
+        var maxR = paintHeight * 2;
+        foreach (var position in fakePath) {
+            var xRange = GetTrianglesInRadius(xTriangles, XFunc, position.originPoint.x - maxR, position.originPoint.x + maxR);
+            var yRange = GetTrianglesInRadius(yTriangles, YFunc, position.originPoint.y - maxR, position.originPoint.y + maxR);
+            var zRange = GetTrianglesInRadius(zTriangles, ZFunc, position.originPoint.z - maxR, position.originPoint.z + maxR);
+
+            var trianglesSet = new Dictionary<Triangle, int>();
+            foreach (var selectedTriangles in new List<List<Triangle>> {xRange, yRange, zRange}) {
+                foreach (var t in selectedTriangles) {
+                    if (trianglesSet.ContainsKey(t)) {
+                        ++trianglesSet[t];
+                    }
+                    else {
+                        trianglesSet.Add(t, 1);
+                    }
+                }
+            }
+
+            var trianglesForPosition = new List<Triangle>();
+            foreach (var item in trianglesSet) {
+                if (item.Value == 3 && MMath.GetDistance(item.Key, position.originPoint) <= maxR) {
+                    trianglesForPosition.Add(item.Key);
+                }
+            }
+            Debug.Log("Triangles in radius = 2 * paintHeight: " + trianglesForPosition.Count);
+        }
+
+        watch.Stop();
+        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of path processing");
     }
 
     private void MoveRobot(float time) {

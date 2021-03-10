@@ -219,17 +219,19 @@ public class PaintRobotController : MonoBehaviour {
 
         var paintPosition = GetPaintPosition();
 
-        var mean = Utils.PtoV(paintPosition.surfacePoint);
+        var mean = paintPosition.surfacePoint;
         var p = new Plane(paintPosition.paintDirection, paintPosition.surfacePoint);
         var n1 = (paintPosition.surfacePoint - p.GetSomePoint()).Normalized;
         var n2 = -paintPosition.paintDirection.Normalized;
         var n3 = new Point(n1.y * n2.z - n1.z * n2.y, n1.z * n2.x - n1.x * n2.z, n1.x * n2.y - n1.y * n2.x).Normalized;
+        var transformer = new CartesianCoordinatesTransformer(paintPosition.surfacePoint, n1, n2, n3);
         var standardDeviation = paintRadius / 3;
         for (var i = 0; i < count; ++i) {
-            var point = new Vector3(NextGaussian(0, standardDeviation), 0, NextGaussian(0, standardDeviation));
+            var point = new Point(NextGaussian(0, standardDeviation), 0, NextGaussian(0, standardDeviation));
 
-            var drawingDirection = (Utils.VtoP(mean + point) - paintPosition.originPoint).Normalized;
-            var drawingPosition = new Position(paintPosition.originPoint, drawingDirection, Utils.VtoP(mean + point), Position.PositionType.Middle);
+            var drawingPoint = transformer.InverseTransform(point);
+            var drawingPosition = new Position(paintPosition.originPoint, drawingPoint - mean, drawingPoint, Position.PositionType.Middle);
+
             var positionOnSurface = TryGetPositionOnSurface(drawingPosition);
             if (!(positionOnSurface is null)) {
                 drawingPositions.Add(positionOnSurface);
@@ -238,12 +240,12 @@ public class PaintRobotController : MonoBehaviour {
             const int vCount = 3;
             var scale = transform.localScale;
             for (var j = 0; j < vCount; ++j) {
-                var offset = new Vector3(
+                var offset = new Point(
                     scale.x * pointRadius * Mathf.Cos(2 * Mathf.PI / vCount * j),
                     scale.y * 0,
                     scale.z * pointRadius * Mathf.Sin(2 * Mathf.PI / vCount * j)
                 );
-                trianglePoints.Add(mean + Utils.PtoV(TransformPoint(n1, n2, n3, Utils.VtoP(point + offset))));
+                trianglePoints.Add(Utils.PtoV(transformer.InverseTransform(point + offset)));
             }
         }
     }

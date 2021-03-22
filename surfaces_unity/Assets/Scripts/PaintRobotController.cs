@@ -124,23 +124,6 @@ public class PaintRobotController : MonoBehaviour {
         return new Position(Utils.VtoP(p), Utils.VtoP(f), Utils.VtoP(p + f * paintHeight), Position.PositionType.Middle);
     }
 
-    public static float NextGaussian() {
-        float v1, v2, s;
-        do {
-            v1 = 2.0f * Random.Range(0.0f, 1.0f) - 1.0f;
-            v2 = 2.0f * Random.Range(0.0f, 1.0f) - 1.0f;
-            s = v1 * v1 + v2 * v2;
-        } while (s >= 1.0f || s == 0.0f);
-
-        s = Mathf.Sqrt(-2.0f * Mathf.Log(s) / s);
-
-        return v1 * s;
-    }
-
-    private static float NextGaussian(float mean, float standardDeviation) {
-        return mean + NextGaussian() * standardDeviation;
-    }
-
     private Point TransformPoint(Point n1, Point n2, Point n3, Point point) {
         var x = n1.x * point.x + n2.x * point.y + n3.x * point.z;
         var y = n1.y * point.x + n2.y * point.y + n3.y * point.z;
@@ -227,7 +210,7 @@ public class PaintRobotController : MonoBehaviour {
         var transformer = new CartesianCoordinatesTransformer(paintPosition.surfacePoint, n1, n2, n3);
         var standardDeviation = paintRadius / 3;
         for (var i = 0; i < count; ++i) {
-            var point = new Point(NextGaussian(0, standardDeviation), 0, NextGaussian(0, standardDeviation));
+            var point = new Point(MMath.GetRandomGaussian(0, standardDeviation), 0, MMath.GetRandomGaussian(0, standardDeviation));
 
             var drawingPoint = transformer.InverseTransform(point);
             var drawingPosition = new Position(paintPosition.originPoint, drawingPoint - mean, drawingPoint, Position.PositionType.Middle);

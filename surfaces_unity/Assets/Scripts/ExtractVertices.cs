@@ -5,14 +5,17 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Library.Generic;
+using Library.Algorithm;
 using Library.PathApproximation;
 using Library.RobotPathBuilder;
 using PathFinders;
 using TriangleHandler;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Application = UnityEngine.Application;
 using Button = UnityEngine.UI.Button;
+using Color = UnityEngine.Color;
+using MColor = Library.Algorithm.Color;
 using Debug = UnityEngine.Debug;
 using Plane = Library.Generic.Plane;
 using Vector3 = UnityEngine.Vector3;
@@ -24,6 +27,7 @@ using Triangle = Library.Generic.Triangle;
 public class ExtractVertices : MonoBehaviour {
     public string sampleName;
     public Material material;
+    public Material colorMaterial;
     public GameObject paintRobotPrefab;
 
     private GameObject paintRobot;
@@ -56,6 +60,7 @@ public class ExtractVertices : MonoBehaviour {
     public int maxPaintRobotPathSimplifyIterations = 10;
     public float scaleGameToWorld = 1.0f;
     public float timeScale = 1.0f;
+    public float maxTriangleSquare = 1000000;
 
     private Button exportPathDataButton = null;
     private Button drawFigureButton = null;
@@ -66,6 +71,7 @@ public class ExtractVertices : MonoBehaviour {
     private Button savePathDataButton = null;
     private Button loadPathDataButton = null;
     private Button calculateTexturePaintButton = null;
+    private Button drawTexturePaintButton = null;
 
     private GameObject rotationCube = null;
     private List<Triangle> baseTriangles = null;
@@ -75,47 +81,64 @@ public class ExtractVertices : MonoBehaviour {
     private GameObject paintPointsHolder = null;
     private int currentPointCount = 0;
 
-    readonly struct TriangleChunk {
-        public readonly List<Triangle> Triangles;
+    private DrawingResult texturePaintResult = null;
 
-        public TriangleChunk(List<Triangle> aTriangles) {
-            Triangles = aTriangles;
-        }
-    }
-
-    private void SetVertices(List<TriangleChunk> chunks) {
-        var mf = gameObject.GetComponent<MeshFilter>();
-        mf.mesh.Clear();
-
+    private void SetVertices(List<Triangle> triangles) {
         var verticesDict = new Dictionary<Vector3, int>();
-        var vertices = new List<Vector3>();
-        var trianglesDescriptions = new List<int>();
-        foreach (var chunk in chunks) {
-            foreach (var triangle in chunk.Triangles) {
-                foreach (var point in triangle.GetPoints()) {
-                    if (!verticesDict.ContainsKey(Utils.PtoV(point))) {
-                        verticesDict[Utils.PtoV(point)] = vertices.Count;
-                        vertices.Add(Utils.PtoV(point));
-                    }
-
-                    trianglesDescriptions.Add(verticesDict[Utils.PtoV(point)]);
+        var meshVertices = new List<Vector3>();
+        var meshTriangles = new List<int>();
+        foreach (var t in triangles) {
+            foreach (var p in t.GetPoints()) {
+                if (!verticesDict.ContainsKey(Utils.PtoV(p))) {
+                    verticesDict[Utils.PtoV(p)] = meshVertices.Count;
+                    meshVertices.Add(Utils.PtoV(p));
                 }
+
+                meshTriangles.Add(verticesDict[Utils.PtoV(p)]);
             }
         }
+        Debug.Log("Triangle count: " + triangles.Count);
 
-        var count = chunks.Sum(chunk => chunk.Triangles.Count);
-        Debug.Log("Triangle count: " + chunks.Sum(chunk => chunk.Triangles.Count));
-
-        var mesh = mf.mesh;
+        var mesh = gameObject.GetComponent<MeshFilter>().mesh;
         mesh.Clear();
-        mesh.vertices = vertices.ToArray();
-        mesh.triangles = trianglesDescriptions.ToArray();
+        mesh.vertices = meshVertices.ToArray();
+        mesh.triangles = meshTriangles.ToArray();
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
         mesh.RecalculateTangents();
 
-        var mr = gameObject.GetComponent<MeshRenderer>();
-        mr.material = material;
+        gameObject.GetComponent<MeshRenderer>().material = material;
+    }
+
+    private void SetColoredVertices(List<Triangle> triangles, Dictionary<Triangle, Dictionary<Point, MColor>> colorInfo) {
+        var meshTriangles = new List<int>();
+        var meshVertices = new List<Vector3>();
+        var meshColors = new List<Color>();
+        foreach (var t in triangles) {
+            foreach (var p in t.GetPoints()) {
+                meshTriangles.Add(meshVertices.Count);
+                meshVertices.Add(Utils.PtoV(p));
+                var color = Color.white;
+                if (colorInfo.ContainsKey(t) && colorInfo[t].ContainsKey(p)) {
+                    var c = colorInfo[t][p];
+                    color = new Color(c.r, c.g, c.b, c.a);
+                }
+                meshColors.Add(color);
+            }
+        }
+        Debug.Log("Triangle count: " + triangles.Count);
+
+        var mesh = gameObject.GetComponent<MeshFilter>().mesh;
+        mesh.Clear();
+        mesh.indexFormat = IndexFormat.UInt32;
+        mesh.vertices = meshVertices.ToArray();
+        mesh.triangles = meshTriangles.ToArray();
+        mesh.colors = meshColors.ToArray();
+        mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
+        mesh.RecalculateTangents();
+
+        gameObject.GetComponent<MeshRenderer>().material = colorMaterial;
     }
 
     private List<Triangle> GetTriangles() {
@@ -155,6 +178,9 @@ public class ExtractVertices : MonoBehaviour {
         calculateTexturePaintButton = GameObject.Find("CalculateTexturePaintButton").GetComponent<Button>();
         calculateTexturePaintButton.onClick.AddListener(CalculateTexturePaint);
 
+        drawTexturePaintButton = GameObject.Find("DrawTexturePaintButton").GetComponent<Button>();
+        drawTexturePaintButton.onClick.AddListener(DrawTexturePaint);
+
         rotationCube = GameObject.Find("RotationCube");
 
         baseTriangles = GetTriangles();
@@ -183,11 +209,7 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void DrawFigure(List<Triangle> triangles) {
-        var chunks = new List<TriangleChunk>{
-            new TriangleChunk(triangles),
-        };
-
-        SetVertices(chunks);
+        SetVertices(triangles);
     }
 
     private void InitializeFigure() {
@@ -200,9 +222,11 @@ public class ExtractVertices : MonoBehaviour {
         var triangles = GetFigureTriangles();
         DrawFigure(triangles);
 
+        Debug.Log($"Summary figure square: {triangles.Sum(x => x.GetSquare())}. Triangle count: {triangles.Count}.");
+
         var watch = Stopwatch.StartNew();
         var pathFinder = PathFinderFactory.Create(pathFinderType, paintRadius, paintHeight, paintLateralAllowance, paintLongitudinalAllowance);
-        path = pathFinder.GetPath(ref triangles);
+        path = pathFinder.GetPath(triangles);
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of path calculation");
@@ -378,6 +402,11 @@ public class ExtractVertices : MonoBehaviour {
                 linearPathData.Add(new DataExport.PositionData(position));
             }
 
+            DataExport.DrawingResultData drawingResultData = null;
+            if (texturePaintResult != null) {
+                drawingResultData = new DataExport.DrawingResultData(texturePaintResult);
+            }
+
             var data = new DataExport.PathData {
                 settings = new DataExport.SceneSettings {
                     sampleName = sampleName,
@@ -411,6 +440,7 @@ public class ExtractVertices : MonoBehaviour {
                 robots = robotsData,
                 path = pathData,
                 linearPath = linearPathData,
+                drawingResult = drawingResultData,
             };
 
             File.WriteAllText(dialog.FileName, JsonUtility.ToJson(data));
@@ -418,7 +448,7 @@ public class ExtractVertices : MonoBehaviour {
         }
     }
 
-    private void applyLoadedData(DataExport.PathData data) {
+    private void ApplyLoadedData(DataExport.PathData data) {
         var settings = data.settings;
         Debug.Assert(settings.sampleName == sampleName);
 
@@ -458,8 +488,10 @@ public class ExtractVertices : MonoBehaviour {
 
         linearPath = new List<Position>();
         foreach (var positionData in data.linearPath) {
-            path.Add(positionData.GetPosition());
+            linearPath.Add(positionData.GetPosition());
         }
+
+        texturePaintResult = data.drawingResult.GetDrawingResult();
 
         robotPathProcessors = new List<RobotPathProcessor>();
         foreach (var rd in data.robots) {
@@ -494,34 +526,10 @@ public class ExtractVertices : MonoBehaviour {
                 var active = controller.sampleName == settings.sampleName;
                 child.SetActive(active);
                 if (active) {
-                    controller.applyLoadedData(pathData);
+                    controller.ApplyLoadedData(pathData);
                 }
             }
         }
-    }
-
-    private int LowerIndex(List<Triangle> triangles, Func<Triangle, float> f, float value) {
-        var a = -1;
-        var b = triangles.Count - 1;
-
-        while (b - a > 1) {
-            var m = (a + b) / 2;
-            var v = f(triangles[m]);
-            if (v < value) {
-                a = m;
-            }
-            else {
-                b = m;
-            }
-        }
-
-        return b;
-    }
-
-    private List<Triangle> GetTrianglesInRadius(List<Triangle> triangles, Func<Triangle, float> f, float min, float max) {
-        var a = LowerIndex(triangles, f, min);
-        var b = LowerIndex(triangles, f, max);
-        return triangles.GetRange(a, b - a + 1);
     }
 
     private void CalculateTexturePaint() {
@@ -536,51 +544,27 @@ public class ExtractVertices : MonoBehaviour {
         var watch = Stopwatch.StartNew();
 
         var app = new LinearApproximation(false);
-        var fakePath = app.Approximate(path, 30.0f, triangles);
+        var fakePath = app.Approximate(path, 5.0f, triangles);
         Debug.Log("Position count: " + fakePath.Count);
-
-        float XFunc(Triangle t) => Mathf.Min(t.p1.x, t.p2.x, t.p3.x);
-        float YFunc(Triangle t) => Mathf.Min(t.p1.y, t.p2.y, t.p3.y);
-        float ZFunc(Triangle t) => Mathf.Min(t.p1.z, t.p2.z, t.p3.z);
-
-        var xTriangles = triangles.OrderBy(XFunc).ToList();
-        var yTriangles = triangles.OrderBy(YFunc).ToList();
-        var zTriangles = triangles.OrderBy(ZFunc).ToList();
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of prepare triangles");
 
         watch.Restart();
 
-        var maxR = paintHeight * 2;
-        foreach (var position in fakePath) {
-            var xRange = GetTrianglesInRadius(xTriangles, XFunc, position.originPoint.x - maxR, position.originPoint.x + maxR);
-            var yRange = GetTrianglesInRadius(yTriangles, YFunc, position.originPoint.y - maxR, position.originPoint.y + maxR);
-            var zRange = GetTrianglesInRadius(zTriangles, ZFunc, position.originPoint.z - maxR, position.originPoint.z + maxR);
-
-            var trianglesSet = new Dictionary<Triangle, int>();
-            foreach (var selectedTriangles in new List<List<Triangle>> {xRange, yRange, zRange}) {
-                foreach (var t in selectedTriangles) {
-                    if (trianglesSet.ContainsKey(t)) {
-                        ++trianglesSet[t];
-                    }
-                    else {
-                        trianglesSet.Add(t, 1);
-                    }
-                }
-            }
-
-            var trianglesForPosition = new List<Triangle>();
-            foreach (var item in trianglesSet) {
-                if (item.Value == 3 && MMath.GetDistance(item.Key, position.originPoint) <= maxR) {
-                    trianglesForPosition.Add(item.Key);
-                }
-            }
-            Debug.Log("Triangles in radius = 2 * paintHeight: " + trianglesForPosition.Count);
-        }
+        var simulator = new DrawingSimulator();
+        texturePaintResult = simulator.ProcessPath(fakePath, triangles, 20 * paintHeight, paintHeight, maxTriangleSquare);
+        Debug.Log($"Triangles: {triangles.Count}; {texturePaintResult.triangles.Count}.");
+        SetColoredVertices(texturePaintResult.triangles, texturePaintResult.colorInfo);
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of path processing");
+    }
+
+    private void DrawTexturePaint() {
+        if (texturePaintResult != null) {
+            SetColoredVertices(texturePaintResult.triangles, texturePaintResult.colorInfo);
+        }
     }
 
     private void MoveRobot(float time) {

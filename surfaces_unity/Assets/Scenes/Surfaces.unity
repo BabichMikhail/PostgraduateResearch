@@ -346,9 +346,10 @@ MonoBehaviour:
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
   maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorld: 1
+  scaleGameToWorldMeter: 1
   timeScale: 1
   maxTriangleSquare: 1000000
+  linearPathStep: 5
 --- !u!1 &137775563
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,9 +423,10 @@ MonoBehaviour:
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
   maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorld: 1
+  scaleGameToWorldMeter: 1
   timeScale: 1
   maxTriangleSquare: 1000000
+  linearPathStep: 5
 --- !u!65 &137775566
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -586,7 +588,7 @@ RectTransform:
   - {fileID: 468508684}
   - {fileID: 881155932}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1412,9 +1414,10 @@ MonoBehaviour:
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
   maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorld: 1
+  scaleGameToWorldMeter: 1
   timeScale: 1
   maxTriangleSquare: 1000000
+  linearPathStep: 5
 --- !u!65 &541864059
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1548,9 +1551,10 @@ MonoBehaviour:
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
   maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorld: 1
+  scaleGameToWorldMeter: 1
   timeScale: 1
   maxTriangleSquare: 1000000
+  linearPathStep: 5
 --- !u!65 &705964132
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1750,7 +1754,7 @@ PrefabInstance:
     - target: {fileID: 3825327703930050554, guid: 64e6b020368ebef43bf9cef408c0e670,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3825327703930050554, guid: 64e6b020368ebef43bf9cef408c0e670,
         type: 3}
@@ -1832,7 +1836,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &881155931
 GameObject:
@@ -2869,7 +2873,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1573978195
 Transform:
   m_ObjectHideFlags: 0
@@ -2913,7 +2917,7 @@ MonoBehaviour:
   drawApproximatedPathWithAcceleration: 0
   pathFinderType: 0
   paintRadius: 10
-  paintHeight: 8
+  paintHeight: 15
   paintLateralAllowance: 10
   paintLongitudinalAllowance: 15
   paintSpeed: 0
@@ -2923,9 +2927,10 @@ MonoBehaviour:
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
   maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorld: 1
+  scaleGameToWorldMeter: 1
   timeScale: 1
   maxTriangleSquare: 0.1
+  linearPathStep: 5
 --- !u!65 &1573978197
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3059,9 +3064,10 @@ MonoBehaviour:
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
   maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorld: 1
+  scaleGameToWorldMeter: 1
   timeScale: 1
   maxTriangleSquare: 1000000
+  linearPathStep: 5
 --- !u!65 &1704227016
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3264,7 +3270,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1821179818
 GameObject:
@@ -3703,6 +3709,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008454182}
   m_CullTransparentMesh: 0
+--- !u!1 &2056099782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2056099783}
+  m_Layer: 0
+  m_Name: Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2056099783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056099782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -35.318268, y: 2.7538223, z: 56.134922}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2057064420
 GameObject:
   m_ObjectHideFlags: 0
@@ -3722,7 +3758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2057064421
 Transform:
   m_ObjectHideFlags: 0
@@ -3777,9 +3813,10 @@ MonoBehaviour:
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
   maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorld: 1
+  scaleGameToWorldMeter: 0.001
   timeScale: 1
-  maxTriangleSquare: 500
+  maxTriangleSquare: 250
+  linearPathStep: 20
 --- !u!65 &2057064423
 BoxCollider:
   m_ObjectHideFlags: 0

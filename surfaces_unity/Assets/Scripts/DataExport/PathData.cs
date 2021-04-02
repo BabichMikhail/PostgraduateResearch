@@ -34,7 +34,7 @@ namespace DataExport {
         public float maxPaintRobotSpeed;
         public float maxPaintRobotAcceleration;
         public int maxPaintRobotPathSimplifyIterations;
-        public float scaleGameToWorld;
+        public float scaleGameToWorldMeter;
         public float timeScale;
         public float maxTriangleSquare;
     }

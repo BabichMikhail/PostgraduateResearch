@@ -63,7 +63,7 @@ public class ExtractVertices : MonoBehaviour {
     public float maxTriangleSquare = 1000000;
     public float linearPathStep = 5.0f;
 
-    private CommonSettings commonSettings = null;
+    private CommonPaintSettings commonPaintSettings = null;
 
     private Button exportPathDataButton = null;
     private Button drawFigureButton = null;
@@ -186,7 +186,7 @@ public class ExtractVertices : MonoBehaviour {
 
         rotationCube = GameObject.Find("RotationCube");
 
-        commonSettings = GameObject.Find("Settings").GetComponent<CommonSettings>();
+        commonPaintSettings = GameObject.Find("Settings").GetComponent<CommonPaintSettings>();
 
         baseTriangles = GetTriangles();
 
@@ -293,7 +293,7 @@ public class ExtractVertices : MonoBehaviour {
             var attempts = 0;
             var maxAttempts = 600;
             while (attempts <= maxAttempts) {
-                var robotPath = rp.GetRobotPathData(paintSpeed * scaleGameToWorldMeter);
+                var robotPath = rp.GetRobotPathData();
                 Debug.Assert(robotPath.items.First().position.type == Position.PositionType.Start);
                 Debug.Assert(robotPath.items.Last().position.type == Position.PositionType.Finish);
 
@@ -338,7 +338,7 @@ public class ExtractVertices : MonoBehaviour {
                 var newRps = pathBuilder.Build(newPositions, paintSpeed * scaleGameToWorldMeter);
                 Debug.Assert(newRps.Count == 1);
                 var newRp = newRps.First();
-                var newRpBadItemIndexes = GetBadRobotPathItemIndexes(newRp.GetRobotPathData(paintSpeed * scaleGameToWorldMeter));
+                var newRpBadItemIndexes = GetBadRobotPathItemIndexes(newRp.GetRobotPathData());
                 if (newRpBadItemIndexes.Count == 0 || attempts == maxAttempts) {
                     robotPathProcessors[i] = newRp;
                     break;
@@ -553,12 +553,24 @@ public class ExtractVertices : MonoBehaviour {
         Debug.Log("Position count: " + fakePath.Count);
 
         watch.Stop();
-        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of prepare triangles");
+        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of prepare path");
+        watch.Restart();
 
+        var pathBuilder = new RobotPathBuilder();
+        var fakeRobotPathProcessors = pathBuilder.Build(linearPath, paintSpeed * scaleGameToWorldMeter);
+        var fakeRobotPaths = new List<RobotPath>();
+        fakeRobotPathProcessors.ForEach(x => fakeRobotPaths.Add(x.GetRobotPathData()));
+        // TODO simplify path;
+
+        watch.Stop();
+        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of calculate robot path with speeds");
         watch.Restart();
 
         var simulator = new DrawingSimulator();
-        texturePaintResult = simulator.ProcessPath(fakePath, triangles, 20 * paintHeight, paintRadius, paintHeight, maxTriangleSquare);
+        texturePaintResult = simulator.ProcessPath(
+            fakeRobotPaths, triangles, 20 * paintHeight, paintRadius, paintHeight, maxTriangleSquare,
+            commonPaintSettings.paintConsumptionRateKgPerHour * 1000 / 3600 / commonPaintSettings.paintDensityGramPerCubicMeter * commonPaintSettings.paintAdhesionPart
+        );
         Debug.Log($"Triangles: {triangles.Count}; {texturePaintResult.triangles.Count}.");
         SetColoredVertices(texturePaintResult.triangles, texturePaintResult.colorInfo);
 
@@ -618,14 +630,14 @@ public class ExtractVertices : MonoBehaviour {
     private void ExportPathData() {
         if (!(robotPathProcessors is null)) {
             foreach (var rp in robotPathProcessors) {
-                rp.SetBaseSpeed(1.0f);
+                rp.SetBaseSpeed(paintSpeed * scaleGameToWorldMeter);
             }
 
             var lines = new List<string>{$"{robotPathProcessors.Count}"};
             foreach (var rp in robotPathProcessors) {
                 var pathLines = new List<string>();
 
-                var pathData = rp.GetRobotPathData(paintSpeed * scaleGameToWorldMeter);
+                var pathData = rp.GetRobotPathData();
                 foreach (var item in pathData.items) {
                     pathLines.Add(StoreState(item.position.originPoint, item.speed, item.acceleration, 0.0f));
                 }
@@ -713,7 +725,8 @@ public class ExtractVertices : MonoBehaviour {
             if (needUpdate) {
                 robotPaths.Clear();
                 foreach (var robotPathProcessor in robotPathProcessors) {
-                    robotPaths.Add(robotPathProcessor.GetRobotPathData(paintSpeed * scaleGameToWorldMeter));
+                    robotPathProcessor.SetBaseSpeed(paintSpeed * scaleGameToWorldMeter);
+                    robotPaths.Add(robotPathProcessor.GetRobotPathData());
                 }
             }
         }

@@ -29,12 +29,14 @@ public class ExtractVertices : MonoBehaviour {
     public Material material;
     public Material colorMaterial;
     public GameObject paintRobotPrefab;
+    public float scaleGameToWorldMeter = 1.0f;
 
     private GameObject paintRobot;
     private float paintTime;
 
     private List<GameObject> paintRobots = new List<GameObject>();
 
+    [Header("Draw settings")]
     public bool drawSurfacePath = false;
     public bool drawOriginPath = false;
     public bool drawFromOriginToSurfacePath = false;
@@ -46,20 +48,25 @@ public class ExtractVertices : MonoBehaviour {
     public bool drawApproximatedPathWithSpeed = false;
     public bool drawApproximatedPathWithAcceleration = false;
 
+    [Header("Paint parameters")]
     public PathFinderType pathFinderType;
     public float paintRadius;
     public float paintHeight;
     public float paintLateralAllowance;
     public float paintLongitudinalAllowance;
-    public float paintSpeed = 1.0f;
-    public float paintRobotScale = 1.0f;
-    public int pointPerSecondDrawingSpeed = 0;
-    public int maxPointCount = 0;
     public float maxPaintRobotSpeed = 0.0f;
     public float maxPaintRobotAcceleration = 0.0f;
-    public int maxPaintRobotPathSimplifyIterations = 10;
-    public float scaleGameToWorldMeter = 1.0f;
+
+    public float paintSpeed = 1.0f;
+    public float paintRobotScale = 1.0f;
+
+    [Header("Paint speed and performance")]
+    public int pointPerSecondDrawingSpeed = 0;
+    public int maxPointCount = 0;
     public float timeScale = 1.0f;
+
+    [Header("Other")]
+    public int maxPaintRobotPathSimplifyIterations = 10;
     public float maxTriangleSquare = 1000000;
     public float linearPathStep = 5.0f;
 

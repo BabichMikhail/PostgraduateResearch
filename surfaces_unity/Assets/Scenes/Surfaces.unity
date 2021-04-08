@@ -324,6 +324,8 @@ MonoBehaviour:
   colorMaterial: {fileID: 0}
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
   drawSurfacePath: 1
   drawOriginPath: 1
   drawFromOriginToSurfacePath: 1
@@ -334,20 +336,19 @@ MonoBehaviour:
   drawLinearPath: 0
   drawApproximatedPathWithSpeed: 0
   drawApproximatedPathWithAcceleration: 0
+  paintRobotScale: 1
   pathFinderType: 0
+  paintSpeed: 1
   paintRadius: 200
   paintHeight: 300
   paintLateralAllowance: 0
   paintLongitudinalAllowance: 0
-  paintSpeed: 1
-  paintRobotScale: 1
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
-  maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorldMeter: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 0
   timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 1000000
   linearPathStep: 5
 --- !u!1 &137775563
@@ -401,6 +402,8 @@ MonoBehaviour:
   colorMaterial: {fileID: 0}
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
   drawSurfacePath: 1
   drawOriginPath: 1
   drawFromOriginToSurfacePath: 1
@@ -411,20 +414,19 @@ MonoBehaviour:
   drawLinearPath: 0
   drawApproximatedPathWithSpeed: 0
   drawApproximatedPathWithAcceleration: 0
+  paintRobotScale: 1
   pathFinderType: 0
+  paintSpeed: 1
   paintRadius: 200
   paintHeight: 300
   paintLateralAllowance: 50
   paintLongitudinalAllowance: 300
-  paintSpeed: 1
-  paintRobotScale: 1
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
-  maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorldMeter: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 0
   timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 1000000
   linearPathStep: 5
 --- !u!65 &137775566
@@ -1392,6 +1394,8 @@ MonoBehaviour:
   colorMaterial: {fileID: 0}
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
   drawSurfacePath: 1
   drawOriginPath: 1
   drawFromOriginToSurfacePath: 1
@@ -1402,20 +1406,19 @@ MonoBehaviour:
   drawLinearPath: 0
   drawApproximatedPathWithSpeed: 0
   drawApproximatedPathWithAcceleration: 0
+  paintRobotScale: 1
   pathFinderType: 0
+  paintSpeed: 1
   paintRadius: 200
   paintHeight: 300
   paintLateralAllowance: 50
   paintLongitudinalAllowance: 300
-  paintSpeed: 1
-  paintRobotScale: 1
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
-  maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorldMeter: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 0
   timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 1000000
   linearPathStep: 5
 --- !u!65 &541864059
@@ -1529,6 +1532,8 @@ MonoBehaviour:
   colorMaterial: {fileID: 0}
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
   drawSurfacePath: 1
   drawOriginPath: 1
   drawFromOriginToSurfacePath: 1
@@ -1539,20 +1544,19 @@ MonoBehaviour:
   drawLinearPath: 0
   drawApproximatedPathWithSpeed: 0
   drawApproximatedPathWithAcceleration: 0
+  paintRobotScale: 1
   pathFinderType: 0
+  paintSpeed: 1
   paintRadius: 200
   paintHeight: 100
   paintLateralAllowance: 50
   paintLongitudinalAllowance: 300
-  paintSpeed: 1
-  paintRobotScale: 1
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
-  maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorldMeter: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 0
   timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 1000000
   linearPathStep: 5
 --- !u!65 &705964132
@@ -2905,6 +2909,8 @@ MonoBehaviour:
   colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
   drawSurfacePath: 1
   drawOriginPath: 0
   drawFromOriginToSurfacePath: 1
@@ -2915,22 +2921,21 @@ MonoBehaviour:
   drawLinearPath: 0
   drawApproximatedPathWithSpeed: 1
   drawApproximatedPathWithAcceleration: 0
-  pathFinderType: 0
-  paintRadius: 10
-  paintHeight: 15
-  paintLateralAllowance: 10
-  paintLongitudinalAllowance: 15
-  paintSpeed: 0
   paintRobotScale: 0.1
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 1000
+  pathFinderType: 0
+  paintSpeed: 1
+  paintRadius: 0.01
+  paintHeight: 0.015
+  paintLateralAllowance: 0.01
+  paintLongitudinalAllowance: 0.015
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
-  maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorldMeter: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 1000
   timeScale: 1
-  maxTriangleSquare: 0.1
-  linearPathStep: 5
+  maxPaintRobotPathSimplifyIterations: 10
+  maxTriangleSquare: 0.000001
+  linearPathStep: 0.005
 --- !u!65 &1573978197
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3042,6 +3047,8 @@ MonoBehaviour:
   colorMaterial: {fileID: 0}
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
   drawSurfacePath: 1
   drawOriginPath: 1
   drawFromOriginToSurfacePath: 1
@@ -3052,20 +3059,19 @@ MonoBehaviour:
   drawLinearPath: 0
   drawApproximatedPathWithSpeed: 0
   drawApproximatedPathWithAcceleration: 0
+  paintRobotScale: 1
   pathFinderType: 0
+  paintSpeed: 1
   paintRadius: 200
   paintHeight: 300
   paintLateralAllowance: 0
   paintLongitudinalAllowance: 0
-  paintSpeed: 1
-  paintRobotScale: 1
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
-  maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorldMeter: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 0
   timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 1000000
   linearPathStep: 5
 --- !u!65 &1704227016
@@ -3809,6 +3815,8 @@ MonoBehaviour:
   colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
+  scaleGameToWorldMeter: 0.001
+  sampleScaleToWorldMeter: 0.001
   drawSurfacePath: 1
   drawOriginPath: 0
   drawFromOriginToSurfacePath: 1
@@ -3819,22 +3827,21 @@ MonoBehaviour:
   drawLinearPath: 0
   drawApproximatedPathWithSpeed: 1
   drawApproximatedPathWithAcceleration: 0
-  pathFinderType: 0
-  paintRadius: 100
-  paintHeight: 300
-  paintLateralAllowance: 50
-  paintLongitudinalAllowance: 300
-  paintSpeed: 0
   paintRobotScale: 1
+  pathFinderType: 0
+  paintSpeed: 1
+  paintRadius: 0.1
+  paintHeight: 0.3
+  paintLateralAllowance: 0.05
+  paintLongitudinalAllowance: 0.3
+  maxPaintRobotSpeed: 0.12
+  maxPaintRobotAcceleration: 10000000
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
-  maxPaintRobotSpeed: 120
-  maxPaintRobotAcceleration: 10000000
-  maxPaintRobotPathSimplifyIterations: 10
-  scaleGameToWorldMeter: 0.001
   timeScale: 1
-  maxTriangleSquare: 250
-  linearPathStep: 20
+  maxPaintRobotPathSimplifyIterations: 10
+  maxTriangleSquare: 0.00025
+  linearPathStep: 0.02
 --- !u!65 &2057064423
 BoxCollider:
   m_ObjectHideFlags: 0

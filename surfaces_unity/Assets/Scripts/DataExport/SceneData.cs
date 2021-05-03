@@ -11,6 +11,8 @@ namespace DataExport {
     [Serializable]
     public class SceneSettings {
         public string sampleName;
+        public float scaleGameToWorldMeter;
+        public float sampleScaleToWorldMeter;
 
         public bool drawSurfacePath;
         public bool drawOriginPath;
@@ -22,31 +24,38 @@ namespace DataExport {
         public bool drawLinearPath;
         public bool drawApproximatedPathWithSpeed;
         public bool drawApproximatedPathWithAcceleration;
+        public float paintRobotScale;
 
+        public float paintSpeed;
         public float paintRadius;
         public float paintHeight;
         public float paintLateralAllowance;
         public float paintLongitudinalAllowance;
-        public float paintSpeed;
-        public float paintRobotScale;
-        public int pointPerSecondDrawingSpeed;
-        public int maxPointCount;
         public float maxPaintRobotSpeed;
         public float maxPaintRobotAcceleration;
-        public int maxPaintRobotPathSimplifyIterations;
-        public float scaleGameToWorldMeter;
+
+        public int pointPerSecondDrawingSpeed;
+        public int maxPointCount;
         public float timeScale;
+        public int maxPaintRobotPathSimplifyIterations;
+
         public float maxTriangleSquare;
+        public float linearPathStep;
     }
 
     [Serializable]
-    public class ObjectRotation {
+    public class SceneState {
+        public bool isPaintRobotsCreated;
+    }
+
+    [Serializable]
+    public class ObjectRotationData {
         public float x;
         public float y;
         public float z;
         public float w;
 
-        public ObjectRotation(Quaternion rotation) {
+        public ObjectRotationData(Quaternion rotation) {
             x = rotation.x;
             y = rotation.y;
             z = rotation.z;
@@ -73,6 +82,13 @@ namespace DataExport {
         public Point GetPoint() {
             return new Point(x, y, z);
         }
+    }
+
+    [Serializable]
+    public class TransformData {
+        public PointData position;
+        public PointData scale;
+        public ObjectRotationData rotationData;
     }
 
     [Serializable]
@@ -211,20 +227,6 @@ namespace DataExport {
     }
 
     [Serializable]
-    public class ReplacementData {
-        public TriangleData triangle;
-        public List<TriangleData> replacements;
-
-        public ReplacementData(Triangle aTriangle, List<Triangle> aReplacements) {
-            triangle = new TriangleData(aTriangle);
-            replacements = new List<TriangleData>();
-            foreach (var r in aReplacements) {
-                replacements.Add(new TriangleData(r));
-            }
-        }
-    }
-
-    [Serializable]
     public class ColorData {
         public float r;
         public float g;
@@ -244,75 +246,61 @@ namespace DataExport {
     }
 
     [Serializable]
-    public class PointColorInfoData {
-        public PointData point;
-        public ColorData color;
-
-        public PointColorInfoData(Point p, MColor c) {
-            point = new PointData(p);
-            color = new ColorData(c);
-        }
+    public class PaintAmountItems {
+        public List<float> items = new List<float>();
     }
 
     [Serializable]
-    public class TriangleColorInfoData {
-        public TriangleData triangle;
-        public List<PointColorInfoData> pointColorInfo;
-
-        public TriangleColorInfoData(Triangle t, Dictionary<Point, MColor> colorInfo) {
-            triangle = new TriangleData(t);
-            pointColorInfo = new List<PointColorInfoData>();
-            foreach (var info in colorInfo) {
-                pointColorInfo.Add(new PointColorInfoData(info.Key, info.Value));
-            }
-        }
+    public class ColorInfoItems {
+        public List<ColorData> items = new List<ColorData>();
     }
 
     [Serializable]
-    public class DrawingResultData {
-        // public List<ReplacementData> replacements;
-        public List<TriangleColorInfoData> triangleColorInfo;
+    public class TexturePaintResultData {
+        public List<TriangleData> triangles = new List<TriangleData>();
+        public List<PaintAmountItems> paintAmountData = new List<PaintAmountItems>();
+        public List<ColorInfoItems> colorInfoData = new List<ColorInfoItems>();
 
-        public DrawingResultData(DrawingResult result) {
-            // replacements = new List<ReplacementData>();
-            // foreach (var r in result.replacements) {
-            //     replacements.Add(new ReplacementData(r.Key, r.Value));
-            // }
-
-            var usedTriangles = new Dictionary<Triangle, bool>();
-
-            triangleColorInfo = new List<TriangleColorInfoData>();
-            foreach (var q in result.colorInfo) {
-                triangleColorInfo.Add(new TriangleColorInfoData(q.Key, q.Value));
-                usedTriangles.Add(q.Key, true);
-            }
-
+        public TexturePaintResultData(TexturePaintResult result) {
             foreach (var t in result.triangles) {
-                if (!usedTriangles.ContainsKey(t)) {
-                    triangleColorInfo.Add(new TriangleColorInfoData(t, new Dictionary<Point, MColor>()));
+                var td = new TriangleData(t);
+                var paintAmountItem = new PaintAmountItems();
+                var colorInfoItem = new ColorInfoItems();
+                foreach (var p in t.GetPoints()) {
+                    paintAmountItem.items.Add(result.paintAmount[t][p]);
+                    colorInfoItem.items.Add(new ColorData(result.colorInfo[t][p]));
                 }
+
+                triangles.Add(td);
+                paintAmountData.Add(paintAmountItem);
+                colorInfoData.Add(colorInfoItem);
             }
         }
 
-        public DrawingResult GetDrawingResult() {
-            // TODO fix save and load drawing result
-            var result = new DrawingResult {
-                replacements = new Dictionary<Triangle, List<Triangle>>(),
+        public TexturePaintResult GetTexturePaintResult() {
+            var result = new TexturePaintResult {
+                colorInfo = new Dictionary<Triangle, Dictionary<Point, MColor>>(),
+                paintAmount = new Dictionary<Triangle, Dictionary<Point, float>>(),
                 triangles = new List<Triangle>(),
-                colorInfo = new Dictionary<Triangle, Dictionary<Point, MColor>>()
             };
 
-            // foreach (var r in replacements) {
-            //     var items = new List<Triangle>();
-            //     r.replacements.ForEach(x => items.Add(x.GetTriangle()));
-            //     result.replacements.Add(r.triangle.GetTriangle(), items);
-            // }
+            var i = 0;
+            foreach (var td in triangles) {
+                var t = td.GetTriangle();
 
-            foreach (var item in triangleColorInfo) {
-                var t = item.triangle.GetTriangle();
-                var data = item.pointColorInfo.ToDictionary(x => x.point.GetPoint(), x => x.color.GetColor());
-                result.colorInfo.Add(item.triangle.GetTriangle(), data);
+                var j = 0;
+                var paintAmounts = new Dictionary<Point, float>();
+                var colorInfo = new Dictionary<Point, MColor>();
+                foreach (var p in t.GetPoints()) {
+                    paintAmounts.Add(p, paintAmountData[i].items[j]);
+                    colorInfo.Add(p, colorInfoData[i].items[j].GetColor());
+                    ++j;
+                }
+
                 result.triangles.Add(t);
+                result.paintAmount.Add(t, paintAmounts);
+                result.colorInfo.Add(t, colorInfo);
+                ++i;
             }
 
             return result;
@@ -322,10 +310,13 @@ namespace DataExport {
     [Serializable]
     public class PathData {
         public SceneSettings settings;
-        public ObjectRotation rotationCube;
+        public SceneState state;
+        public ObjectRotationData rotationDataCube;
         public List<RobotPathProcessorData> robots;
         public List<PositionData> path;
         public List<PositionData> linearPath;
-        public DrawingResultData drawingResult;
+        public TexturePaintResultData texturePaintResult;
+        public TransformData texturePlaneData;
+        public List<TriangleData> baseTriangles;
     }
 }

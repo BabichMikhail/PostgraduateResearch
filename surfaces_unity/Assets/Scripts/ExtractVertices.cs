@@ -13,7 +13,6 @@ using PathFinders;
 using TriangleHandler;
 using UnityEngine;
 using UnityEngine.Rendering;
-using Application = UnityEngine.Application;
 using Button = UnityEngine.UI.Button;
 using Color = UnityEngine.Color;
 using MColor = Library.Algorithm.Color;
@@ -81,8 +80,8 @@ public class ExtractVertices : MonoBehaviour {
     private Button simplifyPathButton = null;
     private Button createPaintRobotsButton = null;
     private Button resetGeneratedPointsButton = null;
-    private Button savePathDataButton = null;
-    private Button loadPathDataButton = null;
+    private Button saveDataButton = null;
+    private Button loadDataButton = null;
     private Button calculateTexturePaintButton = null;
     private Button drawTexturePaintButton = null;
     private Button createPlaneForExportPaintDataButton = null;
@@ -96,7 +95,7 @@ public class ExtractVertices : MonoBehaviour {
     private GameObject paintPointsHolder = null;
     private int currentPointCount = 0;
 
-    private DrawingResult texturePaintResult = null;
+    private TexturePaintResult texturePaintResult = null;
 
     private struct ScaledVariables {
         public float paintSpeed;
@@ -215,11 +214,11 @@ public class ExtractVertices : MonoBehaviour {
         resetGeneratedPointsButton = GameObject.Find("ResetGeneratedPointsButton").GetComponent<Button>();
         resetGeneratedPointsButton.onClick.AddListener(ResetGeneratedPoints);
 
-        savePathDataButton = GameObject.Find("SavePathDataButton").GetComponent<Button>();
-        savePathDataButton.onClick.AddListener(SavePathData);
+        saveDataButton = GameObject.Find("SaveDataButton").GetComponent<Button>();
+        saveDataButton.onClick.AddListener(SaveData);
 
-        loadPathDataButton = GameObject.Find("LoadPathDataButton").GetComponent<Button>();
-        loadPathDataButton.onClick.AddListener(LoadPathData);
+        loadDataButton = GameObject.Find("LoadDataButton").GetComponent<Button>();
+        loadDataButton.onClick.AddListener(LoadData);
 
         calculateTexturePaintButton = GameObject.Find("CalculateTexturePaintButton").GetComponent<Button>();
         calculateTexturePaintButton.onClick.AddListener(CalculateTexturePaint);
@@ -428,9 +427,9 @@ public class ExtractVertices : MonoBehaviour {
         }
     }
 
-    private void SavePathData() {
+    private void SaveData() {
         var dialog = new SaveFileDialog {
-            InitialDirectory = Application.dataPath,
+            InitialDirectory = Utils.GetStoreFolder(),
             Filter = "text files (*.txt)|*.txt",
             RestoreDirectory = false
         };
@@ -447,24 +446,16 @@ public class ExtractVertices : MonoBehaviour {
                 ++id;
             }
 
-            var pathData = new List<DataExport.PositionData>();
-            foreach (var position in path) {
-                pathData.Add(new DataExport.PositionData(position));
-            }
-
-            var linearPathData = new List<DataExport.PositionData>();
-            foreach (var position in linearPath) {
-                linearPathData.Add(new DataExport.PositionData(position));
-            }
-
-            DataExport.DrawingResultData drawingResultData = null;
+            DataExport.TexturePaintResultData texturePaintResultData = null;
             if (texturePaintResult != null) {
-                drawingResultData = new DataExport.DrawingResultData(texturePaintResult);
+                texturePaintResultData = new DataExport.TexturePaintResultData(texturePaintResult);
             }
 
             var data = new DataExport.PathData {
                 settings = new DataExport.SceneSettings {
                     sampleName = sampleName,
+                    scaleGameToWorldMeter = scaleGameToWorldMeter,
+                    sampleScaleToWorldMeter = sampleScaleToWorldMeter,
 
                     drawSurfacePath = drawSurfacePath,
                     drawOriginPath = drawOriginPath,
@@ -476,26 +467,33 @@ public class ExtractVertices : MonoBehaviour {
                     drawLinearPath = drawLinearPath,
                     drawApproximatedPathWithSpeed = drawApproximatedPathWithSpeed,
                     drawApproximatedPathWithAcceleration = drawApproximatedPathWithAcceleration,
+                    paintRobotScale = paintRobotScale,
 
+                    paintSpeed = paintSpeed,
                     paintRadius = paintRadius,
                     paintHeight = paintHeight,
                     paintLateralAllowance = paintLateralAllowance,
                     paintLongitudinalAllowance = paintLongitudinalAllowance,
-                    paintSpeed = paintSpeed,
-                    paintRobotScale = paintRobotScale,
-                    pointPerSecondDrawingSpeed = pointPerSecondDrawingSpeed,
-                    maxPointCount = maxPointCount,
                     maxPaintRobotSpeed = maxPaintRobotSpeed,
                     maxPaintRobotAcceleration = maxPaintRobotAcceleration,
-                    maxPaintRobotPathSimplifyIterations = maxPaintRobotPathSimplifyIterations,
-                    scaleGameToWorldMeter = scaleGameToWorldMeter,
+
+                    pointPerSecondDrawingSpeed = pointPerSecondDrawingSpeed,
+                    maxPointCount = maxPointCount,
                     timeScale = timeScale,
+                    maxPaintRobotPathSimplifyIterations = maxPaintRobotPathSimplifyIterations,
+
+                    maxTriangleSquare = maxTriangleSquare,
+                    linearPathStep = linearPathStep,
                 },
-                rotationCube = new DataExport.ObjectRotation(rotationCube.transform.rotation),
+                state = new DataExport.SceneState {
+                    isPaintRobotsCreated = paintRobots.Count > 0,
+                },
+                rotationDataCube = new DataExport.ObjectRotationData(rotationCube.transform.rotation),
                 robots = robotsData,
-                path = pathData,
-                linearPath = linearPathData,
-                drawingResult = drawingResultData,
+                path = path.Select(position => new DataExport.PositionData(position)).ToList(),
+                linearPath = linearPath.Select(position => new DataExport.PositionData(position)).ToList(),
+                texturePaintResult = texturePaintResultData,
+                baseTriangles = baseTriangles.Select(t => new DataExport.TriangleData(t)).ToList(),
             };
 
             File.WriteAllText(dialog.FileName, JsonUtility.ToJson(data));
@@ -507,6 +505,9 @@ public class ExtractVertices : MonoBehaviour {
         var settings = data.settings;
         Debug.Assert(settings.sampleName == sampleName);
 
+        scaleGameToWorldMeter = settings.scaleGameToWorldMeter;
+        sampleScaleToWorldMeter = settings.sampleScaleToWorldMeter;
+
         drawSurfacePath = settings.drawSurfacePath;
         drawOriginPath = settings.drawOriginPath;
         drawFromOriginToSurfacePath = settings.drawFromOriginToSurfacePath;
@@ -517,22 +518,40 @@ public class ExtractVertices : MonoBehaviour {
         drawLinearPath = settings.drawLinearPath;
         drawApproximatedPathWithSpeed = settings.drawApproximatedPathWithSpeed;
         drawApproximatedPathWithAcceleration = settings.drawApproximatedPathWithAcceleration;
+        paintRobotScale = settings.paintRobotScale;
 
+        paintSpeed = settings.paintSpeed;
         paintRadius = settings.paintRadius;
         paintHeight = settings.paintHeight;
         paintLateralAllowance = settings.paintLateralAllowance;
         paintLongitudinalAllowance = settings.paintLongitudinalAllowance;
-        paintSpeed = settings.paintSpeed;
-        paintRobotScale = settings.paintRobotScale;
-        pointPerSecondDrawingSpeed = settings.pointPerSecondDrawingSpeed;
-        maxPointCount = settings.maxPointCount;
         maxPaintRobotSpeed = settings.maxPaintRobotSpeed;
         maxPaintRobotAcceleration = settings.maxPaintRobotAcceleration;
-        maxPaintRobotPathSimplifyIterations = settings.maxPaintRobotPathSimplifyIterations;
-        scaleGameToWorldMeter = settings.scaleGameToWorldMeter;
-        timeScale = settings.timeScale;
 
-        rotationCube.transform.rotation = data.rotationCube.GetQuaternion();
+        pointPerSecondDrawingSpeed = settings.pointPerSecondDrawingSpeed;
+        maxPointCount = settings.maxPointCount;
+        timeScale = settings.timeScale;
+        maxPaintRobotPathSimplifyIterations = settings.maxPaintRobotPathSimplifyIterations;
+
+        maxTriangleSquare = settings.maxTriangleSquare;
+        linearPathStep = settings.linearPathStep;
+
+        rotationCube.transform.rotation = data.rotationDataCube.GetQuaternion();
+
+        baseTriangles = data.baseTriangles.Select(x => x.GetTriangle()).ToList();
+
+        if (!(data.texturePaintResult is null)) {
+            texturePaintResult = data.texturePaintResult.GetTexturePaintResult();
+        }
+
+        if (!(data.texturePlaneData is null)) {
+            CreatePlaneForExportPaintData();
+
+            var planeData = data.texturePlaneData;
+            paintTexturePlaneGameObject.transform.position = Utils.PtoV(planeData.position.GetPoint());
+            paintTexturePlaneGameObject.transform.localScale = Utils.PtoV(planeData.scale.GetPoint());
+            paintTexturePlaneGameObject.transform.rotation = planeData.rotationData.GetQuaternion();
+        }
 
         UpdateScaledVariables();
         DrawFigure(GetFigureTriangles());
@@ -547,25 +566,27 @@ public class ExtractVertices : MonoBehaviour {
             linearPath.Add(positionData.GetPosition());
         }
 
-        texturePaintResult = data.drawingResult.GetDrawingResult();
-
         robotPathProcessors = new List<RobotPathProcessor>();
         foreach (var rd in data.robots) {
             robotPathProcessors.Add(rd.GetRobotPathProcessor());
         }
-        UpdateRobotPathWithSpeed();
-        CreatePaintRobots();
 
-        var i = 0;
-        foreach (var rd in data.robots) {
-            paintRobots[i].GetComponent<PaintRobotController>().SetDrawingPositions(rd.GetDrawingPositions());
-            ++i;
+        UpdateRobotPathWithSpeed();
+        paintRobots.Clear();
+        if (data.state.isPaintRobotsCreated) {
+            CreatePaintRobots();
+
+            var i = 0;
+            foreach (var rd in data.robots) {
+                paintRobots[i].GetComponent<PaintRobotController>().SetDrawingPositions(rd.GetDrawingPositions());
+                ++i;
+            }
         }
     }
 
-    private void LoadPathData() {
+    private void LoadData() {
         var dialog = new OpenFileDialog {
-            InitialDirectory = Application.dataPath,
+            InitialDirectory = Utils.GetStoreFolder(),
             Filter = "text files (*.txt)|*.txt",
             RestoreDirectory = false
         };

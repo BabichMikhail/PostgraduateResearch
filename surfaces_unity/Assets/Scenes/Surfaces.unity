@@ -2307,7 +2307,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Save Path Data
+  m_Text: Save Data
 --- !u!222 &929410030
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2531,7 +2531,7 @@ GameObject:
   - component: {fileID: 1192918929}
   - component: {fileID: 1192918928}
   m_Layer: 5
-  m_Name: LoadPathDataButton
+  m_Name: LoadDataButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3848,7 +3848,7 @@ GameObject:
   - component: {fileID: 1973700300}
   - component: {fileID: 1973700299}
   m_Layer: 5
-  m_Name: SavePathDataButton
+  m_Name: SaveDataButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4101,7 +4101,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Load Path Data
+  m_Text: 'Load Data
 
 '
 --- !u!222 &2008454185

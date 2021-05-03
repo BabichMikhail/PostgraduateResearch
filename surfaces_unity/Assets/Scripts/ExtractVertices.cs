@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Library.Algorithm;
+using Library.Generic;
 using Library.PathApproximation;
 using Library.RobotPathBuilder;
 using PathFinders;
@@ -84,6 +85,8 @@ public class ExtractVertices : MonoBehaviour {
     private Button loadPathDataButton = null;
     private Button calculateTexturePaintButton = null;
     private Button drawTexturePaintButton = null;
+    private Button createPlaneForExportPaintDataButton = null;
+    private Button exportPaintDataButton = null;
 
     private GameObject rotationCube = null;
     private List<Triangle> baseTriangles = null;
@@ -223,6 +226,12 @@ public class ExtractVertices : MonoBehaviour {
 
         drawTexturePaintButton = GameObject.Find("DrawTexturePaintButton").GetComponent<Button>();
         drawTexturePaintButton.onClick.AddListener(DrawTexturePaint);
+
+        createPlaneForExportPaintDataButton = GameObject.Find("CreatePlaneForExportPaintDataButton").GetComponent<Button>();
+        createPlaneForExportPaintDataButton.onClick.AddListener(CreatePlaneForExportPaintData);
+
+        exportPaintDataButton = GameObject.Find("ExportPaintDataButton").GetComponent<Button>();
+        exportPaintDataButton.onClick.AddListener(ExportPaintData);
 
         rotationCube = GameObject.Find("RotationCube");
 
@@ -609,9 +618,13 @@ public class ExtractVertices : MonoBehaviour {
         watch.Restart();
 
         var simulator = new DrawingSimulator();
+        var paintConsumptionRateGameSizeUnitsCubicMeterPerSecond =
+            commonPaintSettings.paintConsumptionRateKgPerHour * 1000 / 3600 /
+            commonPaintSettings.paintDensityGramPerCubicMeter *
+            commonPaintSettings.paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3); // M^3 -> MM^3 (scale in game);
         texturePaintResult = simulator.ProcessPath(
             fakeRobotPaths, triangles, 20 * v.paintHeight, v.paintRadius, v.paintHeight, v.maxTriangleSquare,
-            commonPaintSettings.paintConsumptionRateKgPerHour * 1000 / 3600 / commonPaintSettings.paintDensityGramPerCubicMeter * commonPaintSettings.paintAdhesionPart
+            paintConsumptionRateGameSizeUnitsCubicMeterPerSecond
         );
         Debug.Log($"Triangles: {triangles.Count}; {texturePaintResult.triangles.Count}.");
         SetColoredVertices(texturePaintResult.triangles, texturePaintResult.colorInfo);
@@ -621,8 +634,209 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void DrawTexturePaint() {
-        if (texturePaintResult != null) {
-            SetColoredVertices(texturePaintResult.triangles, texturePaintResult.colorInfo);
+        if (texturePaintResult is null) {
+            Debug.Log("Unable DrawTexturePaint: texturePaintResult is null");
+            return;
+        }
+
+        Debug.Log("DrawTexturePaint");
+
+        var watch = Stopwatch.StartNew();
+        SetColoredVertices(texturePaintResult.triangles, texturePaintResult.colorInfo);
+        watch.Stop();
+        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of drawing texture paint result");
+    }
+
+    private Plane paintTexturePlane = null;
+    private Point paintTexturePlanePosition = null;
+    private GameObject paintTexturePlaneGameObject = null;
+
+    private void CreatePlaneForExportPaintData() {
+        if (texturePaintResult is null) {
+            Debug.Log("Unable CreatePlaneForExportPaintData: texturePaintResult is null");
+            return;
+        }
+
+        Debug.Log("CreatePlaneForExportPaintData");
+
+        var watch = Stopwatch.StartNew();
+
+        var triangles = GetFigureTriangles();
+        var position = triangles.Aggregate(Point.Zero, (current, t) => current + t.o) / triangles.Count;
+
+        paintTexturePlanePosition = position;
+        paintTexturePlane = new Plane(
+            position,
+            position + Point.Up * SCALE_IN_GAME,
+            position + Point.Right * SCALE_IN_GAME
+        );
+        var n = Utils.PtoV(paintTexturePlane.GetNormal());
+        var rotation = Quaternion.LookRotation(n);
+        rotation = Quaternion.Euler(rotation.eulerAngles + new Vector3(90, 0, 0));
+
+        if (!(paintTexturePlaneGameObject is null)) {
+            Destroy(paintTexturePlaneGameObject);
+        }
+
+        paintTexturePlaneGameObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        paintTexturePlaneGameObject.transform.position = Utils.PtoV(paintTexturePlanePosition);
+        paintTexturePlaneGameObject.transform.rotation = rotation;
+
+        watch.Stop();
+        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of creating plane for export paint data");
+    }
+
+    private List<string> GetExportPaintData() {
+        var watch = Stopwatch.StartNew();
+
+        var dp = Utils.VtoP(paintTexturePlaneGameObject.transform.position) - paintTexturePlanePosition;
+        paintTexturePlane = new Plane(paintTexturePlane.p1 + dp, paintTexturePlane.p2 + dp, paintTexturePlane.p3 + dp);
+
+        var lines = new List<Line>();
+        var values = new List<float>();
+        foreach (var t in texturePaintResult.triangles) {
+            var points = new List<Point>();
+            var originPoints = new List<Point>();
+            var q = new List<bool>();
+            var pp = new List<Point>();
+            foreach (var e in t.GetEdges()) {
+                var ok = false;
+                var point = MMath.Intersect(paintTexturePlane, new Line(e.p1, e.p2), true);
+
+                pp.Add(point);
+
+                if (!(point is null)) {
+                    ok = true;
+                    points.Add(point);
+                    originPoints.Add(e.p1);
+                    originPoints.Add(e.p2);
+                }
+
+                q.Add(ok);
+            }
+
+            if (points.Count != 2 && points.Count != 0) {
+                Debug.Log("Illegal magic");
+            }
+
+            if (points.Count == 2) {
+                var line = new Line(points[0], points[1]);
+                lines.Add(line);
+                var info = texturePaintResult.paintAmount[t];
+                values.Add((info[originPoints[0]] + info[originPoints[1]] + info[originPoints[2]] + info[originPoints[3]]) / 4.0f / SCALE_IN_GAME);
+            }
+        }
+
+        if (lines.Count > 0) {
+            var idxByLine = new Dictionary<Line, int>();
+            var linesByPoint = new Dictionary<Point, List<Line>>();
+            foreach (var line in lines) {
+                idxByLine.Add(line, idxByLine.Count);
+
+                foreach (var p in line.GetPoints()) {
+                    if (!linesByPoint.ContainsKey(p)) {
+                        linesByPoint.Add(p, new List<Line>());
+                    }
+                    linesByPoint[p].Add(line);
+                }
+            }
+
+            var newLines = new List<Line>();
+            Point lastPoint = null;
+            var processedLines = new Dictionary<Line, bool>();
+            var processedPoints = new Dictionary<Point, bool>();
+            while (processedLines.Count != lines.Count) {
+                var ok = false;
+                if (!(lastPoint is null)) {
+                    foreach (var line in linesByPoint[lastPoint]) {
+                        if (!processedLines.ContainsKey(line)) {
+                            processedLines.Add(line, true);
+                            newLines.Add(line);
+                            ok = true;
+                            break;
+                        }
+                    }
+
+                    if (!ok) {
+                        processedPoints.Add(lastPoint, true);
+                        var lastLine = newLines.Last();
+                        lastPoint = lastPoint == lastLine.p1 ? lastLine.p2 : lastLine.p1;
+                        if (processedPoints.ContainsKey(lastPoint)) {
+                            lastPoint = null;
+                        }
+                    }
+                }
+
+                if (!ok && lastPoint is null) {
+                    Edge e = null;
+                    if (newLines.Count > 0) {
+                        e = new Edge(newLines.Last().p1, newLines.Last().p2);
+                    }
+                    foreach (var line in lines) {
+                        if (!processedLines.ContainsKey(line)) {
+                            foreach (var p in line.GetPoints()) {
+                                if (!(e is null) && (lastPoint is null || MMath.GetDistance(e, p) < MMath.GetDistance(e, lastPoint))) {
+                                    lastPoint = p;
+                                }
+
+                                if (e is null && (lastPoint is null || p.x < lastPoint.x)) {
+                                    lastPoint = p;
+                                }
+                                // if (lastPoint is null || p.x < lastPoint.x) {
+                                //     lastPoint = p;
+                                //     break;
+                                // }
+                            }
+                        }
+                    }
+                }
+            }
+
+            Debug.Assert(newLines.Count == lines.Count);
+
+            var newValues = new List<float>();
+            foreach (var line in newLines) {
+                newValues.Add(values[idxByLine[line]]);
+            }
+
+            lines = newLines;
+            values = newValues;
+        }
+
+        var strLines = new List<string>();
+        for (var i = 0; i < lines.Count; ++i) {
+            var p1 = lines[i].p1;
+            var p2 = lines[i].p2;
+            strLines.Add($"({p1.x};{p1.y};{p1.z})-({p2.x};{p2.y};{p2.z})\t{values[i]}");
+        }
+
+        watch.Stop();
+        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of export paint data");
+
+        return strLines;
+    }
+
+    private void ExportPaintData() {
+        if (texturePaintResult is null) {
+            Debug.Log("Unable ExportPaintData: texturePaintResult is null");
+            return;
+        }
+
+        if (paintTexturePlaneGameObject is null || paintTexturePlane is null) {
+            Debug.Log("Unable ExportPaintData: paintTexturePlane is null");
+            return;
+        }
+
+        Debug.Log("ExportPaintData");
+
+        var dialog = new SaveFileDialog {
+            InitialDirectory = Utils.GetStoreFolder(),
+            Filter = "text files (*.txt)|*.txt",
+            RestoreDirectory = false
+        };
+
+        if (dialog.ShowDialog() == DialogResult.OK) {
+            File.WriteAllLines(dialog.FileName, GetExportPaintData());
         }
     }
 

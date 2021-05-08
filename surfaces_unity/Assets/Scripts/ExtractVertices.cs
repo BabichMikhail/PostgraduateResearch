@@ -59,8 +59,9 @@ public class ExtractVertices : MonoBehaviour {
     public float paintHeight;
     public float paintLateralAllowance;
     public float paintLongitudinalAllowance;
-    public float maxPaintRobotSpeed = 0.0f;
-    public float maxPaintRobotAcceleration = 0.0f;
+    public float paintLineWidth;
+    public float maxPaintRobotSpeed;
+    public float maxPaintRobotAcceleration;
 
     [Header("Paint speed and performance")]
     public int pointPerSecondDrawingSpeed = 0;
@@ -103,6 +104,7 @@ public class ExtractVertices : MonoBehaviour {
         public float paintHeight;
         public float paintLateralAllowance;
         public float paintLongitudinalAllowance;
+        public float paintLineWidth;
         public float maxPaintRobotSpeed;
         public float maxPaintRobotAcceleration;
 
@@ -178,6 +180,7 @@ public class ExtractVertices : MonoBehaviour {
         v.paintHeight = k * paintHeight;
         v.paintLateralAllowance = k * paintLateralAllowance;
         v.paintLongitudinalAllowance = k * paintLongitudinalAllowance;
+        v.paintLineWidth = k * paintLineWidth;
         v.maxPaintRobotSpeed = k * maxPaintRobotSpeed;
         v.maxPaintRobotAcceleration = k * maxPaintRobotAcceleration;
         v.maxTriangleSquare = k * k * maxTriangleSquare;
@@ -279,7 +282,9 @@ public class ExtractVertices : MonoBehaviour {
         Debug.Log($"Summary figure square: {triangles.Sum(x => x.GetSquare())}. Triangle count: {triangles.Count}.");
 
         var watch = Stopwatch.StartNew();
-        var pathFinder = PathFinderFactory.Create(pathFinderType, v.paintRadius, v.paintHeight, v.paintLateralAllowance, v.paintLongitudinalAllowance);
+        var pathFinder = PathFinderFactory.Create(
+            pathFinderType, v.paintRadius, v.paintHeight, v.paintLateralAllowance, v.paintLongitudinalAllowance, v.paintLineWidth
+        );
         path = pathFinder.GetPath(triangles);
 
         watch.Stop();
@@ -474,6 +479,7 @@ public class ExtractVertices : MonoBehaviour {
                     paintHeight = paintHeight,
                     paintLateralAllowance = paintLateralAllowance,
                     paintLongitudinalAllowance = paintLongitudinalAllowance,
+                    paintLineWidth = paintLineWidth,
                     maxPaintRobotSpeed = maxPaintRobotSpeed,
                     maxPaintRobotAcceleration = maxPaintRobotAcceleration,
 
@@ -525,6 +531,7 @@ public class ExtractVertices : MonoBehaviour {
         paintHeight = settings.paintHeight;
         paintLateralAllowance = settings.paintLateralAllowance;
         paintLongitudinalAllowance = settings.paintLongitudinalAllowance;
+        paintLineWidth = settings.paintLineWidth;
         maxPaintRobotSpeed = settings.maxPaintRobotSpeed;
         maxPaintRobotAcceleration = settings.maxPaintRobotAcceleration;
 
@@ -711,7 +718,7 @@ public class ExtractVertices : MonoBehaviour {
         var watch = Stopwatch.StartNew();
 
         var dp = Utils.VtoP(paintTexturePlaneGameObject.transform.position) - paintTexturePlanePosition;
-        paintTexturePlane = new Plane(paintTexturePlane.p1 + dp, paintTexturePlane.p2 + dp, paintTexturePlane.p3 + dp);
+        var cPaintTexturePlane = new Plane(paintTexturePlane.p1 + dp, paintTexturePlane.p2 + dp, paintTexturePlane.p3 + dp);
 
         var lines = new List<Line>();
         var values = new List<float>();
@@ -722,7 +729,7 @@ public class ExtractVertices : MonoBehaviour {
             var pp = new List<Point>();
             foreach (var e in t.GetEdges()) {
                 var ok = false;
-                var point = MMath.Intersect(paintTexturePlane, new Line(e.p1, e.p2), true);
+                var point = MMath.Intersect(cPaintTexturePlane, new Line(e.p1, e.p2), true);
 
                 pp.Add(point);
 

@@ -343,6 +343,7 @@ MonoBehaviour:
   paintHeight: 300
   paintLateralAllowance: 0
   paintLongitudinalAllowance: 0
+  paintLineWidth: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
   pointPerSecondDrawingSpeed: 0
@@ -421,6 +422,7 @@ MonoBehaviour:
   paintHeight: 300
   paintLateralAllowance: 50
   paintLongitudinalAllowance: 300
+  paintLineWidth: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
   pointPerSecondDrawingSpeed: 0
@@ -1612,6 +1614,7 @@ MonoBehaviour:
   paintHeight: 300
   paintLateralAllowance: 50
   paintLongitudinalAllowance: 300
+  paintLineWidth: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
   pointPerSecondDrawingSpeed: 0
@@ -1750,6 +1753,7 @@ MonoBehaviour:
   paintHeight: 100
   paintLateralAllowance: 50
   paintLongitudinalAllowance: 300
+  paintLineWidth: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
   pointPerSecondDrawingSpeed: 0
@@ -3242,19 +3246,20 @@ MonoBehaviour:
   drawApproximatedPathWithAcceleration: 0
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
-  paintRadius: 0.5
-  paintHeight: 0.75
-  paintLateralAllowance: 0.5
-  paintLongitudinalAllowance: 0.75
+  paintSpeed: 1
+  paintRadius: 0.1
+  paintHeight: 0.3
+  paintLateralAllowance: 0.05
+  paintLongitudinalAllowance: 0.3
+  paintLineWidth: 0.1
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
-  maxTriangleSquare: 0.001
-  linearPathStep: 0.1
+  maxTriangleSquare: 0.0001
+  linearPathStep: 0.01
 --- !u!65 &1573978197
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3385,6 +3390,7 @@ MonoBehaviour:
   paintHeight: 300
   paintLateralAllowance: 0
   paintLongitudinalAllowance: 0
+  paintLineWidth: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
   pointPerSecondDrawingSpeed: 0
@@ -4231,14 +4237,15 @@ MonoBehaviour:
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
+  paintLineWidth: 0.1
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
-  maxTriangleSquare: 0.001
-  linearPathStep: 0.1
+  maxTriangleSquare: 0.0001
+  linearPathStep: 0.02
 --- !u!65 &2057064423
 BoxCollider:
   m_ObjectHideFlags: 0

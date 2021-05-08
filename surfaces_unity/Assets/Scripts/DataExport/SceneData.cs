@@ -31,6 +31,7 @@ namespace DataExport {
         public float paintHeight;
         public float paintLateralAllowance;
         public float paintLongitudinalAllowance;
+        public float paintLineWidth;
         public float maxPaintRobotSpeed;
         public float maxPaintRobotAcceleration;
 

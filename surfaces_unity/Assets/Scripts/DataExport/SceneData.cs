@@ -156,16 +156,18 @@ namespace DataExport {
         public PointData direction;
         public PositionData position;
         public float speedMultiplier;
+        public float speedDecelerationMultiplier;
 
         public RobotPositionData(RobotPosition rp) {
             point = new PointData(rp.point);
             direction = new PointData(rp.direction);
             position = new PositionData(rp.position);
             speedMultiplier = rp.speedMultiplier;
+            speedDecelerationMultiplier = rp.speedDecelerationMultiplier;
         }
 
         public RobotPosition GetRobotPosition() {
-            return new RobotPosition(point.GetPoint(), direction.GetPoint(), position.GetPosition(), speedMultiplier);
+            return new RobotPosition(point.GetPoint(), direction.GetPoint(), position.GetPosition(), speedMultiplier, speedDecelerationMultiplier);
         }
     }
 
@@ -260,27 +262,22 @@ namespace DataExport {
     public class TexturePaintResultData {
         public List<TriangleData> triangles = new List<TriangleData>();
         public List<PaintAmountItems> paintAmountData = new List<PaintAmountItems>();
-        public List<ColorInfoItems> colorInfoData = new List<ColorInfoItems>();
 
         public TexturePaintResultData(TexturePaintResult result) {
             foreach (var t in result.triangles) {
                 var td = new TriangleData(t);
                 var paintAmountItem = new PaintAmountItems();
-                var colorInfoItem = new ColorInfoItems();
                 foreach (var p in t.GetPoints()) {
                     paintAmountItem.items.Add(result.paintAmount[t][p]);
-                    colorInfoItem.items.Add(new ColorData(result.colorInfo[t][p]));
                 }
 
                 triangles.Add(td);
                 paintAmountData.Add(paintAmountItem);
-                colorInfoData.Add(colorInfoItem);
             }
         }
 
         public TexturePaintResult GetTexturePaintResult() {
             var result = new TexturePaintResult {
-                colorInfo = new Dictionary<Triangle, Dictionary<Point, MColor>>(),
                 paintAmount = new Dictionary<Triangle, Dictionary<Point, float>>(),
                 triangles = new List<Triangle>(),
             };
@@ -291,16 +288,13 @@ namespace DataExport {
 
                 var j = 0;
                 var paintAmounts = new Dictionary<Point, float>();
-                var colorInfo = new Dictionary<Point, MColor>();
                 foreach (var p in t.GetPoints()) {
                     paintAmounts.Add(p, paintAmountData[i].items[j]);
-                    colorInfo.Add(p, colorInfoData[i].items[j].GetColor());
                     ++j;
                 }
 
                 result.triangles.Add(t);
                 result.paintAmount.Add(t, paintAmounts);
-                result.colorInfo.Add(t, colorInfo);
                 ++i;
             }
 

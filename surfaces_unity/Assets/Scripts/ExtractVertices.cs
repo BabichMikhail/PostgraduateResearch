@@ -40,16 +40,6 @@ public class ExtractVertices : MonoBehaviour {
     private List<GameObject> paintRobots = new List<GameObject>();
 
     [Header("Draw settings")]
-    public bool drawSurfacePath = false;
-    public bool drawOriginPath = false;
-    public bool drawFromOriginToSurfacePath = false;
-    public bool drawFoundPath = false;
-    public bool drawApproximatedPath = false;
-    public bool drawPathStepByStep = false;
-    public bool drawDiffWithLinearPath = false;
-    public bool drawLinearPath = false;
-    public bool drawApproximatedPathWithSpeed = false;
-    public bool drawApproximatedPathWithAcceleration = false;
     public float paintRobotScale = 1.0f;
 
     [Header("Paint parameters")]
@@ -73,7 +63,7 @@ public class ExtractVertices : MonoBehaviour {
     public float maxTriangleSquare = 1000000;
     public float linearPathStep = 0.005f;
 
-    private CommonPaintSettings commonPaintSettings = null;
+    private CommonSettings commonSettings = null;
 
     private Button exportPathDataButton = null;
     private Button drawFigureButton = null;
@@ -141,7 +131,14 @@ public class ExtractVertices : MonoBehaviour {
         gameObject.GetComponent<MeshRenderer>().material = material;
     }
 
-    private void SetColoredVertices(List<Triangle> triangles, Dictionary<Triangle, Dictionary<Point, MColor>> colorInfo) {
+    private void SetColoredVertices(List<Triangle> triangles, Dictionary<Triangle, Dictionary<Point, float>> paintAmount) {
+        var maxAmount = 0.0f;
+        foreach (var amountItem in paintAmount) {
+            foreach (var amount in amountItem.Value) {
+                maxAmount = Math.Max(maxAmount, amount.Value);
+            }
+        }
+
         var meshTriangles = new List<int>();
         var meshVertices = new List<Vector3>();
         var meshColors = new List<Color>();
@@ -150,9 +147,9 @@ public class ExtractVertices : MonoBehaviour {
                 meshTriangles.Add(meshVertices.Count);
                 meshVertices.Add(Utils.PtoV(p));
                 var color = Color.white;
-                if (colorInfo.ContainsKey(t) && colorInfo[t].ContainsKey(p)) {
-                    var c = colorInfo[t][p];
-                    color = new Color(c.r, c.g, c.b, c.a);
+                if (paintAmount.ContainsKey(t) && paintAmount[t].ContainsKey(p)) {
+                    var amount = paintAmount[t][p];
+                    color = new Color(amount / maxAmount, 0, 0, 1);
                 }
                 meshColors.Add(color);
             }
@@ -237,7 +234,7 @@ public class ExtractVertices : MonoBehaviour {
 
         rotationCube = GameObject.Find("RotationCube");
 
-        commonPaintSettings = GameObject.Find("Settings").GetComponent<CommonPaintSettings>();
+        commonSettings = GameObject.Find("Settings").GetComponent<CommonSettings>();
 
         baseTriangles = GetTriangles();
 
@@ -312,7 +309,7 @@ public class ExtractVertices : MonoBehaviour {
         watch.Restart();
 
         var pathBuilder = new RobotPathBuilder();
-        robotPathProcessors = pathBuilder.Build(linearPath, v.paintSpeed);
+        robotPathProcessors = pathBuilder.Build(linearPath, v.paintSpeed, float.NaN);
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of robot path processors building");
@@ -340,12 +337,12 @@ public class ExtractVertices : MonoBehaviour {
         var basePath = app.Approximate(path, v.linearPathStep, triangles);
 
         var pathBuilder = new RobotPathBuilder();
-        robotPathProcessors = pathBuilder.Build(basePath, v.paintSpeed);
+        robotPathProcessors = pathBuilder.Build(basePath, v.paintSpeed, float.NaN);
         for (var i = 0; i < robotPathProcessors.Count; ++i) {
             var rp = robotPathProcessors[i];
 
             var attempts = 0;
-            var maxAttempts = 600;
+            var maxAttempts = 200;
             while (attempts <= maxAttempts) {
                 var robotPath = rp.GetRobotPathData();
                 Debug.Assert(robotPath.items.First().position.type == Position.PositionType.Start);
@@ -389,12 +386,16 @@ public class ExtractVertices : MonoBehaviour {
                 }
                 newPositions.AddRange(positions.GetRange(currentIndex, positions.Count - currentIndex));
 
-                var newRps = pathBuilder.Build(newPositions, v.paintSpeed);
+                var newRps = pathBuilder.Build(newPositions, v.paintSpeed, float.NaN);
                 Debug.Assert(newRps.Count == 1);
                 var newRp = newRps.First();
                 var newRpBadItemIndexes = GetBadRobotPathItemIndexes(newRp.GetRobotPathData());
-                if (newRpBadItemIndexes.Count == 0 || attempts == maxAttempts) {
+                if (newRpBadItemIndexes.Count == 0) {
                     robotPathProcessors[i] = newRp;
+                    break;
+                }
+                if (attempts == maxAttempts) {
+                    robotPathProcessors[i] = pathBuilder.Build(newPositions, v.paintSpeed, v.maxPaintRobotSpeed).First();
                     break;
                 }
 
@@ -462,16 +463,16 @@ public class ExtractVertices : MonoBehaviour {
                     scaleGameToWorldMeter = scaleGameToWorldMeter,
                     sampleScaleToWorldMeter = sampleScaleToWorldMeter,
 
-                    drawSurfacePath = drawSurfacePath,
-                    drawOriginPath = drawOriginPath,
-                    drawFromOriginToSurfacePath = drawFromOriginToSurfacePath,
-                    drawFoundPath = drawFoundPath,
-                    drawApproximatedPath = drawApproximatedPath,
-                    drawPathStepByStep = drawPathStepByStep,
-                    drawDiffWithLinearPath = drawDiffWithLinearPath,
-                    drawLinearPath = drawLinearPath,
-                    drawApproximatedPathWithSpeed = drawApproximatedPathWithSpeed,
-                    drawApproximatedPathWithAcceleration = drawApproximatedPathWithAcceleration,
+                    drawSurfacePath = commonSettings.drawSurfacePath,
+                    drawOriginPath = commonSettings.drawOriginPath,
+                    drawFromOriginToSurfacePath = commonSettings.drawFromOriginToSurfacePath,
+                    drawFoundPath = commonSettings.drawFoundPath,
+                    drawApproximatedPath = commonSettings.drawApproximatedPath,
+                    drawPathStepByStep = commonSettings.drawPathStepByStep,
+                    drawDiffWithLinearPath = commonSettings.drawDiffWithLinearPath,
+                    drawLinearPath = commonSettings.drawLinearPath,
+                    drawApproximatedPathWithSpeed = commonSettings.drawApproximatedPathWithSpeed,
+                    drawApproximatedPathWithAcceleration = commonSettings.drawApproximatedPathWithAcceleration,
                     paintRobotScale = paintRobotScale,
 
                     paintSpeed = paintSpeed,
@@ -514,16 +515,17 @@ public class ExtractVertices : MonoBehaviour {
         scaleGameToWorldMeter = settings.scaleGameToWorldMeter;
         sampleScaleToWorldMeter = settings.sampleScaleToWorldMeter;
 
-        drawSurfacePath = settings.drawSurfacePath;
-        drawOriginPath = settings.drawOriginPath;
-        drawFromOriginToSurfacePath = settings.drawFromOriginToSurfacePath;
-        drawFoundPath = settings.drawFoundPath;
-        drawApproximatedPath = settings.drawApproximatedPath;
-        drawPathStepByStep = settings.drawPathStepByStep;
-        drawDiffWithLinearPath = settings.drawDiffWithLinearPath;
-        drawLinearPath = settings.drawLinearPath;
-        drawApproximatedPathWithSpeed = settings.drawApproximatedPathWithSpeed;
-        drawApproximatedPathWithAcceleration = settings.drawApproximatedPathWithAcceleration;
+        commonSettings.drawSurfacePath = settings.drawSurfacePath;
+        commonSettings.drawOriginPath = settings.drawOriginPath;
+        commonSettings.drawFromOriginToSurfacePath = settings.drawFromOriginToSurfacePath;
+        commonSettings.drawFoundPath = settings.drawFoundPath;
+        commonSettings.drawApproximatedPath = settings.drawApproximatedPath;
+        commonSettings.drawPathStepByStep = settings.drawPathStepByStep;
+        commonSettings.drawDiffWithLinearPath = settings.drawDiffWithLinearPath;
+        commonSettings.drawLinearPath = settings.drawLinearPath;
+        commonSettings.drawApproximatedPathWithSpeed = settings.drawApproximatedPathWithSpeed;
+        commonSettings.drawApproximatedPathWithAcceleration = settings.drawApproximatedPathWithAcceleration;
+
         paintRobotScale = settings.paintRobotScale;
 
         paintSpeed = settings.paintSpeed;
@@ -636,7 +638,7 @@ public class ExtractVertices : MonoBehaviour {
         watch.Restart();
 
         var pathBuilder = new RobotPathBuilder();
-        var fakeRobotPathProcessors = pathBuilder.Build(linearPath, v.paintSpeed);
+        var fakeRobotPathProcessors = pathBuilder.Build(linearPath, v.paintSpeed, v.maxPaintRobotSpeed);
         var fakeRobotPaths = new List<RobotPath>();
         fakeRobotPathProcessors.ForEach(x => fakeRobotPaths.Add(x.GetRobotPathData()));
         // TODO simplify path;
@@ -647,15 +649,15 @@ public class ExtractVertices : MonoBehaviour {
 
         var simulator = new DrawingSimulator();
         var paintConsumptionRateGameSizeUnitsCubicMeterPerSecond =
-            commonPaintSettings.paintConsumptionRateKgPerHour * 1000 / 3600 /
-            commonPaintSettings.paintDensityGramPerCubicMeter *
-            commonPaintSettings.paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3); // M^3 -> MM^3 (scale in game);
+            commonSettings.paintConsumptionRateKgPerHour * 1000 / 3600 /
+            commonSettings.paintDensityGramPerCubicMeter *
+            commonSettings.paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3); // M^3 -> MM^3 (scale in game);
         texturePaintResult = simulator.ProcessPath(
             fakeRobotPaths, triangles, 20 * v.paintHeight, v.paintRadius, v.paintHeight, v.maxTriangleSquare,
             paintConsumptionRateGameSizeUnitsCubicMeterPerSecond
         );
         Debug.Log($"Triangles: {triangles.Count}; {texturePaintResult.triangles.Count}.");
-        SetColoredVertices(texturePaintResult.triangles, texturePaintResult.colorInfo);
+        SetColoredVertices(texturePaintResult.triangles, texturePaintResult.paintAmount);
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of path processing");
@@ -670,7 +672,7 @@ public class ExtractVertices : MonoBehaviour {
         Debug.Log("DrawTexturePaint");
 
         var watch = Stopwatch.StartNew();
-        SetColoredVertices(texturePaintResult.triangles, texturePaintResult.colorInfo);
+        SetColoredVertices(texturePaintResult.triangles, texturePaintResult.paintAmount);
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of drawing texture paint result");
     }
@@ -1019,12 +1021,16 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void OnDrawGizmos() {
+        if (commonSettings is null) {
+            return;
+        }
+
         // TODO Improve draw
         UpdateRobotPathWithSpeed();
 
-        var maxCount = drawPathStepByStep ? Math.Floor(Time.time * 3) : 1e9;
-        if (drawFromOriginToSurfacePath) {
-            if (drawFoundPath && !(path is null)) {
+        var maxCount = commonSettings.drawPathStepByStep ? Math.Floor(Time.time * 3) : 1e9;
+        if (commonSettings.drawFromOriginToSurfacePath) {
+            if (commonSettings.drawFoundPath && !(path is null)) {
                 Gizmos.color = Color.magenta;
                 for (var i = 0; i < (int)Math.Min(path.Count, maxCount); ++i) {
                     var pos = path[i];
@@ -1032,7 +1038,7 @@ public class ExtractVertices : MonoBehaviour {
                 }
             }
 
-            if (drawApproximatedPath && !(robotPathProcessors is null)) {
+            if (commonSettings.drawApproximatedPath && !(robotPathProcessors is null)) {
                 Gizmos.color = Color.cyan;
                 foreach (var robotPath in robotPaths) {
                     foreach (var item in robotPath.items) {
@@ -1047,7 +1053,7 @@ public class ExtractVertices : MonoBehaviour {
             }
         }
 
-        if (drawApproximatedPathWithSpeed) {
+        if (commonSettings.drawApproximatedPathWithSpeed) {
             foreach (var robotPath in robotPaths) {
                 for (var i = 0; i < robotPath.items.Count - 1; ++i) {
                     Gizmos.color = PaintRobotController.GetSpeedColor(robotPath.items[i].speed, v.maxPaintRobotSpeed);
@@ -1060,7 +1066,7 @@ public class ExtractVertices : MonoBehaviour {
             }
         }
 
-        if (drawApproximatedPathWithAcceleration) {
+        if (commonSettings.drawApproximatedPathWithAcceleration) {
             foreach (var robotPath in robotPaths) {
                 for (var i = 0; i < robotPath.items.Count - 1; ++i) {
                     Gizmos.color = PaintRobotController.GetSpeedColor(robotPath.items[i].acceleration, v.maxPaintRobotAcceleration);
@@ -1073,7 +1079,7 @@ public class ExtractVertices : MonoBehaviour {
             }
         }
 
-        if (drawLinearPath && !(linearPath is null)) {
+        if (commonSettings.drawLinearPath && !(linearPath is null)) {
             // Gizmos.color = Color.grey;
             // for (var i = 0; drawSurfacePath && i < linearPath.Count - 1; ++i) {
             //     var pos1 = linearPath[i];
@@ -1090,7 +1096,7 @@ public class ExtractVertices : MonoBehaviour {
             // }
 
             Gizmos.color = Color.blue;
-            for (var i = 0; drawOriginPath && i < linearPath.Count - 1; ++i) {
+            for (var i = 0; commonSettings.drawOriginPath && i < linearPath.Count - 1; ++i) {
                 var pos1 = linearPath[i];
                 var pos2 = linearPath[i + 1];
                 if (pos1.type != Position.PositionType.Finish) {
@@ -1099,8 +1105,8 @@ public class ExtractVertices : MonoBehaviour {
             }
         }
 
-        if (drawOriginPath) {
-            if (drawFoundPath && !(path is null)) {
+        if (commonSettings.drawOriginPath) {
+            if (commonSettings.drawFoundPath && !(path is null)) {
                 Gizmos.color = Color.black;
                 for (var i = 0; i < (int)Math.Min(path.Count - 1, maxCount); ++i) {
                     var pos1 = path[i];
@@ -1111,7 +1117,7 @@ public class ExtractVertices : MonoBehaviour {
                 }
             }
 
-            if (drawApproximatedPath) {
+            if (commonSettings.drawApproximatedPath) {
                 Gizmos.color = Color.black;
                 foreach (var robotPath in robotPaths) {
                     for (var i = 0; i < (int)Math.Min(robotPath.items.Count - 1, maxCount); ++i) {
@@ -1128,7 +1134,7 @@ public class ExtractVertices : MonoBehaviour {
                 //     }
                 // }
 
-                if (drawDiffWithLinearPath) {
+                if (commonSettings.drawDiffWithLinearPath) {
                     Gizmos.color = Color.blue;
                     foreach (var robotPath in robotPaths) {
                         for (var i = 0; i < (int) Math.Min(robotPath.items.Count - 1, maxCount); ++i) {
@@ -1146,7 +1152,7 @@ public class ExtractVertices : MonoBehaviour {
                     // }
                 }
 
-                // if (drawDiffWithLinearPath && !(linearPath is null)) {
+                // if (commonSettings.drawDiffWithLinearPath && !(linearPath is null)) {
                 //     {
                 //         Gizmos.color = Color.yellow;
                 //         var i = 0;
@@ -1169,7 +1175,7 @@ public class ExtractVertices : MonoBehaviour {
                 //         }
                 //     }
                 //
-                // if (drawLinearPath && !(linearPath is null)) {
+                // if (commonSettings.drawLinearPath && !(linearPath is null)) {
                 //     Gizmos.color = Color.white;
                 //
                 //     for (var i = 0; i < linearPath.Count - 1; ++i) {
@@ -1197,8 +1203,8 @@ public class ExtractVertices : MonoBehaviour {
             }
         }
 
-        if (drawSurfacePath) {
-            if (drawFoundPath && !(path is null)) {
+        if (commonSettings.drawSurfacePath) {
+            if (commonSettings.drawFoundPath && !(path is null)) {
                 Gizmos.color = Color.blue;
                 for (var i = 0; i < (int)Math.Min(path.Count - 1, maxCount); ++i) {
                     var pos1 = path[i];
@@ -1212,7 +1218,7 @@ public class ExtractVertices : MonoBehaviour {
                 }
             }
 
-            if (drawApproximatedPath) {
+            if (commonSettings.drawApproximatedPath) {
                 // Gizmos.color = Color.green;
                 Gizmos.color = Color.blue;
                 foreach (var robotPath in robotPaths) {

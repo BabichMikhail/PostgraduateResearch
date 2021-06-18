@@ -20,7 +20,6 @@ namespace DataExport {
         public bool drawFoundPath;
         public bool drawApproximatedPath;
         public bool drawPathStepByStep;
-        public bool drawDiffWithLinearPath;
         public bool drawLinearPath;
         public bool drawApproximatedPathWithSpeed;
         public bool drawApproximatedPathWithAcceleration;
@@ -42,6 +41,7 @@ namespace DataExport {
 
         public float maxTriangleSquare;
         public float linearPathStep;
+        public float yRotation;
     }
 
     [Serializable]

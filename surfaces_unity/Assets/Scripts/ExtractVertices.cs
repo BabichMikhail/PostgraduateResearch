@@ -62,21 +62,10 @@ public class ExtractVertices : MonoBehaviour {
     [Header("Other")]
     public float maxTriangleSquare = 1000000;
     public float linearPathStep = 0.005f;
+    public float yRotation = 0.0f;
+    public bool needRunExperiment = false;
 
     private CommonSettings commonSettings = null;
-
-    private Button exportPathDataButton = null;
-    private Button drawFigureButton = null;
-    private Button initializePathButton = null;
-    private Button simplifyPathButton = null;
-    private Button createPaintRobotsButton = null;
-    private Button resetGeneratedPointsButton = null;
-    private Button saveDataButton = null;
-    private Button loadDataButton = null;
-    private Button calculateTexturePaintButton = null;
-    private Button drawTexturePaintButton = null;
-    private Button createPlaneForExportPaintDataButton = null;
-    private Button exportPaintDataButton = null;
 
     private GameObject rotationCube = null;
     private List<Triangle> baseTriangles = null;
@@ -84,7 +73,8 @@ public class ExtractVertices : MonoBehaviour {
     private List<Position> linearPath = null;
     private List<RobotPathProcessor> robotPathProcessors = new List<RobotPathProcessor>();
     private GameObject paintPointsHolder = null;
-    private int currentPointCount = 0;
+
+    private readonly List<RobotPath> robotPaths = new List<RobotPath>();
 
     private TexturePaintResult texturePaintResult = null;
 
@@ -184,7 +174,7 @@ public class ExtractVertices : MonoBehaviour {
         v.linearPathStep = k * linearPathStep;
     }
 
-    private List<Triangle> GetTriangles() {
+    private List<Triangle> LoadTriangles() {
         var watch = Stopwatch.StartNew();
         var result = new StlTriangleHandler(Path.Combine(Utils.GetDataFolder(), sampleName, "data.stl")).GetTriangles();
         watch.Stop();
@@ -196,47 +186,47 @@ public class ExtractVertices : MonoBehaviour {
     public void Awake() {
         UpdateScaledVariables();
 
-        exportPathDataButton = GameObject.Find("ExportPathDataButton").GetComponent<Button>();
+        var exportPathDataButton = GameObject.Find("ExportPathDataButton").GetComponent<Button>();
         exportPathDataButton.onClick.AddListener(ExportPathData);
 
-        drawFigureButton = GameObject.Find("DrawFigureButton").GetComponent<Button>();
+        var drawFigureButton = GameObject.Find("DrawFigureButton").GetComponent<Button>();
         drawFigureButton.onClick.AddListener(InitializeFigure);
 
-        initializePathButton = GameObject.Find("InitializePathButton").GetComponent<Button>();
+        var initializePathButton = GameObject.Find("InitializePathButton").GetComponent<Button>();
         initializePathButton.onClick.AddListener(InitializePath);
 
-        simplifyPathButton = GameObject.Find("SimplifyPathButton").GetComponent<Button>();
+        var simplifyPathButton = GameObject.Find("SimplifyPathButton").GetComponent<Button>();
         simplifyPathButton.onClick.AddListener(SimplifyPath);
 
-        createPaintRobotsButton = GameObject.Find("CreatePaintRobotsButton").GetComponent<Button>();
+        var createPaintRobotsButton = GameObject.Find("CreatePaintRobotsButton").GetComponent<Button>();
         createPaintRobotsButton.onClick.AddListener(CreatePaintRobots);
 
-        resetGeneratedPointsButton = GameObject.Find("ResetGeneratedPointsButton").GetComponent<Button>();
+        var resetGeneratedPointsButton = GameObject.Find("ResetGeneratedPointsButton").GetComponent<Button>();
         resetGeneratedPointsButton.onClick.AddListener(ResetGeneratedPoints);
 
-        saveDataButton = GameObject.Find("SaveDataButton").GetComponent<Button>();
-        saveDataButton.onClick.AddListener(SaveData);
+        var saveDataButton = GameObject.Find("SaveDataButton").GetComponent<Button>();
+        saveDataButton.onClick.AddListener(delegate { SaveData(); });
 
-        loadDataButton = GameObject.Find("LoadDataButton").GetComponent<Button>();
+        var loadDataButton = GameObject.Find("LoadDataButton").GetComponent<Button>();
         loadDataButton.onClick.AddListener(LoadData);
 
-        calculateTexturePaintButton = GameObject.Find("CalculateTexturePaintButton").GetComponent<Button>();
+        var calculateTexturePaintButton = GameObject.Find("CalculateTexturePaintButton").GetComponent<Button>();
         calculateTexturePaintButton.onClick.AddListener(CalculateTexturePaint);
 
-        drawTexturePaintButton = GameObject.Find("DrawTexturePaintButton").GetComponent<Button>();
+        var drawTexturePaintButton = GameObject.Find("DrawTexturePaintButton").GetComponent<Button>();
         drawTexturePaintButton.onClick.AddListener(DrawTexturePaint);
 
-        createPlaneForExportPaintDataButton = GameObject.Find("CreatePlaneForExportPaintDataButton").GetComponent<Button>();
-        createPlaneForExportPaintDataButton.onClick.AddListener(CreatePlaneForExportPaintData);
+        var createPlaneForExportPaintDataButton = GameObject.Find("CreatePlaneForExportPaintDataButton").GetComponent<Button>();
+        createPlaneForExportPaintDataButton.onClick.AddListener(delegate { CreatePlaneForExportPaintData(0); });
 
-        exportPaintDataButton = GameObject.Find("ExportPaintDataButton").GetComponent<Button>();
-        exportPaintDataButton.onClick.AddListener(ExportPaintData);
+        var exportPaintDataButton = GameObject.Find("ExportPaintDataButton").GetComponent<Button>();
+        exportPaintDataButton.onClick.AddListener(delegate { ExportPaintData(); });
 
         rotationCube = GameObject.Find("RotationCube");
 
         commonSettings = GameObject.Find("Settings").GetComponent<CommonSettings>();
 
-        baseTriangles = GetTriangles();
+        baseTriangles = LoadTriangles();
 
         paintPointsHolder = new GameObject {
             name = "PaintPointsHolder"
@@ -247,15 +237,33 @@ public class ExtractVertices : MonoBehaviour {
         paintPointsHolder.GetComponent<MeshRenderer>().material = material;
     }
 
+    private void RunExperiment() {
+        var folder = "1";
+
+        InitializePath();
+        SimplifyPath();
+        CalculateTexturePaint();
+        SaveData(Path.Combine(Utils.GetStoreFolder(), "generated", folder, "data", $"{sampleName}_{name}.txt"));
+
+        for (var i = 0; i < robotPathProcessors.Count; ++i) {
+            CreatePlaneForExportPaintData(i);
+            ExportPaintData(Path.Combine(Utils.GetStoreFolder(), "generated", folder, "experiments", $"{sampleName}_{name}_path_{i}.txt"));
+        }
+    }
+
     private List<Triangle> GetFigureTriangles() {
+        var angles = Quaternion.identity.eulerAngles;
+        angles.y += yRotation;
+        var extraRotation = Quaternion.Euler(angles);
+
         var rotatedTriangles = new List<Triangle>();
         var rotation = rotationCube.transform.rotation;
         var k = sampleScaleToWorldMeter * SCALE_IN_GAME;
         foreach (var triangle in baseTriangles) {
             rotatedTriangles.Add(new Triangle(
-                Utils.VtoP(rotation * Utils.PtoV(triangle.p1) * k),
-                Utils.VtoP(rotation * Utils.PtoV(triangle.p2) * k),
-                Utils.VtoP(rotation * Utils.PtoV(triangle.p3) * k)
+                Utils.VtoP(extraRotation * rotation * Utils.PtoV(triangle.p1) * k),
+                Utils.VtoP(extraRotation * rotation * Utils.PtoV(triangle.p2) * k),
+                Utils.VtoP(extraRotation * rotation * Utils.PtoV(triangle.p3) * k)
             ));
         }
 
@@ -270,7 +278,7 @@ public class ExtractVertices : MonoBehaviour {
         DrawFigure(GetFigureTriangles());
     }
 
-    private void InitializePath() {
+    public void InitializePath() {
         Debug.Log("InitializePath");
 
         var triangles = GetFigureTriangles();
@@ -433,14 +441,20 @@ public class ExtractVertices : MonoBehaviour {
         }
     }
 
-    private void SaveData() {
-        var dialog = new SaveFileDialog {
-            InitialDirectory = Utils.GetStoreFolder(),
-            Filter = "text files (*.txt)|*.txt",
-            RestoreDirectory = false
-        };
+    private void SaveData(string filename = "") {
+        if (filename.Length == 0) {
+            var dialog = new SaveFileDialog {
+                InitialDirectory = Utils.GetStoreFolder(),
+                Filter = "text files (*.txt)|*.txt",
+                RestoreDirectory = false
+            };
 
-        if (dialog.ShowDialog() == DialogResult.OK) {
+            if (dialog.ShowDialog() == DialogResult.OK) {
+                filename = dialog.FileName;
+            }
+        }
+
+        if (filename.Length > 0) {
             var robotsData = new List<DataExport.RobotPathProcessorData>();
             var id = 0;
             foreach (var rpp in robotPathProcessors) {
@@ -469,7 +483,6 @@ public class ExtractVertices : MonoBehaviour {
                     drawFoundPath = commonSettings.drawFoundPath,
                     drawApproximatedPath = commonSettings.drawApproximatedPath,
                     drawPathStepByStep = commonSettings.drawPathStepByStep,
-                    drawDiffWithLinearPath = commonSettings.drawDiffWithLinearPath,
                     drawLinearPath = commonSettings.drawLinearPath,
                     drawApproximatedPathWithSpeed = commonSettings.drawApproximatedPathWithSpeed,
                     drawApproximatedPathWithAcceleration = commonSettings.drawApproximatedPathWithAcceleration,
@@ -491,6 +504,7 @@ public class ExtractVertices : MonoBehaviour {
 
                     maxTriangleSquare = maxTriangleSquare,
                     linearPathStep = linearPathStep,
+                    yRotation = yRotation,
                 },
                 state = new DataExport.SceneState {
                     isPaintRobotsCreated = paintRobots.Count > 0,
@@ -503,8 +517,8 @@ public class ExtractVertices : MonoBehaviour {
                 baseTriangles = baseTriangles.Select(t => new DataExport.TriangleData(t)).ToList(),
             };
 
-            File.WriteAllText(dialog.FileName, JsonUtility.ToJson(data));
-            Debug.Log(dialog.FileName);
+            File.WriteAllText(filename, JsonUtility.ToJson(data));
+            Debug.Log(filename);
         }
     }
 
@@ -521,7 +535,6 @@ public class ExtractVertices : MonoBehaviour {
         commonSettings.drawFoundPath = settings.drawFoundPath;
         commonSettings.drawApproximatedPath = settings.drawApproximatedPath;
         commonSettings.drawPathStepByStep = settings.drawPathStepByStep;
-        commonSettings.drawDiffWithLinearPath = settings.drawDiffWithLinearPath;
         commonSettings.drawLinearPath = settings.drawLinearPath;
         commonSettings.drawApproximatedPathWithSpeed = settings.drawApproximatedPathWithSpeed;
         commonSettings.drawApproximatedPathWithAcceleration = settings.drawApproximatedPathWithAcceleration;
@@ -544,6 +557,7 @@ public class ExtractVertices : MonoBehaviour {
 
         maxTriangleSquare = settings.maxTriangleSquare;
         linearPathStep = settings.linearPathStep;
+        yRotation = settings.yRotation;
 
         rotationCube.transform.rotation = data.rotationDataCube.GetQuaternion();
 
@@ -677,11 +691,9 @@ public class ExtractVertices : MonoBehaviour {
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of drawing texture paint result");
     }
 
-    private Plane paintTexturePlane = null;
-    private Point paintTexturePlanePosition = null;
     private GameObject paintTexturePlaneGameObject = null;
 
-    private void CreatePlaneForExportPaintData() {
+    private void CreatePlaneForExportPaintData(int pathIdx = -1) {
         if (texturePaintResult is null) {
             Debug.Log("Unable CreatePlaneForExportPaintData: texturePaintResult is null");
             return;
@@ -691,22 +703,27 @@ public class ExtractVertices : MonoBehaviour {
 
         var watch = Stopwatch.StartNew();
 
-        var triangles = GetFigureTriangles();
-        var position = triangles.Aggregate(Point.Zero, (current, t) => current + t.o) / triangles.Count;
-
-        paintTexturePlanePosition = position;
-        paintTexturePlane = new Plane(
-            position,
-            position + Point.Up * SCALE_IN_GAME,
-            position + Point.Right * SCALE_IN_GAME
-        );
-        var n = Utils.PtoV(paintTexturePlane.GetNormal());
-        var rotation = Quaternion.LookRotation(n);
-        rotation = Quaternion.Euler(rotation.eulerAngles + new Vector3(90, 0, 0));
-
         if (!(paintTexturePlaneGameObject is null)) {
             Destroy(paintTexturePlaneGameObject);
         }
+
+        var triangles = GetFigureTriangles();
+        var position = triangles.Aggregate(Point.Zero, (current, t) => current + t.o) / triangles.Count;
+        if (pathIdx != -1) {
+            var items = robotPathProcessors[pathIdx].GetRobotPathData().items;
+            position = items.Aggregate(Point.Zero, (current, t) => current + t.position.surfacePoint) / items.Count;
+        }
+
+        var paintTexturePlanePosition = position;
+        var paintTexturePlane = new Plane(
+            position,
+            position + Point.Up * SCALE_IN_GAME,
+            position + Point.Forward * SCALE_IN_GAME
+        );
+
+        var n = Utils.PtoV(paintTexturePlane.GetNormal());
+        var rotation = Quaternion.LookRotation(n);
+        rotation = Quaternion.Euler(rotation.eulerAngles + new Vector3(90, 0, 0));
 
         paintTexturePlaneGameObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
         paintTexturePlaneGameObject.transform.position = Utils.PtoV(paintTexturePlanePosition);
@@ -719,8 +736,9 @@ public class ExtractVertices : MonoBehaviour {
     private List<string> GetExportPaintData() {
         var watch = Stopwatch.StartNew();
 
-        var dp = Utils.VtoP(paintTexturePlaneGameObject.transform.position) - paintTexturePlanePosition;
-        var cPaintTexturePlane = new Plane(paintTexturePlane.p1 + dp, paintTexturePlane.p2 + dp, paintTexturePlane.p3 + dp);
+        var position = paintTexturePlaneGameObject.transform.position;
+        var n = paintTexturePlaneGameObject.transform.up;
+        var cPaintTexturePlane = new Plane(Utils.VtoP(n), Utils.VtoP(position));
 
         var lines = new List<Line>();
         var values = new List<float>();
@@ -809,7 +827,8 @@ public class ExtractVertices : MonoBehaviour {
                                     lastPoint = p;
                                 }
 
-                                if (e is null && (lastPoint is null || p.x < lastPoint.x)) {
+                                // TODO Bad condition for first point
+                                if (e is null && (lastPoint is null || p.z < lastPoint.z)) {
                                     lastPoint = p;
                                 }
                                 // if (lastPoint is null || p.x < lastPoint.x) {
@@ -846,27 +865,33 @@ public class ExtractVertices : MonoBehaviour {
         return strLines;
     }
 
-    private void ExportPaintData() {
+    private void ExportPaintData(string filename = "") {
         if (texturePaintResult is null) {
             Debug.Log("Unable ExportPaintData: texturePaintResult is null");
             return;
         }
 
-        if (paintTexturePlaneGameObject is null || paintTexturePlane is null) {
+        if (paintTexturePlaneGameObject is null) {
             Debug.Log("Unable ExportPaintData: paintTexturePlane is null");
             return;
         }
 
         Debug.Log("ExportPaintData");
 
-        var dialog = new SaveFileDialog {
-            InitialDirectory = Utils.GetStoreFolder(),
-            Filter = "text files (*.txt)|*.txt",
-            RestoreDirectory = false
-        };
+        if (filename.Length == 0) {
+            var dialog = new SaveFileDialog {
+                InitialDirectory = Utils.GetStoreFolder(),
+                Filter = "text files (*.txt)|*.txt",
+                RestoreDirectory = false
+            };
 
-        if (dialog.ShowDialog() == DialogResult.OK) {
-            File.WriteAllLines(dialog.FileName, GetExportPaintData());
+            if (dialog.ShowDialog() == DialogResult.OK) {
+                filename = dialog.FileName;
+            }
+        }
+
+        if (filename.Length > 0) {
+            File.WriteAllLines(filename, GetExportPaintData());
         }
     }
 
@@ -942,63 +967,12 @@ public class ExtractVertices : MonoBehaviour {
 
         MoveRobot(Time.deltaTime * timeScale);
 
-        foreach (var robot in paintRobots) {
-            // TODO use this drawing
-            continue;
-            var mf = paintPointsHolder.GetComponent<MeshFilter>();
-            var mesh = mf.mesh;
-
-            var controller = robot.GetComponent<PaintRobotController>();
-            var currentDrawingSpeed = pointPerSecondDrawingSpeed;
-            if (currentPointCount >= maxPointCount) {
-                currentDrawingSpeed = 0;
-            }
-            controller.SetPointGenerationSpeed(currentDrawingSpeed);
-
-            var vertices = controller.GetNewPoints();
-            if (vertices.Count == 0) {
-                continue;
-            }
-
-            var triangles = new List<int>();
-            for (var i = 0; i < vertices.Count; ++i) {
-                triangles.Add(i + mesh.vertices.Length);
-            }
-
-            for (var i = 0; i < vertices.Count; ++i) {
-                triangles.Add(vertices.Count - 1 - i + mesh.vertices.Length);
-            }
-
-            var colors = new List<Color>();
-            for (var i = 0; i < vertices.Count; ++i) {
-                colors.Add(Color.red);
-            }
-
-            var meshVertices = mesh.vertices;
-            Array.Resize(ref meshVertices, meshVertices.Length + vertices.Count);
-            Array.Copy(vertices.ToArray(), 0, meshVertices, meshVertices.Length - vertices.Count, vertices.Count);
-
-            var meshTriangles = mesh.triangles;
-            Array.Resize(ref meshTriangles, meshTriangles.Length + triangles.Count);
-            Array.Copy(triangles.ToArray(), 0, meshTriangles, meshTriangles.Length - triangles.Count, triangles.Count);
-
-            var meshColors = mesh.colors;
-            Array.Resize(ref meshColors, meshColors.Length + colors.Count);
-            Array.Copy(colors.ToArray(), 0, meshColors, meshColors.Length - colors.Count, colors.Count);
-
-            mesh.vertices = meshVertices;
-            mesh.triangles = meshTriangles;
-            mesh.colors = meshColors;
-            mesh.RecalculateNormals();
-            mesh.RecalculateBounds();
-            mesh.RecalculateTangents();
-
-            Debug.Log("Point count: " + (mesh.triangles.Length / 1000 * 1000));
-            currentPointCount = mesh.triangles.Length;
+        if (needRunExperiment) {
+            RunExperiment();
+            needRunExperiment = false;
+            gameObject.SetActive(false);
         }
     }
-
-    private readonly List<RobotPath> robotPaths = new List<RobotPath>();
 
     private void UpdateRobotPathWithSpeed() {
         if (!(robotPathProcessors is null)) {
@@ -1025,7 +999,6 @@ public class ExtractVertices : MonoBehaviour {
             return;
         }
 
-        // TODO Improve draw
         UpdateRobotPathWithSpeed();
 
         var maxCount = commonSettings.drawPathStepByStep ? Math.Floor(Time.time * 3) : 1e9;
@@ -1046,10 +1019,6 @@ public class ExtractVertices : MonoBehaviour {
                         Gizmos.DrawLine(Utils.PtoV(pos.originPoint), Utils.PtoV(pos.surfacePoint));
                     }
                 }
-                // for (var i = 0; i < (int)Math.Min(aPath.Count, maxCount); ++i) {
-                //     var pos = aPath[i];
-                //     Gizmos.DrawLine(PtoV(pos.originPoint), PtoV(pos.surfacePoint));
-                // }
             }
         }
 
@@ -1080,27 +1049,14 @@ public class ExtractVertices : MonoBehaviour {
         }
 
         if (commonSettings.drawLinearPath && !(linearPath is null)) {
-            // Gizmos.color = Color.grey;
-            // for (var i = 0; drawSurfacePath && i < linearPath.Count - 1; ++i) {
-            //     var pos1 = linearPath[i];
-            //     var pos2 = linearPath[i + 1];
-            //     if (pos1.type != Position.PositionType.Finish) {
-            //         Gizmos.DrawLine(Utils.PtoV(pos1.surfacePoint), Utils.PtoV(pos2.surfacePoint));
-            //     }
-            // }
-            //
-            // Gizmos.color = Color.gray;
-            // for (var i = 0; drawFromOriginToSurfacePath && i < linearPath.Count; ++i) {
-            //     var pos = linearPath[i];
-            //     Gizmos.DrawLine(Utils.PtoV(pos.originPoint), Utils.PtoV(pos.surfacePoint));
-            // }
-
-            Gizmos.color = Color.blue;
-            for (var i = 0; commonSettings.drawOriginPath && i < linearPath.Count - 1; ++i) {
-                var pos1 = linearPath[i];
-                var pos2 = linearPath[i + 1];
-                if (pos1.type != Position.PositionType.Finish) {
-                    Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
+            if (commonSettings.drawOriginPath) {
+                Gizmos.color = Color.blue;
+                for (var i = 0; i < linearPath.Count - 1; ++i) {
+                    var pos1 = linearPath[i];
+                    var pos2 = linearPath[i + 1];
+                    if (pos1.type != Position.PositionType.Finish) {
+                        Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
+                    }
                 }
             }
         }
@@ -1111,9 +1067,7 @@ public class ExtractVertices : MonoBehaviour {
                 for (var i = 0; i < (int)Math.Min(path.Count - 1, maxCount); ++i) {
                     var pos1 = path[i];
                     var pos2 = path[i + 1];
-                    // if (pos1.type != Position.PositionType.Finish) {
                     Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
-                    // }
                 }
             }
 
@@ -1126,80 +1080,6 @@ public class ExtractVertices : MonoBehaviour {
                         Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
                     }
                 }
-                // for (var i = 0; i < (int)Math.Min(aPath.Count - 1, maxCount); ++i) {
-                //     var pos1 = aPath[i];
-                //     var pos2 = aPath[i + 1];
-                //     if (pos1.type != Position.PositionType.Finish) {
-                //         Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
-                //     }
-                // }
-
-                if (commonSettings.drawDiffWithLinearPath) {
-                    Gizmos.color = Color.blue;
-                    foreach (var robotPath in robotPaths) {
-                        for (var i = 0; i < (int) Math.Min(robotPath.items.Count - 1, maxCount); ++i) {
-                            var pos1 = robotPath.items[i].position;
-                            var pos2 = robotPath.items[i + 1].position;
-                            Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
-                        }
-                    }
-                    // for (var i = 0; i < (int)Math.Min(aPath.Count - 1, maxCount); ++i) {
-                    //     var pos1 = aPath[i];
-                    //     var pos2 = aPath[i + 1];
-                    //     if (pos1.type != Position.PositionType.Finish) {
-                    //         Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
-                    //     }
-                    // }
-                }
-
-                // if (commonSettings.drawDiffWithLinearPath && !(linearPath is null)) {
-                //     {
-                //         Gizmos.color = Color.yellow;
-                //         var i = 0;
-                //         var j = 0;
-                //         while (i < aPath.Count && j < linearPath.Count) {
-                //             var i0 = i;
-                //             for (; i < aPath.Count && aPath[i].type != Position.PositionType.Finish; ++i) {}
-                //
-                //             var j0 = j;
-                //             for (; j < linearPath.Count && linearPath[j].type != Position.PositionType.Finish; ++j) {}
-                //
-                //             for (var k = 0; k < Math.Min(j - j0, i - i0) + 1; ++k) {
-                //                 var pos1 = aPath[i0 + k].originPoint;
-                //                 var pos2 = linearPath[j0 + k].originPoint;
-                //                 Gizmos.DrawLine(Utils.PtoV(pos1), Utils.PtoV(pos2));
-                //             }
-                //
-                //             ++i;
-                //             ++j;
-                //         }
-                //     }
-                //
-                // if (commonSettings.drawLinearPath && !(linearPath is null)) {
-                //     Gizmos.color = Color.white;
-                //
-                //     for (var i = 0; i < linearPath.Count - 1; ++i) {
-                //         var pos1 = linearPath[i];
-                //         var pos2 = linearPath[i + 1];
-                //         if (pos1.type != Position.PositionType.Finish) {
-                //             Gizmos.DrawLine(Utils.PtoV(pos1.surfacePoint), Utils.PtoV(pos2.surfacePoint));
-                //         }
-                //     }
-                //
-                //     for (var i = 0; i < linearPath.Count; ++i) {
-                //         var pos = linearPath[i];
-                //         Gizmos.DrawLine(Utils.PtoV(pos.originPoint), Utils.PtoV(pos.surfacePoint));
-                //     }
-                //
-                //     for (var i = 0; i < linearPath.Count - 1; ++i) {
-                //         var pos1 = linearPath[i];
-                //         var pos2 = linearPath[i + 1];
-                //         if (pos1.type != Position.PositionType.Finish) {
-                //             Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
-                //         }
-                //     }
-                // }
-                // }
             }
         }
 
@@ -1210,25 +1090,18 @@ public class ExtractVertices : MonoBehaviour {
                     var pos1 = path[i];
                     var pos2 = path[i + 1];
                     if (pos1.type != Position.PositionType.Finish) {
-                        Gizmos.DrawLine(
-                            Utils.PtoV(pos1.surfacePoint) - Utils.PtoV(pos1.paintDirection) * 1e-4f,
-                            Utils.PtoV(pos2.surfacePoint) - Utils.PtoV(pos2.paintDirection) * 1e-4f
-                        );
+                        Gizmos.DrawLine(Utils.PtoV(pos1.surfacePoint), Utils.PtoV(pos2.surfacePoint));
                     }
                 }
             }
 
             if (commonSettings.drawApproximatedPath) {
-                // Gizmos.color = Color.green;
                 Gizmos.color = Color.blue;
                 foreach (var robotPath in robotPaths) {
                     for (var i = 0; i < (int)Math.Min(robotPath.items.Count - 1, maxCount); ++i) {
                         var pos1 = robotPath.items[i].position;
                         var pos2 = robotPath.items[i + 1].position;
-                        Gizmos.DrawLine(
-                            Utils.PtoV(pos1.surfacePoint) - Utils.PtoV(pos1.paintDirection) * 5 * 1e-4f,
-                            Utils.PtoV(pos2.surfacePoint) - Utils.PtoV(pos2.paintDirection) * 5 * 1e-4f
-                        );
+                        Gizmos.DrawLine(Utils.PtoV(pos1.surfacePoint), Utils.PtoV(pos2.surfacePoint));
                     }
                 }
             }

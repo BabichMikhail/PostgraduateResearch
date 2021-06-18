@@ -190,7 +190,9 @@ MonoBehaviour:
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.001
-  linearPathStep: 0.01
+  linearPathStep: 0.05
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &9300404
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -413,6 +415,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &127795117
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -602,6 +606,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 1000000
   linearPathStep: 5
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!1 &137775563
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +677,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 1000000
   linearPathStep: 5
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &137775566
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -801,6 +809,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &175593625
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -880,7 +890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &190183113
 Transform:
   m_ObjectHideFlags: 0
@@ -931,6 +941,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &190183115
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1093,6 +1105,7 @@ RectTransform:
   - {fileID: 881155932}
   - {fileID: 256197292}
   - {fileID: 1249336669}
+  - {fileID: 1851592993}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1772,8 +1785,8 @@ MonoBehaviour:
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
   scaleGameToWorldMeter: 1
-  sampleScaleToWorldMeter: 0.001
-  paintRobotScale: 0.1
+  sampleScaleToWorldMeter: 0.1
+  paintRobotScale: 0.001
   pathFinderType: 0
   paintSpeed: 1
   paintRadius: 0.1
@@ -1789,6 +1802,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &397566202
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1919,6 +1934,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &434406086
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2113,20 +2130,22 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.1
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
-  maxPaintRobotSpeed: 120
+  maxPaintRobotSpeed: 0.1
   maxPaintRobotAcceleration: 10000000
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
-  maxTriangleSquare: 0.0001
+  maxTriangleSquare: 0.001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &456890407
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2503,6 +2522,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 1000000
   linearPathStep: 5
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &541864059
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2633,6 +2654,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &629882460
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2762,6 +2785,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 1000000
   linearPathStep: 5
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &705964132
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3011,6 +3036,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &792874210
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4144,6 +4171,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &1387493185
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4213,6 +4242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1460391419}
+  - component: {fileID: 1460391420}
   m_Layer: 0
   m_Name: Objects
   m_TagString: Untagged
@@ -4256,6 +4286,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1460391420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460391418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035d6ccfcc57f554398b9b0bc0fbe23e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  samples:
+  - {fileID: 9300401}
+  maxSpeeds:
+  - 0.1
+  - 0.2
+  - 0.4
+  - 1
+  - 120
+  yRotations:
+  - 0
+  - 35
+  - 70
 --- !u!1 &1472597467
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,7 +4366,7 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.1
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
@@ -4324,8 +4378,10 @@ MonoBehaviour:
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
-  maxTriangleSquare: 0.0001
-  linearPathStep: 0.01
+  maxTriangleSquare: 0.001
+  linearPathStep: 0.05
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &1472597470
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4655,6 +4711,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &1573978197
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4785,6 +4843,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &1580340964
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4914,6 +4974,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 1000000
   linearPathStep: 5
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &1704227016
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5118,6 +5180,84 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1794349234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1794349235}
+  - component: {fileID: 1794349237}
+  - component: {fileID: 1794349236}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1794349235
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794349234}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1851592993}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1794349236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794349234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Run Experiments
+--- !u!222 &1794349237
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794349234}
+  m_CullTransparentMesh: 0
 --- !u!1 &1817249115
 GameObject:
   m_ObjectHideFlags: 0
@@ -5171,13 +5311,13 @@ MonoBehaviour:
   paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
     type: 3}
   scaleGameToWorldMeter: 1
-  sampleScaleToWorldMeter: 0.001
+  sampleScaleToWorldMeter: 0.0005
   paintRobotScale: 0.1
   pathFinderType: 0
   paintSpeed: 1
   paintRadius: 0.1
   paintHeight: 0.3
-  paintLateralAllowance: 0.05
+  paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
   maxPaintRobotSpeed: 120
@@ -5188,6 +5328,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &1817249118
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5486,6 +5628,125 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1844949976}
   m_CullTransparentMesh: 0
+--- !u!1 &1851592992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1851592993}
+  - component: {fileID: 1851592996}
+  - component: {fileID: 1851592995}
+  - component: {fileID: 1851592994}
+  m_Layer: 5
+  m_Name: RunExperimentsButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1851592993
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851592992}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1794349235}
+  m_Father: {fileID: 214075580}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 159, y: 0}
+  m_SizeDelta: {x: 159, y: 30}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1851592994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851592992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1851592995}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1851592995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851592992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1851592996
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851592992}
+  m_CullTransparentMesh: 0
 --- !u!1 &1915769747
 GameObject:
   m_ObjectHideFlags: 0
@@ -5556,6 +5817,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.01
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &1915769750
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5947,7 +6210,6 @@ MonoBehaviour:
   drawFoundPath: 0
   drawApproximatedPath: 1
   drawPathStepByStep: 0
-  drawDiffWithLinearPath: 0
   drawLinearPath: 0
   drawApproximatedPathWithSpeed: 1
   drawApproximatedPathWithAcceleration: 0
@@ -6021,6 +6283,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 100000
   linearPathStep: 0.05
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &2057064423
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6321,6 +6585,8 @@ MonoBehaviour:
   maxPaintRobotPathSimplifyIterations: 10
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
 --- !u!65 &2111701732
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -925,7 +925,7 @@ MonoBehaviour:
     type: 3}
   scaleGameToWorldMeter: 1
   sampleScaleToWorldMeter: 0.001
-  paintRobotScale: 0.1
+  paintRobotScale: 1
   pathFinderType: 0
   paintSpeed: 0.1
   paintRadius: 0.1

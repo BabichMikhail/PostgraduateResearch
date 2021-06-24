@@ -693,20 +693,7 @@ public class ExtractVertices : MonoBehaviour {
 
     private GameObject paintTexturePlaneGameObject = null;
 
-    private void CreatePlaneForExportPaintData(int pathIdx = -1) {
-        if (texturePaintResult is null) {
-            Debug.Log("Unable CreatePlaneForExportPaintData: texturePaintResult is null");
-            return;
-        }
-
-        Debug.Log("CreatePlaneForExportPaintData");
-
-        var watch = Stopwatch.StartNew();
-
-        if (!(paintTexturePlaneGameObject is null)) {
-            Destroy(paintTexturePlaneGameObject);
-        }
-
+    private GameObject CreatePlaneGameObject(int pathIdx = -1) {
         var triangles = GetFigureTriangles();
         var position = triangles.Aggregate(Point.Zero, (current, t) => current + t.o) / triangles.Count;
         if (pathIdx != -1) {
@@ -725,20 +712,35 @@ public class ExtractVertices : MonoBehaviour {
         var rotation = Quaternion.LookRotation(n);
         rotation = Quaternion.Euler(rotation.eulerAngles + new Vector3(90, 0, 0));
 
-        paintTexturePlaneGameObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        paintTexturePlaneGameObject.transform.position = Utils.PtoV(paintTexturePlanePosition);
-        paintTexturePlaneGameObject.transform.rotation = rotation;
+        var planeGameObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        planeGameObject.transform.position = Utils.PtoV(paintTexturePlanePosition);
+        planeGameObject.transform.rotation = rotation;
+
+        return planeGameObject;
+    }
+
+    private void CreatePlaneForExportPaintData(int pathIdx = -1) {
+        if (texturePaintResult is null) {
+            Debug.Log("Unable CreatePlaneForExportPaintData: texturePaintResult is null");
+            return;
+        }
+
+        Debug.Log("CreatePlaneForExportPaintData");
+
+        var watch = Stopwatch.StartNew();
+
+        if (!(paintTexturePlaneGameObject is null)) {
+            Destroy(paintTexturePlaneGameObject);
+        }
+
+        paintTexturePlaneGameObject = CreatePlaneGameObject(pathIdx);
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of creating plane for export paint data");
     }
 
-    private List<string> GetExportPaintData() {
+    private List<string> GetExportPaintData(Plane paintTexturePlane) {
         var watch = Stopwatch.StartNew();
-
-        var position = paintTexturePlaneGameObject.transform.position;
-        var n = paintTexturePlaneGameObject.transform.up;
-        var cPaintTexturePlane = new Plane(Utils.VtoP(n), Utils.VtoP(position));
 
         var lines = new List<Line>();
         var values = new List<float>();
@@ -749,7 +751,7 @@ public class ExtractVertices : MonoBehaviour {
             var pp = new List<Point>();
             foreach (var e in t.GetEdges()) {
                 var ok = false;
-                var point = MMath.Intersect(cPaintTexturePlane, new Line(e.p1, e.p2), true);
+                var point = MMath.Intersect(paintTexturePlane, new Line(e.p1, e.p2), true);
 
                 pp.Add(point);
 
@@ -891,7 +893,9 @@ public class ExtractVertices : MonoBehaviour {
         }
 
         if (filename.Length > 0) {
-            File.WriteAllLines(filename, GetExportPaintData());
+            var position = paintTexturePlaneGameObject.transform.position;
+            var n = paintTexturePlaneGameObject.transform.up;
+            File.WriteAllLines(filename, GetExportPaintData(new Plane(Utils.VtoP(n), Utils.VtoP(position))));
         }
     }
 
@@ -1067,7 +1071,9 @@ public class ExtractVertices : MonoBehaviour {
                 for (var i = 0; i < (int)Math.Min(path.Count - 1, maxCount); ++i) {
                     var pos1 = path[i];
                     var pos2 = path[i + 1];
-                    Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
+                    if (pos1.type != Position.PositionType.Finish) {
+                        Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
+                    }
                 }
             }
 

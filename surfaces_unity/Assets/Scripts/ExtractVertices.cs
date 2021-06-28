@@ -66,9 +66,9 @@ public class ExtractVertices : MonoBehaviour {
 
     private GameObject rotationCube = null;
     private List<Triangle> baseTriangles = null;
-    private List<Position> path = null;
-    private List<Position> linearPath = null;
-    private List<RobotPathProcessor> robotPathProcessors = new List<RobotPathProcessor>();
+    private List<RobotPathProcessor> baseRobotPathProcessors = new List<RobotPathProcessor>();
+    private List<RobotPathProcessor> simplifiedRobotPathProcessors = new List<RobotPathProcessor>();
+    private List<RobotPathProcessor> linearRobotPathProcessors = new List<RobotPathProcessor>();
     private GameObject paintPointsHolder = null;
 
     private TexturePaintResult texturePaintResult = null;
@@ -212,7 +212,7 @@ public class ExtractVertices : MonoBehaviour {
         drawTexturePaintButton.onClick.AddListener(DrawTexturePaint);
 
         var createPlaneForExportPaintDataButton = GameObject.Find("CreatePlaneForExportPaintDataButton").GetComponent<Button>();
-        createPlaneForExportPaintDataButton.onClick.AddListener(delegate { CreatePlaneForExportPaintData(0); });
+        createPlaneForExportPaintDataButton.onClick.AddListener(delegate { CreatePlaneForExportPaintData(); });
 
         var exportPaintDataButton = GameObject.Find("ExportPaintDataButton").GetComponent<Button>();
         exportPaintDataButton.onClick.AddListener(delegate { ExportPaintData(); });
@@ -233,16 +233,17 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void RunExperiment() {
-        var folder = "1";
+        var folder = "2";
 
         InitializePath();
         SimplifyPath();
         CalculateTexturePaint();
         SaveData(Path.Combine(Utils.GetStoreFolder(), "generated", folder, "data", $"{sampleName}_{name}.txt"));
 
-        for (var i = 0; i < robotPathProcessors.Count; ++i) {
+        for (var i = 0; i < simplifiedRobotPathProcessors.Count; ++i) {
             CreatePlaneForExportPaintData(i);
             ExportPaintData(Path.Combine(Utils.GetStoreFolder(), "generated", folder, "experiments", $"{sampleName}_{name}_path_{i}.txt"));
+            DestroyPlaneForExportPaintData();
         }
     }
 
@@ -285,7 +286,8 @@ public class ExtractVertices : MonoBehaviour {
         var pathFinder = PathFinderFactory.Create(
             pathFinderType, v.paintRadius, v.paintHeight, v.paintLateralAllowance, v.paintLongitudinalAllowance, v.paintLineWidth
         );
-        path = pathFinder.GetPath(triangles);
+        var basePaths = pathFinder.GetPaths(triangles);
+        baseRobotPathProcessors = RobotPathProcessorBuilder.Build(basePaths, v.paintSpeed, float.NaN);
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of path calculation");
@@ -299,30 +301,31 @@ public class ExtractVertices : MonoBehaviour {
         // var app = new LinearApproximation(true);
         // var app = new SecondOrderApproximation();
         // var app = new ThirdOrderApproximation();
-        // aPath = app.Approximate(path, 30.0f, triangles);
+        // aPaths = app.Approximate(basePaths, 30.0f, triangles);
 
         // var app2 = new Bezier5Approximation(false);
-        // aPath = app2.Approximate(aPath, 5.0f, triangles);
+        // aPaths = app2.Approximate(aPaths, 5.0f, triangles);
 
         var app3 = new LinearApproximation(false);
-        linearPath = app3.Approximate(path, v.linearPathStep, triangles);
+        var linearPaths = new List<List<Position>>();
+        basePaths.ForEach(x => linearPaths.Add(app3.Approximate(x, v.linearPathStep, triangles)));
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of path approximation");
         watch.Restart();
 
-        var pathBuilder = new RobotPathBuilder();
-        robotPathProcessors = pathBuilder.Build(linearPath, v.paintSpeed, float.NaN);
+        linearRobotPathProcessors = RobotPathProcessorBuilder.Build(linearPaths, v.paintSpeed, float.NaN);
+        simplifiedRobotPathProcessors = new List<RobotPathProcessor>(linearRobotPathProcessors);
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of robot path processors building");
     }
 
-    private List<int> GetBadRobotPathItemIndexes(RobotPath robotPath) {
+    private List<int> GetBadRobotPathItemIndexes(List<RobotPathItem> robotPathItems) {
         var result = new List<int>();
-        for (var j = 1; j < robotPath.items.Count - 1; ++j) {
-            var item = robotPath.items[j];
-            if (item.speed > v.maxPaintRobotSpeed || Math.Abs(item.acceleration) > v.maxPaintRobotAcceleration) {
+        for (var j = 0; j < robotPathItems.Count; ++j) {
+            var item = robotPathItems[j];
+            if (item.GetSpeedMultiplier() * v.paintSpeed > v.maxPaintRobotSpeed) {
                 result.Add(j);
             }
         }
@@ -331,33 +334,22 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void SimplifyPath() {
-        if (path is null) {
-            return;
-        }
-
         var triangles = GetFigureTriangles();
-        var app = new LinearApproximation(true);
-        var basePath = app.Approximate(path, v.linearPathStep, triangles);
 
-        var pathBuilder = new RobotPathBuilder();
-        robotPathProcessors = pathBuilder.Build(basePath, v.paintSpeed, float.NaN);
-        for (var i = 0; i < robotPathProcessors.Count; ++i) {
-            var rp = robotPathProcessors[i];
+        simplifiedRobotPathProcessors = new List<RobotPathProcessor>(linearRobotPathProcessors);
+        for (var i = 0; i < simplifiedRobotPathProcessors.Count; ++i) {
+            var rp = simplifiedRobotPathProcessors[i];
 
             var attempts = 0;
             var maxAttempts = 200;
             while (attempts <= maxAttempts) {
-                var robotPath = rp.GetRobotPathData();
-                Debug.Assert(robotPath.items.First().position.type == Position.PositionType.Start);
-                Debug.Assert(robotPath.items.Last().position.type == Position.PositionType.Finish);
+                var robotPathItems = rp.GetRobotPathItems();
+                Debug.Assert(robotPathItems.First().a.type == Position.PositionType.Start);
+                Debug.Assert(robotPathItems.Last().b.type == Position.PositionType.Finish);
 
-                var badItemIndexes = GetBadRobotPathItemIndexes(robotPath);
+                var badItemIndexes = GetBadRobotPathItemIndexes(robotPathItems);
                 var r = attempts + 1;
-                var segments = new List<KeyValuePair<int, int>>();
-                for (var j = 0; j < badItemIndexes.Count; ++j) {
-                    var idx = badItemIndexes[j];
-                    segments.Add(new KeyValuePair<int, int>(Math.Max(1, idx - r), Math.Min(robotPath.items.Count - 2, idx + r)));
-                }
+                var segments = badItemIndexes.Select(idx => new KeyValuePair<int, int>(Math.Max(1, idx - r), Math.Min(robotPathItems.Count - 2, idx + r))).ToList();
 
                 var mergedSegments = new List<KeyValuePair<int, int>>();
                 for (var j = 0; j < segments.Count; ++j) {
@@ -370,35 +362,37 @@ public class ExtractVertices : MonoBehaviour {
                     j = k - 1;
                 }
 
-                var positions = new List<Position>();
-                foreach (var robotPosition in rp.GetRobotPositions()) {
-                    positions.Add(robotPosition.position);
-                }
-
-                var newPositions = new List<Position>();
+                var newRobotPathItems = new List<RobotPathItem>();
                 var currentIndex = 0;
                 foreach (var segment in mergedSegments) {
                     var from = segment.Key;
                     var count = segment.Value - segment.Key + 1;
 
-                    newPositions.AddRange(positions.GetRange(currentIndex, from - currentIndex));
+                    newRobotPathItems.AddRange(robotPathItems.GetRange(currentIndex, from - currentIndex));
                     var bezierApp = new BezierNApproximation(false, Math.Max(count - 2, 1));
-                    var subPositions = bezierApp.Approximate(positions.GetRange(from, count), 5.0f, triangles);
-                    newPositions.AddRange(subPositions);
+
+                    {
+                        var subItems = robotPathItems.GetRange(from, count);
+                        var badPositions = new List<Position>();
+                        subItems.ForEach(x => badPositions.Add(x.a));
+                        badPositions.Add(robotPathItems.Last().b);
+
+                        var subPositions = bezierApp.Approximate(badPositions, v.linearPathStep, triangles);
+
+                        newRobotPathItems.AddRange(RobotPathProcessorBuilder.BuildRobotPathItems(subPositions));
+                    }
                     currentIndex = from + count;
                 }
-                newPositions.AddRange(positions.GetRange(currentIndex, positions.Count - currentIndex));
+                newRobotPathItems.AddRange(robotPathItems.GetRange(currentIndex, robotPathItems.Count - currentIndex));
 
-                var newRps = pathBuilder.Build(newPositions, v.paintSpeed, float.NaN);
-                Debug.Assert(newRps.Count == 1);
-                var newRp = newRps.First();
-                var newRpBadItemIndexes = GetBadRobotPathItemIndexes(newRp.GetRobotPathData());
+                var newRp = RobotPathProcessorBuilder.Build(newRobotPathItems, v.paintSpeed, float.NaN);
+                var newRpBadItemIndexes = GetBadRobotPathItemIndexes(newRp.GetRobotPathItems());
                 if (newRpBadItemIndexes.Count == 0) {
-                    robotPathProcessors[i] = newRp;
+                    simplifiedRobotPathProcessors[i] = newRp;
                     break;
                 }
                 if (attempts == maxAttempts) {
-                    robotPathProcessors[i] = pathBuilder.Build(newPositions, v.paintSpeed, v.maxPaintRobotSpeed).First();
+                    simplifiedRobotPathProcessors[i] = RobotPathProcessorBuilder.Build(newRobotPathItems, v.paintSpeed, v.maxPaintRobotSpeed);
                     break;
                 }
 
@@ -413,18 +407,19 @@ public class ExtractVertices : MonoBehaviour {
     private void CreatePaintRobots() {
         var objectTriangles = GetFigureTriangles();
         paintRobots = new List<GameObject>();
-        foreach (var rpp in robotPathProcessors) {
-            var pos = rpp.Move(0.0f);
-            var robot = Instantiate(paintRobotPrefab, Utils.PtoV(pos.point), Quaternion.LookRotation(Utils.PtoV(pos.direction), Vector3.up));
-            var controller = robot.GetComponent<PaintRobotController>();
-            controller.SetMaxSpeed(v.maxPaintRobotSpeed);
-            controller.SetPaintHeight(v.paintHeight);
-            controller.SetPaintRadius(v.paintRadius);
-            controller.SetPointGenerationSpeed(pointPerSecondDrawingSpeed);
-            controller.SetObjectTriangles(objectTriangles);
-            robot.transform.localScale *= paintRobotScale;
-            paintRobots.Add(robot);
-        }
+        // TODO
+        // foreach (var rpp in simplifiedRobotPathProcessors) {
+        //     var pos = rpp.Move(0.0f);
+        //     var robot = Instantiate(paintRobotPrefab, Utils.PtoV(pos.point), Quaternion.LookRotation(Utils.PtoV(pos.direction), Vector3.up));
+        //     var controller = robot.GetComponent<PaintRobotController>();
+        //     controller.SetMaxSpeed(v.maxPaintRobotSpeed);
+        //     controller.SetPaintHeight(v.paintHeight);
+        //     controller.SetPaintRadius(v.paintRadius);
+        //     controller.SetPointGenerationSpeed(pointPerSecondDrawingSpeed);
+        //     controller.SetObjectTriangles(objectTriangles);
+        //     robot.transform.localScale *= paintRobotScale;
+        //     paintRobots.Add(robot);
+        // }
     }
 
     private void ResetGeneratedPoints() {
@@ -450,9 +445,9 @@ public class ExtractVertices : MonoBehaviour {
         if (filename.Length > 0) {
             var robotsData = new List<DataExport.RobotPathProcessorData>();
             var id = 0;
-            foreach (var rpp in robotPathProcessors) {
+            foreach (var rpp in simplifiedRobotPathProcessors) {
                 var drawingPositions = new List<Position>();
-                if (paintRobots.Count == robotPathProcessors.Count) {
+                if (paintRobots.Count == simplifiedRobotPathProcessors.Count) {
                     drawingPositions = paintRobots[id].GetComponent<PaintRobotController>().GetDrawingPositions();
                 }
                 robotsData.Add(new DataExport.RobotPathProcessorData(id, rpp, drawingPositions));
@@ -475,7 +470,6 @@ public class ExtractVertices : MonoBehaviour {
                     drawFromOriginToSurfacePath = commonSettings.drawFromOriginToSurfacePath,
                     drawFoundPath = commonSettings.drawFoundPath,
                     drawApproximatedPath = commonSettings.drawApproximatedPath,
-                    drawPathStepByStep = commonSettings.drawPathStepByStep,
                     drawLinearPath = commonSettings.drawLinearPath,
                     drawApproximatedPathWithSpeed = commonSettings.drawApproximatedPathWithSpeed,
                     drawApproximatedPathWithAcceleration = commonSettings.drawApproximatedPathWithAcceleration,
@@ -504,8 +498,9 @@ public class ExtractVertices : MonoBehaviour {
                 },
                 rotationDataCube = new DataExport.ObjectRotationData(rotationCube.transform.rotation),
                 robots = robotsData,
-                path = path.Select(position => new DataExport.PositionData(position)).ToList(),
-                linearPath = linearPath.Select(position => new DataExport.PositionData(position)).ToList(),
+                // TODO fix save data
+                // path = path.Select(position => new DataExport.PositionData(position)).ToList(),
+                // linearPath = linearPath.Select(position => new DataExport.PositionData(position)).ToList(),
                 texturePaintResult = texturePaintResultData,
                 baseTriangles = baseTriangles.Select(t => new DataExport.TriangleData(t)).ToList(),
             };
@@ -527,7 +522,6 @@ public class ExtractVertices : MonoBehaviour {
         commonSettings.drawFromOriginToSurfacePath = settings.drawFromOriginToSurfacePath;
         commonSettings.drawFoundPath = settings.drawFoundPath;
         commonSettings.drawApproximatedPath = settings.drawApproximatedPath;
-        commonSettings.drawPathStepByStep = settings.drawPathStepByStep;
         commonSettings.drawLinearPath = settings.drawLinearPath;
         commonSettings.drawApproximatedPathWithSpeed = settings.drawApproximatedPathWithSpeed;
         commonSettings.drawApproximatedPathWithAcceleration = settings.drawApproximatedPathWithAcceleration;
@@ -572,21 +566,22 @@ public class ExtractVertices : MonoBehaviour {
         UpdateScaledVariables();
         DrawFigure(GetFigureTriangles());
 
-        path = new List<Position>();
-        foreach (var positionData in data.path) {
-            path.Add(positionData.GetPosition());
-        }
+        // TODO
+        // path = new List<Position>();
+        // foreach (var positionData in data.path) {
+        //     path.Add(positionData.GetPosition());
+        // }
+        //
+        // linearPath = new List<Position>();
+        // foreach (var positionData in data.linearPath) {
+        //     linearPath.Add(positionData.GetPosition());
+        // }
 
-        linearPath = new List<Position>();
-        foreach (var positionData in data.linearPath) {
-            linearPath.Add(positionData.GetPosition());
-        }
-
-        robotPathProcessors = new List<RobotPathProcessor>();
+        simplifiedRobotPathProcessors = new List<RobotPathProcessor>();
         foreach (var rd in data.robots) {
             var rpp = rd.GetRobotPathProcessor();
-            rpp.SetBaseSpeed(v.paintSpeed);
-            robotPathProcessors.Add(rpp);
+            rpp.SetSurfaceSpeed(v.paintSpeed);
+            simplifiedRobotPathProcessors.Add(rpp);
         }
 
         paintRobots.Clear();
@@ -627,7 +622,7 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void CalculateTexturePaint() {
-        if (path is null) {
+        if (baseRobotPathProcessors.Count == 0) {
             Debug.Log("Unable to CalculateTexturePaint. Path is null");
             return;
         }
@@ -636,20 +631,6 @@ public class ExtractVertices : MonoBehaviour {
         var triangles = GetFigureTriangles();
 
         var watch = Stopwatch.StartNew();
-
-        var app = new LinearApproximation(false);
-        var tmpPath = app.Approximate(path, v.linearPathStep, triangles);
-        Debug.Log("Position count: " + tmpPath.Count);
-
-        watch.Stop();
-        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of prepare path");
-        watch.Restart();
-
-        var pathBuilder = new RobotPathBuilder();
-        var fakeRobotPathProcessors = pathBuilder.Build(linearPath, v.paintSpeed, v.maxPaintRobotSpeed);
-        var fakeRobotPaths = new List<RobotPath>();
-        fakeRobotPathProcessors.ForEach(x => fakeRobotPaths.Add(x.GetRobotPathData()));
-        // TODO simplify path;
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of calculate robot path with speeds");
@@ -660,7 +641,7 @@ public class ExtractVertices : MonoBehaviour {
             commonSettings.paintDensityGramPerCubicMeter *
             commonSettings.paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3); // M^3 -> MM^3 (scale in game);
         texturePaintResult = new DrawingSimulator().ProcessPath(
-            fakeRobotPaths, triangles, 20 * v.paintHeight, v.paintRadius, v.paintHeight, v.maxTriangleSquare,
+            simplifiedRobotPathProcessors, triangles, 20 * v.paintHeight, v.paintRadius, v.paintHeight, v.maxTriangleSquare,
             paintConsumptionRateGameSizeUnitsCubicMeterPerSecond
         );
         Debug.Log($"Triangles: {triangles.Count}; {texturePaintResult.triangles.Count}.");
@@ -690,8 +671,8 @@ public class ExtractVertices : MonoBehaviour {
         var triangles = GetFigureTriangles();
         var position = triangles.Aggregate(Point.Zero, (current, t) => current + t.o) / triangles.Count;
         if (pathIdx != -1) {
-            var items = robotPathProcessors[pathIdx].GetRobotPathData().items;
-            position = items.Aggregate(Point.Zero, (current, t) => current + t.position.surfacePoint) / items.Count;
+            var items = simplifiedRobotPathProcessors[pathIdx].GetRobotPathItems();
+            position = items.Aggregate(Point.Zero, (current, t) => current + t.a.surfacePoint + t.b.surfacePoint) / (2 * items.Count);
         }
 
         var paintTexturePlanePosition = position;
@@ -722,19 +703,18 @@ public class ExtractVertices : MonoBehaviour {
 
         var watch = Stopwatch.StartNew();
 
-        if (!(paintTexturePlaneGameObject is null)) {
-            Destroy(paintTexturePlaneGameObject);
-        }
-
+        DestroyPlaneForExportPaintData();
         paintTexturePlaneGameObject = CreatePlaneGameObject(pathIdx);
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of creating plane for export paint data");
     }
 
-    private List<string> GetPaintDataForExport(TexturePaintResult paintResult, Plane paintTexturePlane) {
-        var watch = Stopwatch.StartNew();
+    private void DestroyPlaneForExportPaintData() {
+        Destroy(paintTexturePlaneGameObject);
+    }
 
+    private List<string> GetPaintDataForExport(TexturePaintResult paintResult, Plane paintTexturePlane) {
         var lines = new List<Line>();
         var values = new List<float>();
         foreach (var t in paintResult.triangles) {
@@ -846,9 +826,6 @@ public class ExtractVertices : MonoBehaviour {
             strLines.Add($"({p1.x};{p1.y};{p1.z})-({p2.x};{p2.y};{p2.z})\t{values[i]}");
         }
 
-        watch.Stop();
-        Debug.Log(watch.ElapsedMilliseconds + " ms. Time of export paint data");
-
         return strLines;
     }
 
@@ -880,65 +857,80 @@ public class ExtractVertices : MonoBehaviour {
         if (filename.Length > 0) {
             var position = paintTexturePlaneGameObject.transform.position;
             var n = paintTexturePlaneGameObject.transform.up;
-            File.WriteAllLines(filename, GetPaintDataForExport(texturePaintResult, new Plane(Utils.VtoP(n), Utils.VtoP(position))));
+
+            var watch = Stopwatch.StartNew();
+            var exportData = GetPaintDataForExport(texturePaintResult, new Plane(Utils.VtoP(n), Utils.VtoP(position)));
+            watch.Stop();
+            Debug.Log(watch.ElapsedMilliseconds + " ms. Time of export paint data");
+
+            File.WriteAllLines(filename, exportData);
         }
     }
 
     private void MoveRobot(float time) {
-        Debug.Assert(robotPathProcessors.Count == paintRobots.Count || paintRobots.Count == 0);
-        if (robotPathProcessors.Count == paintRobots.Count) {
-            var i = 0;
-            var isFinished = true;
-            foreach (var rp in robotPathProcessors) {
-                isFinished = isFinished && rp.IsFinished();
-
-                var pos = rp.Move(time);
-
-                var robot = paintRobots[i];
-                robot.transform.position = Utils.PtoV(pos.point);
-                robot.transform.rotation = Quaternion.LookRotation(Utils.PtoV(pos.direction), Vector3.up);
-
-                var controller = robot.GetComponent<PaintRobotController>();
-                controller.SetMaxSpeed(v.maxPaintRobotSpeed);
-                controller.SetCurrentSpeed(rp.GetCurrentSpeed());
-                controller.SetMaxAcceleration(v.maxPaintRobotAcceleration);
-                controller.SetCurrentAcceleration(rp.GetCurrentAcceleration());
-
-                ++i;
-            }
-
-            if (isFinished) {
-                foreach (var rp in robotPathProcessors) {
-                    rp.Reset();
-                }
-            }
-        }
+        Debug.Assert(simplifiedRobotPathProcessors.Count == paintRobots.Count || paintRobots.Count == 0);
+        // TODO fix move robot
+        // if (simplifiedRobotPathProcessors.Count == paintRobots.Count) {
+        //     var i = 0;
+        //     var isFinished = true;
+        //     foreach (var rp in simplifiedRobotPathProcessors) {
+        //         isFinished = isFinished && rp.IsFinished();
+        //
+        //         var pos = rp.Move(time);
+        //
+        //         var robot = paintRobots[i];
+        //         robot.transform.position = Utils.PtoV(pos.point);
+        //         robot.transform.rotation = Quaternion.LookRotation(Utils.PtoV(pos.direction), Vector3.up);
+        //
+        //         var controller = robot.GetComponent<PaintRobotController>();
+        //         controller.SetMaxSpeed(v.maxPaintRobotSpeed);
+        //         controller.SetCurrentSpeed(rp.GetCurrentOriginSpeed());
+        //         controller.SetMaxAcceleration(v.maxPaintRobotAcceleration);
+        //         controller.SetCurrentAcceleration(rp.GetCurrentAcceleration());
+        //
+        //         ++i;
+        //     }
+        //
+        //     if (isFinished) {
+        //         foreach (var rp in simplifiedRobotPathProcessors) {
+        //             rp.Reset();
+        //         }
+        //     }
+        // }
     }
 
-    private string StoreState(Point position, float speed, float acceleration, float distance) {
-        return string.Format("{0} {1} {2} {3} {4} {5}",
-            position.x.ToString(new CultureInfo("en-US")),
-            position.y.ToString(new CultureInfo("en-US")),
-            position.z.ToString(new CultureInfo("en-US")),
+    private string StoreState(Point positionA, Point positionB, float speed, float deceleration, double distance) {
+        return string.Format("({0} {1} {2})-({3} {4} {5}) {6} {7} {8}",
+            positionA.x.ToString(new CultureInfo("en-US")),
+            positionA.y.ToString(new CultureInfo("en-US")),
+            positionA.z.ToString(new CultureInfo("en-US")),
+            positionB.x.ToString(new CultureInfo("en-US")),
+            positionB.y.ToString(new CultureInfo("en-US")),
+            positionB.z.ToString(new CultureInfo("en-US")),
             speed.ToString(new CultureInfo("en-US")),
-            acceleration.ToString(new CultureInfo("en-US")),
+            deceleration.ToString(new CultureInfo("en-US")),
             distance.ToString(new CultureInfo("en-US"))
         );
     }
 
     private void ExportPathData() {
-        if (!(robotPathProcessors is null)) {
-            foreach (var rp in robotPathProcessors) {
-                rp.SetBaseSpeed(v.paintSpeed);
+        if (!(simplifiedRobotPathProcessors is null)) {
+            foreach (var rp in simplifiedRobotPathProcessors) {
+                rp.SetSurfaceSpeed(v.paintSpeed);
             }
 
-            var lines = new List<string>{$"{robotPathProcessors.Count}"};
-            foreach (var rp in robotPathProcessors) {
+            var lines = new List<string>{$"{simplifiedRobotPathProcessors.Count}"};
+            foreach (var rp in simplifiedRobotPathProcessors) {
                 var pathLines = new List<string>();
 
-                var pathData = rp.GetRobotPathData();
-                foreach (var item in pathData.items) {
-                    pathLines.Add(StoreState(item.position.originPoint, item.speed, item.acceleration, 0.0f));
+                foreach (var item in rp.GetRobotPathItems()) {
+                    pathLines.Add(StoreState(
+                        item.a.originPoint,
+                        item.b.originPoint,
+                        item.GetSpeedMultiplier(),
+                        item.GetSpeedDecelerationMultiplier(1.0f, float.NaN),
+                        MMath.GetDistance(item.a.originPoint, item.b.originPoint)
+                    ));
                 }
 
                 lines.Add($"{pathLines.Count}");
@@ -953,7 +945,7 @@ public class ExtractVertices : MonoBehaviour {
     private void FixedUpdate() {
         UpdateScaledVariables();
 
-        robotPathProcessors.ForEach(x => x.SetBaseSpeed(v.paintSpeed));
+        simplifiedRobotPathProcessors.ForEach(x => x.SetSurfaceSpeed(v.paintSpeed));
         MoveRobot(Time.deltaTime * timeScale);
 
         if (needRunExperiment) {
@@ -968,112 +960,97 @@ public class ExtractVertices : MonoBehaviour {
             return;
         }
 
-        var robotPaths = new List<RobotPath>();
-        robotPathProcessors.ForEach(x => robotPaths.Add(x.GetRobotPathData()));
-
-        var maxCount = commonSettings.drawPathStepByStep ? Math.Floor(Time.time * 3) : 1e9;
-        if (commonSettings.drawFromOriginToSurfacePath) {
-            if (commonSettings.drawFoundPath && !(path is null)) {
-                Gizmos.color = Color.magenta;
-                for (var i = 0; i < (int)Math.Min(path.Count, maxCount); ++i) {
-                    var pos = path[i];
-                    Gizmos.DrawLine(Utils.PtoV(pos.originPoint), Utils.PtoV(pos.surfacePoint));
-                }
-            }
-
-            if (commonSettings.drawApproximatedPath) {
-                Gizmos.color = Color.cyan;
-                foreach (var robotPath in robotPaths) {
-                    foreach (var item in robotPath.items) {
-                        var pos = item.position;
-                        Gizmos.DrawLine(Utils.PtoV(pos.originPoint), Utils.PtoV(pos.surfacePoint));
-                    }
-                }
-            }
-        }
-
         if (commonSettings.drawApproximatedPathWithSpeed) {
-            foreach (var robotPath in robotPaths) {
-                for (var i = 0; i < robotPath.items.Count - 1; ++i) {
-                    Gizmos.color = PaintRobotController.GetSpeedColor(robotPath.items[i].speed, v.maxPaintRobotSpeed);
-                    var pos1 = robotPath.items[i].position;
-                    var pos2 = robotPath.items[i + 1].position;
-                    if (pos1.type != Position.PositionType.Finish) {
-                        Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
-                    }
+            foreach (var rpp in simplifiedRobotPathProcessors) {
+                foreach (var item in rpp.GetRobotPathItems()) {
+                    Gizmos.color = PaintRobotController.GetSpeedColor(item.GetSpeed(v.paintSpeed, rpp.GetMaxOriginSpeed()), v.maxPaintRobotSpeed);
+                    Gizmos.DrawLine(Utils.PtoV(item.a.originPoint), Utils.PtoV(item.b.originPoint));
                 }
             }
         }
 
         if (commonSettings.drawApproximatedPathWithAcceleration) {
-            foreach (var robotPath in robotPaths) {
-                for (var i = 0; i < robotPath.items.Count - 1; ++i) {
-                    Gizmos.color = PaintRobotController.GetSpeedColor(robotPath.items[i].acceleration, v.maxPaintRobotAcceleration);
-                    var pos1 = robotPath.items[i].position;
-                    var pos2 = robotPath.items[i + 1].position;
-                    if (pos1.type != Position.PositionType.Finish) {
-                        Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
+            foreach (var rpp in simplifiedRobotPathProcessors) {
+                foreach (var item in rpp.GetRobotPathItems()) {
+                    // TODO acceleration;
+                    Gizmos.color = PaintRobotController.GetSpeedColor(item.GetSpeed(v.paintSpeed, rpp.GetMaxOriginSpeed()), v.maxPaintRobotSpeed);
+                    Gizmos.DrawLine(Utils.PtoV(item.a.originPoint), Utils.PtoV(item.b.originPoint));
+                }
+            }
+        }
+
+        if (commonSettings.drawLinearPath) {
+            if (commonSettings.drawOriginPath) {
+                Gizmos.color = Color.blue;
+                foreach (var rpp in simplifiedRobotPathProcessors) {
+                    foreach (var item in rpp.GetRobotPathItems()) {
+                        Gizmos.DrawLine(Utils.PtoV(item.a.originPoint), Utils.PtoV(item.b.originPoint));
                     }
                 }
             }
         }
 
-        if (commonSettings.drawLinearPath && !(linearPath is null)) {
-            if (commonSettings.drawOriginPath) {
-                Gizmos.color = Color.blue;
-                for (var i = 0; i < linearPath.Count - 1; ++i) {
-                    var pos1 = linearPath[i];
-                    var pos2 = linearPath[i + 1];
-                    if (pos1.type != Position.PositionType.Finish) {
-                        Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
+        if (commonSettings.drawFromOriginToSurfacePath) {
+            if (commonSettings.drawFoundPath) {
+                Gizmos.color = Color.magenta;
+                foreach (var rpp in baseRobotPathProcessors) {
+                    foreach (var item in rpp.GetRobotPathItems()) {
+                        Gizmos.DrawLine(Utils.PtoV(item.a.originPoint), Utils.PtoV(item.a.surfacePoint));
+                        if (item.b.type == Position.PositionType.Finish) {
+                            Gizmos.DrawLine(Utils.PtoV(item.b.originPoint), Utils.PtoV(item.b.surfacePoint));
+                        }
+                    }
+                }
+            }
+
+            if (commonSettings.drawApproximatedPath) {
+                Gizmos.color = Color.cyan;
+                foreach (var rpp in simplifiedRobotPathProcessors) {
+                    foreach (var item in rpp.GetRobotPathItems()) {
+                        Gizmos.DrawLine(Utils.PtoV(item.a.originPoint), Utils.PtoV(item.a.surfacePoint));
+                        if (item.b.type == Position.PositionType.Finish) {
+                            Gizmos.DrawLine(Utils.PtoV(item.b.originPoint), Utils.PtoV(item.b.surfacePoint));
+                        }
                     }
                 }
             }
         }
 
         if (commonSettings.drawOriginPath) {
-            if (commonSettings.drawFoundPath && !(path is null)) {
+            if (commonSettings.drawFoundPath) {
                 Gizmos.color = Color.black;
-                for (var i = 0; i < (int)Math.Min(path.Count - 1, maxCount); ++i) {
-                    var pos1 = path[i];
-                    var pos2 = path[i + 1];
-                    if (pos1.type != Position.PositionType.Finish) {
-                        Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
+                foreach (var rpp in baseRobotPathProcessors) {
+                    foreach (var item in rpp.GetRobotPathItems()) {
+                        Gizmos.DrawLine(Utils.PtoV(item.a.originPoint), Utils.PtoV(item.b.originPoint));
                     }
                 }
             }
 
             if (commonSettings.drawApproximatedPath) {
                 Gizmos.color = Color.black;
-                foreach (var robotPath in robotPaths) {
-                    for (var i = 0; i < (int)Math.Min(robotPath.items.Count - 1, maxCount); ++i) {
-                        var pos1 = robotPath.items[i].position;
-                        var pos2 = robotPath.items[i + 1].position;
-                        Gizmos.DrawLine(Utils.PtoV(pos1.originPoint), Utils.PtoV(pos2.originPoint));
+                foreach (var rpp in simplifiedRobotPathProcessors) {
+                    foreach (var item in rpp.GetRobotPathItems()) {
+                        Gizmos.DrawLine(Utils.PtoV(item.a.originPoint), Utils.PtoV(item.b.originPoint));
                     }
                 }
             }
         }
 
         if (commonSettings.drawSurfacePath) {
-            if (commonSettings.drawFoundPath && !(path is null)) {
+            if (commonSettings.drawFoundPath) {
                 Gizmos.color = Color.blue;
-                for (var i = 0; i < (int)Math.Min(path.Count - 1, maxCount); ++i) {
-                    var pos1 = path[i];
-                    var pos2 = path[i + 1];
-                    if (pos1.type != Position.PositionType.Finish) {
-                        Gizmos.DrawLine(Utils.PtoV(pos1.surfacePoint), Utils.PtoV(pos2.surfacePoint));
+                foreach (var rpp in baseRobotPathProcessors) {
+                    foreach (var item in rpp.GetRobotPathItems()) {
+                        Gizmos.DrawLine(Utils.PtoV(item.a.surfacePoint), Utils.PtoV(item.b.surfacePoint));
                     }
                 }
             }
 
             if (commonSettings.drawApproximatedPath) {
                 Gizmos.color = Color.blue;
-                foreach (var robotPath in robotPaths) {
-                    for (var i = 0; i < (int)Math.Min(robotPath.items.Count - 1, maxCount); ++i) {
-                        var pos1 = robotPath.items[i].position;
-                        var pos2 = robotPath.items[i + 1].position;
-                        Gizmos.DrawLine(Utils.PtoV(pos1.surfacePoint), Utils.PtoV(pos2.surfacePoint));
+                foreach (var rpp in simplifiedRobotPathProcessors) {
+                    foreach (var item in rpp.GetRobotPathItems()) {
+                        Gizmos.DrawLine(Utils.PtoV(item.a.surfacePoint), Utils.PtoV(item.b.surfacePoint));
                     }
                 }
             }

@@ -19,7 +19,6 @@ namespace DataExport {
         public bool drawFromOriginToSurfacePath;
         public bool drawFoundPath;
         public bool drawApproximatedPath;
-        public bool drawPathStepByStep;
         public bool drawLinearPath;
         public bool drawApproximatedPathWithSpeed;
         public bool drawApproximatedPathWithAcceleration;
@@ -152,22 +151,16 @@ namespace DataExport {
 
     [Serializable]
     public class RobotPositionData {
-        public PointData point;
-        public PointData direction;
-        public PositionData position;
-        public float speedMultiplier;
-        public float speedDecelerationMultiplier;
+        public readonly PositionData a;
+        public readonly PositionData b;
 
-        public RobotPositionData(RobotPosition rp) {
-            point = new PointData(rp.point);
-            direction = new PointData(rp.direction);
-            position = new PositionData(rp.position);
-            speedMultiplier = rp.speedMultiplier;
-            speedDecelerationMultiplier = rp.speedDecelerationMultiplier;
+        public RobotPositionData(RobotPathItem rpi) {
+            a = new PositionData(rpi.a);
+            b = new PositionData(rpi.b);
         }
 
-        public RobotPosition GetRobotPosition() {
-            return new RobotPosition(point.GetPoint(), direction.GetPoint(), position.GetPosition(), speedMultiplier, speedDecelerationMultiplier);
+        public RobotPathItem GetRobotPosition() {
+            return new RobotPathItem(a.GetPosition(), b.GetPosition());
         }
     }
 
@@ -181,7 +174,7 @@ namespace DataExport {
             this.id = id;
 
             pathPositions = new List<RobotPositionData>();
-            foreach (var p in rpp.GetRobotPositions()) {
+            foreach (var p in rpp.GetRobotPathItems()) {
                 pathPositions.Add(new RobotPositionData(p));
             }
 
@@ -192,7 +185,7 @@ namespace DataExport {
         }
 
         public RobotPathProcessor GetRobotPathProcessor() {
-            var robotPositions = new List<RobotPosition>();
+            var robotPositions = new List<RobotPathItem>();
             foreach (var p in pathPositions) {
                 robotPositions.Add(p.GetRobotPosition());
             }

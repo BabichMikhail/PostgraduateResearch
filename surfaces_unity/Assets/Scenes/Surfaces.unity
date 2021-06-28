@@ -6209,7 +6209,6 @@ MonoBehaviour:
   drawFromOriginToSurfacePath: 1
   drawFoundPath: 0
   drawApproximatedPath: 1
-  drawPathStepByStep: 0
   drawLinearPath: 0
   drawApproximatedPathWithSpeed: 1
   drawApproximatedPathWithAcceleration: 0

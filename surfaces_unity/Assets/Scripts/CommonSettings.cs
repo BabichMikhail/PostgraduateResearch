@@ -14,7 +14,6 @@ public class CommonSettings : MonoBehaviour {
     public bool drawFromOriginToSurfacePath = true;
     public bool drawFoundPath = false;
     public bool drawApproximatedPath = true;
-    public bool drawPathStepByStep = false;
     public bool drawLinearPath = false;
     public bool drawApproximatedPathWithSpeed = true;
     public bool drawApproximatedPathWithAcceleration = false;

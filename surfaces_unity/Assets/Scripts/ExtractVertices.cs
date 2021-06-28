@@ -407,19 +407,18 @@ public class ExtractVertices : MonoBehaviour {
     private void CreatePaintRobots() {
         var objectTriangles = GetFigureTriangles();
         paintRobots = new List<GameObject>();
-        // TODO
-        // foreach (var rpp in simplifiedRobotPathProcessors) {
-        //     var pos = rpp.Move(0.0f);
-        //     var robot = Instantiate(paintRobotPrefab, Utils.PtoV(pos.point), Quaternion.LookRotation(Utils.PtoV(pos.direction), Vector3.up));
-        //     var controller = robot.GetComponent<PaintRobotController>();
-        //     controller.SetMaxSpeed(v.maxPaintRobotSpeed);
-        //     controller.SetPaintHeight(v.paintHeight);
-        //     controller.SetPaintRadius(v.paintRadius);
-        //     controller.SetPointGenerationSpeed(pointPerSecondDrawingSpeed);
-        //     controller.SetObjectTriangles(objectTriangles);
-        //     robot.transform.localScale *= paintRobotScale;
-        //     paintRobots.Add(robot);
-        // }
+        foreach (var rpp in simplifiedRobotPathProcessors) {
+            var pos = rpp.Move(0.0f);
+            var robot = Instantiate(paintRobotPrefab, Utils.PtoV(pos.a.originPoint), Quaternion.LookRotation(Utils.PtoV(pos.a.paintDirection), Vector3.up));
+            var controller = robot.GetComponent<PaintRobotController>();
+            controller.SetMaxSpeed(v.maxPaintRobotSpeed);
+            controller.SetPaintHeight(v.paintHeight);
+            controller.SetPaintRadius(v.paintRadius);
+            controller.SetPointGenerationSpeed(pointPerSecondDrawingSpeed);
+            controller.SetObjectTriangles(objectTriangles);
+            robot.transform.localScale *= paintRobotScale;
+            paintRobots.Add(robot);
+        }
     }
 
     private void ResetGeneratedPoints() {
@@ -869,34 +868,33 @@ public class ExtractVertices : MonoBehaviour {
 
     private void MoveRobot(float time) {
         Debug.Assert(simplifiedRobotPathProcessors.Count == paintRobots.Count || paintRobots.Count == 0);
-        // TODO fix move robot
-        // if (simplifiedRobotPathProcessors.Count == paintRobots.Count) {
-        //     var i = 0;
-        //     var isFinished = true;
-        //     foreach (var rp in simplifiedRobotPathProcessors) {
-        //         isFinished = isFinished && rp.IsFinished();
-        //
-        //         var pos = rp.Move(time);
-        //
-        //         var robot = paintRobots[i];
-        //         robot.transform.position = Utils.PtoV(pos.point);
-        //         robot.transform.rotation = Quaternion.LookRotation(Utils.PtoV(pos.direction), Vector3.up);
-        //
-        //         var controller = robot.GetComponent<PaintRobotController>();
-        //         controller.SetMaxSpeed(v.maxPaintRobotSpeed);
-        //         controller.SetCurrentSpeed(rp.GetCurrentOriginSpeed());
-        //         controller.SetMaxAcceleration(v.maxPaintRobotAcceleration);
-        //         controller.SetCurrentAcceleration(rp.GetCurrentAcceleration());
-        //
-        //         ++i;
-        //     }
-        //
-        //     if (isFinished) {
-        //         foreach (var rp in simplifiedRobotPathProcessors) {
-        //             rp.Reset();
-        //         }
-        //     }
-        // }
+        if (simplifiedRobotPathProcessors.Count == paintRobots.Count) {
+            var i = 0;
+            var isFinished = true;
+            foreach (var rp in simplifiedRobotPathProcessors) {
+                isFinished = isFinished && rp.IsFinished();
+
+                var pos = rp.Move(time);
+
+                var robot = paintRobots[i];
+                robot.transform.position = Utils.PtoV(pos.a.originPoint);
+                robot.transform.rotation = Quaternion.LookRotation(Utils.PtoV(pos.a.paintDirection), Vector3.up);
+
+                var controller = robot.GetComponent<PaintRobotController>();
+                controller.SetMaxSpeed(v.maxPaintRobotSpeed);
+                controller.SetCurrentSpeed(rp.GetCurrentOriginSpeed());
+                controller.SetMaxAcceleration(v.maxPaintRobotAcceleration);
+                controller.SetCurrentAcceleration(rp.GetCurrentAcceleration());
+
+                ++i;
+            }
+
+            if (isFinished) {
+                foreach (var rp in simplifiedRobotPathProcessors) {
+                    rp.Reset();
+                }
+            }
+        }
     }
 
     private string StoreState(Point positionA, Point positionB, float speed, float deceleration, double distance) {

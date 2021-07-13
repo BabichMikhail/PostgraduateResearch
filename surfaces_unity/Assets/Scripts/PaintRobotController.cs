@@ -41,11 +41,12 @@ public class PaintRobotController : MonoBehaviour {
 
     private void UpdateColor() {
         var r = gameObject.GetComponentInChildren<Renderer>();
-        r.material.color = (GetSpeedColor(speed, maxSpeed) + GetAccelerationColor(acceleration, maxAcceleration)) / 2.0f;
+        r.material.color = GetSpeedColor(speed, maxSpeed);
     }
 
     public static Color GetAccelerationColor(float acceleration, float maxAcceleration) {
-        var color = Color.white;
+        Color color;
+        acceleration -= 1e-4f;
         if (acceleration <= 0.75f * maxAcceleration) {
             color = Color.green;
         }
@@ -67,6 +68,7 @@ public class PaintRobotController : MonoBehaviour {
 
     public static Color GetSpeedColor(float speed, float maxSpeed) {
         Color color;
+        speed -= 1e-4f;
         if (speed <= 0.95f * maxSpeed) {
             color = Color.green;
         }

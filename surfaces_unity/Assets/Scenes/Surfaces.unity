@@ -890,7 +890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &190183113
 Transform:
   m_ObjectHideFlags: 0
@@ -933,7 +933,7 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
-  maxPaintRobotSpeed: 0.2
+  maxPaintRobotSpeed: 0.1
   maxPaintRobotAcceleration: 10000000
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
@@ -4299,7 +4299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   samples:
-  - {fileID: 9300401}
+  - {fileID: 190183112}
   maxSpeeds:
   - 0.1
   - 0.2

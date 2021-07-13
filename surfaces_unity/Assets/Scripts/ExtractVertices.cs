@@ -385,12 +385,12 @@ public class ExtractVertices : MonoBehaviour {
                 }
                 newRobotPathItems.AddRange(robotPathItems.GetRange(currentIndex, robotPathItems.Count - currentIndex));
 
-                var newRp = RobotPathProcessorBuilder.Build(newRobotPathItems, v.paintSpeed, float.NaN);
-                var newRpBadItemIndexes = GetBadRobotPathItemIndexes(newRp.GetRobotPathItems());
-                if (newRpBadItemIndexes.Count == 0) {
-                    simplifiedRobotPathProcessors[i] = newRp;
+                var newRpp = RobotPathProcessorBuilder.Build(newRobotPathItems, v.paintSpeed, float.NaN);
+                if (GetBadRobotPathItemIndexes(newRpp.GetRobotPathItems()).Count == 0) {
+                    simplifiedRobotPathProcessors[i] = newRpp;
                     break;
                 }
+
                 if (attempts == maxAttempts) {
                     simplifiedRobotPathProcessors[i] = RobotPathProcessorBuilder.Build(newRobotPathItems, v.paintSpeed, v.maxPaintRobotSpeed);
                     break;
@@ -442,17 +442,6 @@ public class ExtractVertices : MonoBehaviour {
         }
 
         if (filename.Length > 0) {
-            var robotsData = new List<DataExport.RobotPathProcessorData>();
-            var id = 0;
-            foreach (var rpp in simplifiedRobotPathProcessors) {
-                var drawingPositions = new List<Position>();
-                if (paintRobots.Count == simplifiedRobotPathProcessors.Count) {
-                    drawingPositions = paintRobots[id].GetComponent<PaintRobotController>().GetDrawingPositions();
-                }
-                robotsData.Add(new DataExport.RobotPathProcessorData(id, rpp, drawingPositions));
-                ++id;
-            }
-
             DataExport.TexturePaintResultData texturePaintResultData = null;
             if (texturePaintResult != null) {
                 texturePaintResultData = new DataExport.TexturePaintResultData(texturePaintResult);
@@ -496,10 +485,9 @@ public class ExtractVertices : MonoBehaviour {
                     isPaintRobotsCreated = paintRobots.Count > 0,
                 },
                 rotationDataCube = new DataExport.ObjectRotationData(rotationCube.transform.rotation),
-                robots = robotsData,
-                // TODO fix save data
-                // path = path.Select(position => new DataExport.PositionData(position)).ToList(),
-                // linearPath = linearPath.Select(position => new DataExport.PositionData(position)).ToList(),
+                baseRobots = baseRobotPathProcessors.Select(rpp => new DataExport.RobotPathProcessorData(rpp)).ToList(),
+                linearRobots = linearRobotPathProcessors.Select(rpp => new DataExport.RobotPathProcessorData(rpp)).ToList(),
+                simplifiedRobots = simplifiedRobotPathProcessors.Select(rpp => new DataExport.RobotPathProcessorData(rpp)).ToList(),
                 texturePaintResult = texturePaintResultData,
                 baseTriangles = baseTriangles.Select(t => new DataExport.TriangleData(t)).ToList(),
             };
@@ -565,32 +553,19 @@ public class ExtractVertices : MonoBehaviour {
         UpdateScaledVariables();
         DrawFigure(GetFigureTriangles());
 
-        // TODO
-        // path = new List<Position>();
-        // foreach (var positionData in data.path) {
-        //     path.Add(positionData.GetPosition());
-        // }
-        //
-        // linearPath = new List<Position>();
-        // foreach (var positionData in data.linearPath) {
-        //     linearPath.Add(positionData.GetPosition());
-        // }
-
-        simplifiedRobotPathProcessors = new List<RobotPathProcessor>();
-        foreach (var rd in data.robots) {
-            var rpp = rd.GetRobotPathProcessor();
-            rpp.SetSurfaceSpeed(v.paintSpeed);
-            simplifiedRobotPathProcessors.Add(rpp);
-        }
+        baseRobotPathProcessors = data.baseRobots.Select(x => x.GetRobotPathProcessor()).ToList();
+        linearRobotPathProcessors = data.linearRobots.Select(x => x.GetRobotPathProcessor()).ToList();
+        simplifiedRobotPathProcessors = data.simplifiedRobots.Select(x => x.GetRobotPathProcessor()).ToList();
 
         paintRobots.Clear();
         if (data.state.isPaintRobotsCreated) {
             CreatePaintRobots();
 
             var i = 0;
-            foreach (var rd in data.robots) {
-                paintRobots[i].GetComponent<PaintRobotController>().SetDrawingPositions(rd.GetDrawingPositions());
-                ++i;
+            foreach (var rd in data.simplifiedRobots) {
+                // TODO
+                // paintRobots[i].GetComponent<PaintRobotController>().SetDrawingPositions(rd.GetDrawingPositions());
+                // ++i;
             }
         }
     }

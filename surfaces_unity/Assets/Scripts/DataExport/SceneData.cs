@@ -151,8 +151,8 @@ namespace DataExport {
 
     [Serializable]
     public class RobotPositionData {
-        public readonly PositionData a;
-        public readonly PositionData b;
+        public PositionData a;
+        public PositionData b;
 
         public RobotPositionData(RobotPathItem rpi) {
             a = new PositionData(rpi.a);
@@ -166,40 +166,26 @@ namespace DataExport {
 
     [Serializable]
     public class RobotPathProcessorData {
-        public int id;
+        public float surfaceSpeed;
+        public float maxOriginSpeed;
         public List<RobotPositionData> pathPositions;
-        public List<PositionData> drawingPositions;
 
-        public RobotPathProcessorData(int id, RobotPathProcessor rpp, List<Position> robotDrawingPositions) {
-            this.id = id;
-
+        public RobotPathProcessorData(RobotPathProcessor rpp) {
             pathPositions = new List<RobotPositionData>();
             foreach (var p in rpp.GetRobotPathItems()) {
                 pathPositions.Add(new RobotPositionData(p));
             }
 
-            drawingPositions = new List<PositionData>();
-            foreach (var p in robotDrawingPositions) {
-                drawingPositions.Add(new PositionData(p));
-            }
+            surfaceSpeed = rpp.GetSurfaceSpeed();
+            maxOriginSpeed = rpp.GetMaxOriginSpeed();
         }
 
         public RobotPathProcessor GetRobotPathProcessor() {
-            var robotPositions = new List<RobotPathItem>();
-            foreach (var p in pathPositions) {
-                robotPositions.Add(p.GetRobotPosition());
-            }
+            var rpp = new RobotPathProcessor(pathPositions.Select(p => p.GetRobotPosition()).ToList());
+            rpp.SetSurfaceSpeed(surfaceSpeed);
+            rpp.SetMaxOriginSpeed(maxOriginSpeed);
 
-            return new RobotPathProcessor(robotPositions);
-        }
-
-        public List<Position> GetDrawingPositions() {
-            var robotDrawingPositions = new List<Position>();
-            foreach (var p in drawingPositions) {
-                robotDrawingPositions.Add(p.GetPosition());
-            }
-
-            return robotDrawingPositions;
+            return rpp;
         }
     }
 
@@ -300,9 +286,9 @@ namespace DataExport {
         public SceneSettings settings;
         public SceneState state;
         public ObjectRotationData rotationDataCube;
-        public List<RobotPathProcessorData> robots;
-        public List<PositionData> path;
-        public List<PositionData> linearPath;
+        public List<RobotPathProcessorData> baseRobots;
+        public List<RobotPathProcessorData> linearRobots;
+        public List<RobotPathProcessorData> simplifiedRobots;
         public TexturePaintResultData texturePaintResult;
         public TransformData texturePlaneData;
         public List<TriangleData> baseTriangles;

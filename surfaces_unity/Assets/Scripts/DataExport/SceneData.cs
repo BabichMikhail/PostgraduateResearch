@@ -229,7 +229,7 @@ namespace DataExport {
 
     [Serializable]
     public class PaintAmountItems {
-        public List<float> items = new List<float>();
+        public List<double> items = new List<double>();
     }
 
     [Serializable]
@@ -257,7 +257,7 @@ namespace DataExport {
 
         public TexturePaintResult GetTexturePaintResult() {
             var result = new TexturePaintResult {
-                paintAmount = new Dictionary<Triangle, Dictionary<Point, float>>(),
+                paintAmount = new Dictionary<Triangle, Dictionary<Point, double>>(),
                 triangles = new List<Triangle>(),
             };
 
@@ -266,7 +266,7 @@ namespace DataExport {
                 var t = td.GetTriangle();
 
                 var j = 0;
-                var paintAmounts = new Dictionary<Point, float>();
+                var paintAmounts = new Dictionary<Point, double>();
                 foreach (var p in t.GetPoints()) {
                     paintAmounts.Add(p, paintAmountData[i].items[j]);
                     ++j;

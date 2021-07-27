@@ -340,6 +340,11 @@ public class ExtractVertices : MonoBehaviour {
         return result;
     }
 
+    struct MinSquareEquation {
+        public List<List<double>> r;
+        public double h;
+    }
+
     private void SimplifyPath() {
         var triangles = GetFigureTriangles();
 
@@ -430,12 +435,102 @@ public class ExtractVertices : MonoBehaviour {
             Debug.Log("Attempts: " + attempts);
         }
 
-        if (true) {
-            var paintConsumptionRateGameSizeUnitsCubicMeterPerSecond =
-                commonSettings.paintConsumptionRateKgPerHour * 1000 / 3600 /
-                commonSettings.paintDensityGramPerCubicMeter *
-                commonSettings.paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3); // M^3 -> MM^3 (scale in game);
+        var paintConsumptionRateGameSizeUnitsCubicMeterPerSecond =
+            commonSettings.paintConsumptionRateKgPerHour * 1000 / 3600 /
+            commonSettings.paintDensityGramPerCubicMeter *
+            commonSettings.paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3); // M^3 -> MM^3 (scale in game);
 
+        if (true) {
+            var newRobotPathProcessors = new List<RobotPathProcessor>();
+            for (var i = 0; i < simplifiedRobotPathProcessors.Count; ++i) {
+                var rpp = simplifiedRobotPathProcessors[i];
+
+                var planeGameObject = CreatePlaneGameObject(i);
+                var planePosition = planeGameObject.transform.position;
+                var n = planeGameObject.transform.up;
+                Destroy(planeGameObject);
+
+                var currentTriangles = new Dictionary<Triangle, bool>();
+                var plane = new Plane(Utils.VtoP(n), Utils.VtoP(planePosition));
+                foreach (var t in triangles) {
+                    foreach (var e in t.GetEdges()) {
+                        if (MMath.Intersect(plane, new Segment(e.p1, e.p2)) != null &&
+                            !currentTriangles.ContainsKey(t)) {
+                            currentTriangles.Add(t, true);
+                            break;
+                        }
+                    }
+                }
+
+                var paintResult = new DrawingSimulator().ProcessPath(
+                    new List<RobotPathProcessor> {rpp},
+                    currentTriangles.Keys.ToList(),
+                    20 * v.paintHeight,
+                    v.paintRadius,
+                    v.paintHeight,
+                    v.maxTriangleSquare,
+                    paintConsumptionRateGameSizeUnitsCubicMeterPerSecond
+                );
+
+                var newDetailedPaintAmountForPositions = new Dictionary<Position, Dictionary<Point, double>>();
+                foreach (var items in paintResult.detailedPaintAmountForPositions) {
+                    var position = items.Key;
+
+                    if (!newDetailedPaintAmountForPositions.ContainsKey(position)) {
+                        newDetailedPaintAmountForPositions.Add(position, new Dictionary<Point, double>());
+                    }
+
+                    foreach (var triangleAmount in items.Value) {
+                        var paintAmounts = MMath.GetIntersectionPaintAmount(triangleAmount.Value, plane, triangleAmount.Key);
+                        if (paintAmounts != null) {
+                            foreach (var t in paintAmounts.amountItems) {
+                                var amount = t.amount;
+                                var point = t.point;
+                                if (!newDetailedPaintAmountForPositions[items.Key].ContainsKey(point)) {
+                                    newDetailedPaintAmountForPositions[items.Key].Add(point, 0.0);
+                                }
+
+                                newDetailedPaintAmountForPositions[items.Key][point] += amount;
+                            }
+                        }
+                    }
+                }
+
+                var idxByPoint = new Dictionary<Point, int>();
+                var idxByPosition = new Dictionary<Position, int>();
+                var paintAmountByPointAndPosition = new Dictionary<Point, Dictionary<Position, double>>();
+                foreach (var paintAmountsForPosition in newDetailedPaintAmountForPositions) {
+                    var position = paintAmountsForPosition.Key;
+                    DictUtils.FillValueIfNotExists(idxByPosition, position, idxByPosition.Count);
+                    foreach (var paintAmountByPoint in paintAmountsForPosition.Value) {
+                        var point = paintAmountByPoint.Key;
+                        DictUtils.FillValueIfNotExists(paintAmountByPointAndPosition, point, new Dictionary<Position, double>());
+                        DictUtils.SumValue(paintAmountByPointAndPosition[point], position, paintAmountByPoint.Value);
+                        DictUtils.FillValueIfNotExists(idxByPoint, point, idxByPoint.Count);
+                    }
+                }
+
+                var minAmount = double.MaxValue;
+                var maxAmount = double.MinValue;
+                foreach (var q in paintAmountByPointAndPosition) {
+                    var sumAmount = q.Value.Sum(x => x.Value);
+                    minAmount = Math.Min(minAmount, sumAmount);
+                    maxAmount = Math.Max(maxAmount, sumAmount);
+                }
+
+                // TODO
+                var points = idxByPoint.Keys.OrderBy(x => idxByPoint[x]).ToList();
+                var positions = idxByPosition.Keys.OrderBy(x => idxByPosition[x]).ToList();
+                MinSquareEquation equation;
+                equation.r = new List<List<double>>();
+                equation.h = minAmount;
+                foreach (var point in points) {
+                    equation.r.Add(positions.Select(position => paintAmountByPointAndPosition[point][position]).ToList());
+                }
+            }
+        }
+
+        if (false) {
             var newRpps = new List<RobotPathProcessor>();
             for (var i = 0; i < simplifiedRobotPathProcessors.Count; ++i) {
                 var rpp = simplifiedRobotPathProcessors[i];
@@ -475,7 +570,7 @@ public class ExtractVertices : MonoBehaviour {
                 }
 
                 var sum2 = 0.0;
-                foreach (var q in paintResult.detailedPaintAmount) {
+                foreach (var q in paintResult.detailedPaintAmountForItems) {
                     foreach (var w in q.Value) {
                         foreach (var e in w.Value) {
                             sum2 += e.Value;
@@ -498,7 +593,7 @@ public class ExtractVertices : MonoBehaviour {
                 var newMinPaintAmount = newPaintAmountByPoint.Min(x => x.Value);
 
                 var newDetailedPaintAmount = new Dictionary<RobotPathItem, Dictionary<Point, double>>();
-                foreach (var items in paintResult.detailedPaintAmount) {
+                foreach (var items in paintResult.detailedPaintAmountForItems) {
                     var item = items.Key;
 
                     if (!newDetailedPaintAmount.ContainsKey(item)) {
@@ -657,11 +752,6 @@ public class ExtractVertices : MonoBehaviour {
                     var robotSurfaceDistance = -2.0 * v.paintLongitudinalAllowance;
                     robotPathItems.ForEach(x => robotSurfaceDistance += MMath.GetDistance(x.a.surfacePoint, x.b.surfacePoint));
 
-                    var paintConsumptionRateGameSizeUnitsCubicMeterPerSecond =
-                        commonSettings.paintConsumptionRateKgPerHour * 1000 / 3600 /
-                        commonSettings.paintDensityGramPerCubicMeter *
-                        commonSettings.paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3); // M^3 -> MM^3 (scale in game);
-
                     var paintResult = new DrawingSimulator().ProcessPath(
                         simplifiedRobotPathProcessors,
                         currentTriangles,
@@ -673,7 +763,7 @@ public class ExtractVertices : MonoBehaviour {
                     );
                     var exportData = GetPaintDataForExport(paintResult, plane);
 
-                    // paintResult.detailedPaintAmount
+                    // paintResult.detailedPaintAmountForItems
 
                     var paintSurfaceDistance = 0.0;
                     exportData.ForEach(x => paintSurfaceDistance += x.Key.GetLength());

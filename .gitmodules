@@ -1,3 +1,3 @@
-[submodule "surfaces_unity/surfaces_unity/Assets/Scripts/Library"]
-	path = surfaces_unity/surfaces_unity/Assets/Scripts/Library
-	url = git@github.com:BabichMikhail/RobotPathFindingV1.git
+[submodule "surfaces_unity/Assets/Scripts/Library"]
+	path = surfaces_unity/Assets/Scripts/Library
+	url = git@github.com:BabichMikhail/PostgraduateResearchLibrary.git

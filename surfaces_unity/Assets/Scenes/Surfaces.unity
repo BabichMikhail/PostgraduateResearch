@@ -169,13 +169,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -255,7 +260,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9300401
 GameObject:
@@ -319,13 +324,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.05
   yRotation: 0
@@ -425,7 +435,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 30
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &10065413
 MonoBehaviour:
@@ -449,25 +459,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\concaveLine200S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: concaveLine200S
   isOrt: 0
 --- !u!65 &10065414
 BoxCollider:
@@ -577,13 +592,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -665,6 +685,147 @@ Transform:
   m_Father: {fileID: 419743703}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &64096303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 64096304}
+  - component: {fileID: 64096308}
+  - component: {fileID: 64096307}
+  - component: {fileID: 64096306}
+  - component: {fileID: 64096305}
+  m_Layer: 0
+  m_Name: ShortZZ44_50S
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &64096304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64096303}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1669806554}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &64096305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64096303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleName: zz44_50
+  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
+    type: 3}
+  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
+  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
+    type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
+  paintRobotScale: 0.1
+  pathFinderType: 0
+  paintSpeed: 0.0635
+  paintRadius: 0.1
+  paintHeight: 0.3
+  paintLateralAllowance: 0.075
+  paintLongitudinalAllowance: 0.3
+  paintLineWidth: 0.225
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 1000
+  timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
+  maxTriangleSquare: 0.001
+  linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shortZZ44_50S
+  isOrt: 0
+--- !u!65 &64096306
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64096303}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &64096307
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64096303}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &64096308
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64096303}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &76354488
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,13 +980,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 2
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -955,13 +1121,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -1150,13 +1321,18 @@ MonoBehaviour:
   paintLateralAllowance: 0
   paintLongitudinalAllowance: 0
   paintLineWidth: 0
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 0
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 1000000
   linearPathStep: 5
   yRotation: 0
@@ -1225,13 +1401,18 @@ MonoBehaviour:
   paintLateralAllowance: 50
   paintLongitudinalAllowance: 300
   paintLineWidth: 0
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 0
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 1000000
   linearPathStep: 5
   yRotation: 0
@@ -1355,25 +1536,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shearWaves40S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shearWaves40S
   isOrt: 0
 --- !u!65 &155727793
 BoxCollider:
@@ -1497,13 +1683,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -1633,13 +1824,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.15
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.05
   yRotation: 0
@@ -1769,13 +1965,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.1
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.02
   yRotation: 0
@@ -2090,25 +2291,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shearWaves10S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shearWaves10S
   isOrt: 0
 --- !u!65 &234314342
 BoxCollider:
@@ -2492,7 +2698,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &265997108
 MonoBehaviour:
@@ -2522,13 +2728,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.15
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -2656,21 +2867,26 @@ MonoBehaviour:
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
-  paintLongitudinalAllowance: 0.3
+  paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  maxPaintRobotAcceleration: 0.1
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
-  maxTriangleSquare: 0.0002
+  targetPaintThickness: 0.0001
+  maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments6\plane3sigma
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments9
+  experimentFileName: plane3sigma
   isOrt: 1
 --- !u!65 &280669448
 BoxCollider:
@@ -3063,142 +3279,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 321102082}
   m_CullTransparentMesh: 0
---- !u!1 &344319910
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 344319911}
-  - component: {fileID: 344319915}
-  - component: {fileID: 344319914}
-  - component: {fileID: 344319913}
-  - component: {fileID: 344319912}
-  m_Layer: 0
-  m_Name: ShortZZ44_40S
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &344319911
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344319910}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1669806554}
-  m_RootOrder: 21
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &344319912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344319910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sampleName: zz44_40
-  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
-    type: 3}
-  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
-  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
-    type: 3}
-  scaleGameToWorldMeter: 1
-  sampleScaleToWorldMeter: 0.001
-  paintRobotScale: 0.1
-  pathFinderType: 0
-  paintSpeed: 1
-  paintRadius: 0.1
-  paintHeight: 0.3
-  paintLateralAllowance: 0.075
-  paintLongitudinalAllowance: 0.3
-  paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 1000
-  timeScale: 1
-  maxPaintRobotPathSimplifyIterations: 10
-  useAdvancedPathSimplification: 0
-  maxTriangleSquare: 0.001
-  linearPathStep: 0.01
-  yRotation: 0
-  needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_40S
-  isOrt: 0
---- !u!65 &344319913
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344319910}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &344319914
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344319910}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &344319915
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344319910}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &345660158
 GameObject:
   m_ObjectHideFlags: 0
@@ -3247,13 +3327,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.05
   yRotation: 30
@@ -3335,6 +3420,147 @@ Transform:
   m_Father: {fileID: 307488329}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &373676320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 373676321}
+  - component: {fileID: 373676325}
+  - component: {fileID: 373676324}
+  - component: {fileID: 373676323}
+  - component: {fileID: 373676322}
+  m_Layer: 0
+  m_Name: Angle (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &373676321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373676320}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 723243536}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &373676322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373676320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleName: long_angle
+  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
+    type: 3}
+  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
+  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
+    type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
+  paintRobotScale: 1
+  pathFinderType: 0
+  paintSpeed: 0.0635
+  paintRadius: 0.1
+  paintHeight: 0.3
+  paintLateralAllowance: 0.05
+  paintLongitudinalAllowance: 0.5
+  paintLineWidth: 0.2
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 1000
+  timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
+  maxTriangleSquare: 0.001
+  linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: angleA
+  isOrt: 0
+--- !u!65 &373676323
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373676320}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &373676324
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373676320}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &373676325
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373676320}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &397566199
 GameObject:
   m_ObjectHideFlags: 0
@@ -3397,13 +3623,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -3527,25 +3758,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shearWaves20A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shearWaves20A
   isOrt: 0
 --- !u!65 &418798542
 BoxCollider:
@@ -3751,13 +3987,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -3965,13 +4206,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.15
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -4101,13 +4347,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.1
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -4372,25 +4623,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.15
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
-  useAdvancedPathSimplification: 1
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments6\angleA
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: angleA
   isOrt: 0
 --- !u!65 &516595638
 BoxCollider:
@@ -4619,13 +4875,18 @@ MonoBehaviour:
   paintLateralAllowance: 50
   paintLongitudinalAllowance: 300
   paintLineWidth: 0
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 0
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 1000000
   linearPathStep: 5
   yRotation: 0
@@ -4725,7 +4986,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &562191643
 MonoBehaviour:
@@ -4755,13 +5016,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -4877,13 +5143,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -4963,7 +5234,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &593678740
 GameObject:
@@ -4979,7 +5250,7 @@ GameObject:
   - component: {fileID: 593678743}
   - component: {fileID: 593678742}
   m_Layer: 0
-  m_Name: ConcaveLine_100S
+  m_Name: ConcaveLine_600S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4997,7 +5268,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 28
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &593678742
 MonoBehaviour:
@@ -5011,7 +5282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sampleName: long_concave_line_100
+  sampleName: long_concave_line_600
   material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
     type: 3}
   colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
@@ -5021,25 +5292,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\concaveLine100S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: concaveLine100S
   isOrt: 0
 --- !u!65 &593678743
 BoxCollider:
@@ -5163,13 +5439,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.4
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -5293,25 +5574,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_200A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shortZZ44_200A
   isOrt: 0
 --- !u!65 &629749072
 BoxCollider:
@@ -5435,13 +5721,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -5557,13 +5848,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -5645,6 +5941,147 @@ Transform:
   m_Father: {fileID: 419743703}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &655405467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 655405468}
+  - component: {fileID: 655405472}
+  - component: {fileID: 655405471}
+  - component: {fileID: 655405470}
+  - component: {fileID: 655405469}
+  m_Layer: 0
+  m_Name: Angle (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &655405468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655405467}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 723243536}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &655405469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655405467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleName: long_angle
+  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
+    type: 3}
+  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
+  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
+    type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
+  paintRobotScale: 1
+  pathFinderType: 0
+  paintSpeed: 0.0635
+  paintRadius: 0.1
+  paintHeight: 0.3
+  paintLateralAllowance: 0.05
+  paintLongitudinalAllowance: 0.5
+  paintLineWidth: 0.2
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 1000
+  timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
+  maxTriangleSquare: 0.005
+  linearPathStep: 0.01
+  yRotation: 0
+  needRunExperiment: 0
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: angleA1
+  isOrt: 0
+--- !u!65 &655405470
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655405467}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &655405471
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655405467}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &655405472
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655405467}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &679051170
 GameObject:
   m_ObjectHideFlags: 0
@@ -5677,7 +6114,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 34
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &679051172
 MonoBehaviour:
@@ -5701,25 +6138,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\convexLine150A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: convexLine150A
   isOrt: 0
 --- !u!65 &679051173
 BoxCollider:
@@ -5843,13 +6285,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 1.8
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -6027,7 +6474,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 25
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &701726981
 MonoBehaviour:
@@ -6051,25 +6498,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\concaveLine200A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: concaveLine200A
   isOrt: 0
 --- !u!65 &701726982
 BoxCollider:
@@ -6192,13 +6644,18 @@ MonoBehaviour:
   paintLateralAllowance: 50
   paintLongitudinalAllowance: 300
   paintLineWidth: 0
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 0
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 1000000
   linearPathStep: 5
   yRotation: 0
@@ -6328,13 +6785,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.6
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -6475,6 +6937,8 @@ Transform:
   - {fileID: 1556708159}
   - {fileID: 1257951370}
   - {fileID: 516595641}
+  - {fileID: 373676321}
+  - {fileID: 655405468}
   - {fileID: 265997107}
   - {fileID: 1538644959}
   - {fileID: 1087715482}
@@ -6538,13 +7002,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -6801,25 +7270,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shearWaves20S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shearWaves20S
   isOrt: 0
 --- !u!65 &786471987
 BoxCollider:
@@ -6943,13 +7417,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -7147,25 +7626,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shearWaves10A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shearWaves10A
   isOrt: 0
 --- !u!65 &806342204
 BoxCollider:
@@ -7275,13 +7759,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.15
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.005
   yRotation: 0
@@ -7419,25 +7908,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_40A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shortZZ44_40A
   isOrt: 0
 --- !u!65 &831373316
 BoxCollider:
@@ -7547,13 +8041,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -7683,13 +8182,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.066
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0002
   linearPathStep: 0.01
   yRotation: 0
@@ -8000,7 +8504,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 26
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &925132296
 MonoBehaviour:
@@ -8024,25 +8528,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\concaveLine250A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: concaveLine250A
   isOrt: 0
 --- !u!65 &925132297
 BoxCollider:
@@ -8244,13 +8753,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 1.4
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -8499,13 +9013,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.033333335
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0002
   linearPathStep: 0.01
   yRotation: 0
@@ -8754,13 +9273,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.004
   linearPathStep: 0.01
   yRotation: 0
@@ -8860,7 +9384,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 32
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1018030034
 MonoBehaviour:
@@ -8884,25 +9408,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\convexLine50A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: convexLine50A
   isOrt: 0
 --- !u!65 &1018030035
 BoxCollider:
@@ -9012,13 +9541,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -9162,13 +9696,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.15
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -9298,13 +9837,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 1.6
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -9428,25 +9972,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_80A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shortZZ44_80A
   isOrt: 0
 --- !u!65 &1072558359
 BoxCollider:
@@ -9540,7 +10089,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1078485247
 MonoBehaviour:
@@ -9570,13 +10119,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -9644,142 +10198,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078485245}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1081947886
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1081947887}
-  - component: {fileID: 1081947891}
-  - component: {fileID: 1081947890}
-  - component: {fileID: 1081947889}
-  - component: {fileID: 1081947888}
-  m_Layer: 0
-  m_Name: ConvexLine_250S
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1081947887
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081947886}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1669806554}
-  m_RootOrder: 41
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1081947888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081947886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sampleName: long_convex_line_50
-  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
-    type: 3}
-  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
-  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
-    type: 3}
-  scaleGameToWorldMeter: 1
-  sampleScaleToWorldMeter: 0.001
-  paintRobotScale: 0.1
-  pathFinderType: 0
-  paintSpeed: 0.1
-  paintRadius: 0.1
-  paintHeight: 0.3
-  paintLateralAllowance: 0.05
-  paintLongitudinalAllowance: 0.3
-  paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 1000
-  timeScale: 1
-  maxPaintRobotPathSimplifyIterations: 10
-  useAdvancedPathSimplification: 0
-  maxTriangleSquare: 0.001
-  linearPathStep: 0.01
-  yRotation: 0
-  needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\convexLine250S
-  isOrt: 0
---- !u!65 &1081947889
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081947886}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1081947890
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081947886}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1081947891
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081947886}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1083996127
 GameObject:
   m_ObjectHideFlags: 0
@@ -9812,7 +10230,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 24
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1083996129
 MonoBehaviour:
@@ -9836,25 +10254,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\concaveLine150A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: concaveLine150A
   isOrt: 0
 --- !u!65 &1083996130
 BoxCollider:
@@ -9948,7 +10371,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1087715483
 MonoBehaviour:
@@ -9978,13 +10401,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -10167,7 +10595,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1099897246
 MonoBehaviour:
@@ -10197,13 +10625,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.15
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -10327,25 +10760,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_100A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shortZZ44_100A
   isOrt: 0
 --- !u!65 &1113229886
 BoxCollider:
@@ -10463,25 +10901,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_100S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shortZZ44_100S
   isOrt: 0
 --- !u!65 &1162647684
 BoxCollider:
@@ -10557,7 +11000,7 @@ GameObject:
   - component: {fileID: 1170665275}
   - component: {fileID: 1170665274}
   m_Layer: 0
-  m_Name: ConcaveLine_150S
+  m_Name: ConcaveLine_800S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10575,7 +11018,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 29
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1170665274
 MonoBehaviour:
@@ -10589,7 +11032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sampleName: long_concave_line_150
+  sampleName: long_concave_line_800
   material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
     type: 3}
   colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
@@ -10599,25 +11042,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\concaveLine150S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: concaveLine150S
   isOrt: 0
 --- !u!65 &1170665275
 BoxCollider:
@@ -10830,7 +11278,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1199195669
 MonoBehaviour:
@@ -10860,13 +11308,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.15
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -11164,7 +11617,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1257951370
 Transform:
   m_ObjectHideFlags: 0
@@ -11207,13 +11660,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.15
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.01
   linearPathStep: 0.01
   yRotation: 0
@@ -11420,25 +11878,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shearWaves50S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shearWaves50S
   isOrt: 0
 --- !u!65 &1297689919
 BoxCollider:
@@ -11592,142 +12055,6 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &1345274322
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1345274323}
-  - component: {fileID: 1345274327}
-  - component: {fileID: 1345274326}
-  - component: {fileID: 1345274325}
-  - component: {fileID: 1345274324}
-  m_Layer: 0
-  m_Name: ConcaveLine_250S
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1345274323
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345274322}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1669806554}
-  m_RootOrder: 31
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1345274324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345274322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sampleName: long_concave_line_250
-  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
-    type: 3}
-  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
-  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
-    type: 3}
-  scaleGameToWorldMeter: 1
-  sampleScaleToWorldMeter: 0.001
-  paintRobotScale: 0.1
-  pathFinderType: 0
-  paintSpeed: 0.1
-  paintRadius: 0.1
-  paintHeight: 0.3
-  paintLateralAllowance: 0.05
-  paintLongitudinalAllowance: 0.3
-  paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 1000
-  timeScale: 1
-  maxPaintRobotPathSimplifyIterations: 10
-  useAdvancedPathSimplification: 0
-  maxTriangleSquare: 0.001
-  linearPathStep: 0.01
-  yRotation: 0
-  needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\concaveLine250S
-  isOrt: 0
---- !u!65 &1345274325
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345274322}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1345274326
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345274322}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1345274327
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345274322}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1387493182
 GameObject:
   m_ObjectHideFlags: 0
@@ -11790,13 +12117,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -11920,25 +12252,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_150A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shortZZ44_150A
   isOrt: 0
 --- !u!65 &1399008263
 BoxCollider:
@@ -12014,7 +12351,7 @@ GameObject:
   - component: {fileID: 1458772011}
   - component: {fileID: 1458772010}
   m_Layer: 0
-  m_Name: ConcaveLine_50S
+  m_Name: ConcaveLine_400S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12032,7 +12369,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 27
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1458772010
 MonoBehaviour:
@@ -12046,7 +12383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sampleName: long_concave_line_50
+  sampleName: long_concave_line_400
   material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
     type: 3}
   colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
@@ -12056,25 +12393,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\concaveLine50S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: concaveLine50S
   isOrt: 0
 --- !u!65 &1458772011
 BoxCollider:
@@ -12192,25 +12534,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_60A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shortZZ44_60A
   isOrt: 0
 --- !u!65 &1459436654
 BoxCollider:
@@ -12399,7 +12746,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 36
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1467397111
 MonoBehaviour:
@@ -12423,25 +12770,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\convexLine250A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: convexLine250A
   isOrt: 0
 --- !u!65 &1467397112
 BoxCollider:
@@ -12565,13 +12917,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.05
   yRotation: 0
@@ -12891,7 +13248,7 @@ GameObject:
   - component: {fileID: 1499020843}
   - component: {fileID: 1499020842}
   m_Layer: 0
-  m_Name: ConvexLine_50S
+  m_Name: ConvexLine_400S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12909,7 +13266,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 37
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1499020842
 MonoBehaviour:
@@ -12923,7 +13280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sampleName: long_convex_line_50
+  sampleName: long_convex_line_400
   material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
     type: 3}
   colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
@@ -12933,25 +13290,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\convexLine50S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: convexLine50S
   isOrt: 0
 --- !u!65 &1499020843
 BoxCollider:
@@ -13075,13 +13437,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 1.2
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -13181,7 +13548,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1536765896
 MonoBehaviour:
@@ -13211,13 +13578,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -13333,13 +13705,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -13419,7 +13796,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1548113761
 GameObject:
@@ -13477,25 +13854,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shearWaves30A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shearWaves30A
   isOrt: 0
 --- !u!65 &1548113764
 BoxCollider:
@@ -13603,7 +13985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sampleName: short_plane
+  sampleName: plane
   material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
     type: 3}
   colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
@@ -13613,25 +13995,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.15
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.1
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
-  useAdvancedPathSimplification: 1
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: 
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: plane4
   isOrt: 0
 --- !u!65 &1556708161
 BoxCollider:
@@ -13835,13 +14222,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -13957,13 +14349,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -14107,13 +14504,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -14213,7 +14615,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 40
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1581525154
 MonoBehaviour:
@@ -14227,7 +14629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sampleName: long_convex_line_50
+  sampleName: long_convex_line_200
   material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
     type: 3}
   colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
@@ -14237,25 +14639,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\convexLine200S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: convexLine200S
   isOrt: 0
 --- !u!65 &1581525155
 BoxCollider:
@@ -14365,13 +14772,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -14451,7 +14863,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1669806551
 GameObject:
@@ -14542,29 +14954,25 @@ Transform:
   - {fileID: 1851071975}
   - {fileID: 1699972431}
   - {fileID: 1162647682}
-  - {fileID: 2085022480}
-  - {fileID: 1988594129}
-  - {fileID: 344319911}
+  - {fileID: 64096304}
   - {fileID: 2074735293}
   - {fileID: 1836675718}
   - {fileID: 1083996128}
   - {fileID: 701726980}
   - {fileID: 925132295}
+  - {fileID: 10065412}
   - {fileID: 1458772009}
   - {fileID: 593678741}
   - {fileID: 1170665273}
-  - {fileID: 10065412}
-  - {fileID: 1345274323}
   - {fileID: 1018030033}
   - {fileID: 2119239163}
   - {fileID: 679051171}
   - {fileID: 1683145276}
   - {fileID: 1467397110}
+  - {fileID: 1581525153}
   - {fileID: 1499020841}
   - {fileID: 1815822918}
   - {fileID: 2015164629}
-  - {fileID: 1581525153}
-  - {fileID: 1081947887}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14600,7 +15008,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 35
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1683145277
 MonoBehaviour:
@@ -14624,25 +15032,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\convexLine200A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: convexLine200A
   isOrt: 0
 --- !u!65 &1683145278
 BoxCollider:
@@ -14760,25 +15173,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_150S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shortZZ44_150S
   isOrt: 0
 --- !u!65 &1699972433
 BoxCollider:
@@ -14901,13 +15319,18 @@ MonoBehaviour:
   paintLateralAllowance: 0
   paintLongitudinalAllowance: 0
   paintLineWidth: 0
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0
   maxPaintRobotAcceleration: 0
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 0
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 1000000
   linearPathStep: 5
   yRotation: 0
@@ -15253,25 +15676,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shearWaves30S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shearWaves30S
   isOrt: 0
 --- !u!65 &1799069890
 BoxCollider:
@@ -15347,7 +15775,7 @@ GameObject:
   - component: {fileID: 1815822920}
   - component: {fileID: 1815822919}
   m_Layer: 0
-  m_Name: ConvexLine_100S
+  m_Name: ConvexLine_600S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15365,7 +15793,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 38
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1815822919
 MonoBehaviour:
@@ -15379,7 +15807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sampleName: long_convex_line_50
+  sampleName: long_convex_line_600
   material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
     type: 3}
   colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
@@ -15389,25 +15817,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\convexLine100S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: convexLine100S
   isOrt: 0
 --- !u!65 &1815822920
 BoxCollider:
@@ -15531,13 +15964,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -15756,7 +16194,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 23
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1836675719
 MonoBehaviour:
@@ -15780,25 +16218,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\concaveLine100A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: concaveLine100A
   isOrt: 0
 --- !u!65 &1836675720
 BoxCollider:
@@ -15922,13 +16365,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.8
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -16171,25 +16619,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.075
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_200S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shortZZ44_200S
   isOrt: 0
 --- !u!65 &1851071977
 BoxCollider:
@@ -16504,25 +16957,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shearWaves50A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shearWaves50A
   isOrt: 0
 --- !u!65 &1915325604
 BoxCollider:
@@ -16646,13 +17104,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.01
   linearPathStep: 0.01
   yRotation: 0
@@ -16917,142 +17380,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978216556}
   m_CullTransparentMesh: 0
---- !u!1 &1988594128
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1988594129}
-  - component: {fileID: 1988594133}
-  - component: {fileID: 1988594132}
-  - component: {fileID: 1988594131}
-  - component: {fileID: 1988594130}
-  m_Layer: 0
-  m_Name: ShortZZ44_60S
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1988594129
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988594128}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1669806554}
-  m_RootOrder: 20
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1988594130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988594128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sampleName: zz44_60
-  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
-    type: 3}
-  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
-  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
-    type: 3}
-  scaleGameToWorldMeter: 1
-  sampleScaleToWorldMeter: 0.001
-  paintRobotScale: 0.1
-  pathFinderType: 0
-  paintSpeed: 1
-  paintRadius: 0.1
-  paintHeight: 0.3
-  paintLateralAllowance: 0.075
-  paintLongitudinalAllowance: 0.3
-  paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 1000
-  timeScale: 1
-  maxPaintRobotPathSimplifyIterations: 10
-  useAdvancedPathSimplification: 0
-  maxTriangleSquare: 0.001
-  linearPathStep: 0.01
-  yRotation: 0
-  needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_60S
-  isOrt: 0
---- !u!65 &1988594131
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988594128}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1988594132
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988594128}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1988594133
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1988594128}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2008454182
 GameObject:
   m_ObjectHideFlags: 0
@@ -17147,7 +17474,7 @@ GameObject:
   - component: {fileID: 2015164631}
   - component: {fileID: 2015164630}
   m_Layer: 0
-  m_Name: ConvexLine_150S
+  m_Name: ConvexLine_800S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17165,7 +17492,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 39
+  m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2015164630
 MonoBehaviour:
@@ -17179,7 +17506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sampleName: long_convex_line_50
+  sampleName: long_convex_line_800
   material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
     type: 3}
   colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
@@ -17189,25 +17516,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\convexLine150S
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: convexLine150S
   isOrt: 0
 --- !u!65 &2015164631
 BoxCollider:
@@ -17387,13 +17719,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.06
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 100000
   linearPathStep: 0.05
   yRotation: 0
@@ -17663,7 +18000,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 22
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2074735294
 MonoBehaviour:
@@ -17687,25 +18024,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\concaveLine50A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: concaveLine50A
   isOrt: 0
 --- !u!65 &2074735295
 BoxCollider:
@@ -17815,13 +18157,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.05
   yRotation: 0
@@ -17903,142 +18250,6 @@ Transform:
   m_Father: {fileID: 307488329}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2085022479
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2085022480}
-  - component: {fileID: 2085022484}
-  - component: {fileID: 2085022483}
-  - component: {fileID: 2085022482}
-  - component: {fileID: 2085022481}
-  m_Layer: 0
-  m_Name: ShortZZ44_80S
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2085022480
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2085022479}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1669806554}
-  m_RootOrder: 19
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2085022481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2085022479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sampleName: zz44_80
-  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
-    type: 3}
-  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
-  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
-    type: 3}
-  scaleGameToWorldMeter: 1
-  sampleScaleToWorldMeter: 0.001
-  paintRobotScale: 0.1
-  pathFinderType: 0
-  paintSpeed: 1
-  paintRadius: 0.1
-  paintHeight: 0.3
-  paintLateralAllowance: 0.075
-  paintLongitudinalAllowance: 0.3
-  paintLineWidth: 0.225
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 1000
-  timeScale: 1
-  maxPaintRobotPathSimplifyIterations: 10
-  useAdvancedPathSimplification: 0
-  maxTriangleSquare: 0.001
-  linearPathStep: 0.01
-  yRotation: 0
-  needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shortZZ44_80S
-  isOrt: 0
---- !u!65 &2085022482
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2085022479}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &2085022483
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2085022479}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &2085022484
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2085022479}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2111701729
 GameObject:
   m_ObjectHideFlags: 0
@@ -18101,13 +18312,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 120
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0
@@ -18326,7 +18542,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 33
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2119239164
 MonoBehaviour:
@@ -18350,25 +18566,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.25
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\convexLine100A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: convexLine100A
   isOrt: 0
 --- !u!65 &2119239165
 BoxCollider:
@@ -18478,13 +18699,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.1
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
@@ -18628,13 +18854,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.06666667
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.2
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 0
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0002
   linearPathStep: 0.01
   yRotation: 0
@@ -18734,7 +18965,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 723243536}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2128582719
 MonoBehaviour:
@@ -18764,13 +18995,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.15
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.05
   yRotation: 0
@@ -18894,25 +19130,30 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 0.1
   pathFinderType: 0
-  paintSpeed: 0.1
+  paintSpeed: 0.0635
   paintRadius: 0.1
   paintHeight: 0.3
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.3
   paintLineWidth: 0.2
-  maxPaintRobotSpeed: 0.2
-  maxPaintRobotAcceleration: 10000000
+  minPaintRobotSpeed: 0.01
+  maxPaintRobotSpeed: 0.5
+  maxPaintRobotAcceleration: 0.5
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
   needRunExperiment: 0
-  experimentStoreFolder: 
-  experimentFileName: G:\Projects\PostgraduateResearch\store\articleExperiments7\shearWaves40A
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments10
+  experimentFileName: shearWaves40A
   isOrt: 0
 --- !u!65 &2132002918
 BoxCollider:
@@ -19036,13 +19277,18 @@ MonoBehaviour:
   paintLateralAllowance: 0.05
   paintLongitudinalAllowance: 0.5
   paintLineWidth: 0.2
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 0.15
   maxPaintRobotAcceleration: 10000000
+  addExtraParallelPaths: 0
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
   maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 0
+  useBaseSpeedCorrection: 0
   useAdvancedPathSimplification: 1
+  targetPaintThickness: 0.0001
   maxTriangleSquare: 0.0001
   linearPathStep: 0.01
   yRotation: 0

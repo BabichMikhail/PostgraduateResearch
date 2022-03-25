@@ -56,9 +56,11 @@ if len(sys.argv) < 3:
     print("No input filename or map length")
     exit(0)
 
+print(sys.argv[1])
 file = open(sys.argv[1], "r")
 mapLength = int(sys.argv[2])
 
+sumV = 0.0
 triangles = []
 while True:
     line = file.readline()
@@ -78,6 +80,11 @@ while True:
 
     print(t)
     triangles.append(t)
+    square = GetSquare(t[0]["point"], t[1]["point"], t[2]["point"])
+    sumV += (t[0]["q"] + t[1]["q"] + t[2]["q"]) * square
+
+print(sumV)
+exit(0)
 
 # print(triangles)
 # exit(0)

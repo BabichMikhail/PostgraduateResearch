@@ -32,8 +32,6 @@ public class ExtractVertices : MonoBehaviour {
     public float scaleGameToWorldMeter = 1.0f;
     public float sampleScaleToWorldMeter = 0.001f;
 
-    private const float SCALE_IN_GAME = 1000.0f;
-
     private List<GameObject> paintRobots = new List<GameObject>();
 
     [Header("Draw settings")]
@@ -44,6 +42,7 @@ public class ExtractVertices : MonoBehaviour {
     public float paintSpeed = 1.0f;
     public float paintRadius;
     public float paintHeight;
+    public float paintAngle;
     public float paintLateralAllowance;
     public float paintLongitudinalAllowance;
     public float paintLineWidth;
@@ -58,15 +57,23 @@ public class ExtractVertices : MonoBehaviour {
     public float timeScale = 1.0f;
     public int maxPaintRobotPathSimplifyIterations = 10;
     public bool useBasePathSimplification;
+    public int baseSimplificationPointCount = 12;
     public bool useBaseSpeedCorrection;
     public bool useAdvancedPathSimplification;
-    public float targetPaintThickness = 100 * 1e-6f;
+    public bool dontUseAdvancedPathSimplificationV2;
+    public float targetPaintThicknessOnSingleLine = 10.0f * 1e-6f;
+    public float targetPaintThicknessOnSurface = 16.6f * 1e-6f;
+    public List<float> defaultOffsets = new List<float> {
+        0.0f,
+    };
+    public List<float> ortOffsets = new List<float> {
+        0.0f,
+    };
 
     [Header("Other")]
     public float maxTriangleSquare = 1000000;
     public float linearPathStep = 0.005f;
     public float yRotation = 0.0f;
-    public bool needRunExperiment = false;
     public string experimentStoreFolder;
     public string experimentFileName;
     public bool isOrt = false;
@@ -82,7 +89,8 @@ public class ExtractVertices : MonoBehaviour {
 
     private TexturePaintResult texturePaintResult = null;
     private readonly Color heatMapMinColor = new Color(0.0f, 0.5f, 1.0f, 1.0f);
-    private readonly Color heatMapMaxColor = new Color(0.0f, 1.0f, 0.5f, 1.0f);
+    private readonly Color heatMapNormColor = new Color(0.0f, 1.0f, 0.5f, 1.0f);
+    private readonly Color heatMapMaxColor = new Color(1.0f, 0.0f, 0.5f, 1.0f);
 
     private struct ScaledVariables {
         public float paintSpeed;
@@ -98,7 +106,8 @@ public class ExtractVertices : MonoBehaviour {
         public float maxTriangleSquare;
         public float linearPathStep;
 
-        public float targetPaintThickness;
+        public float targetPaintThicknessOnSingleLine;
+        public float targetPaintThicknessOnSurface;
     }
 
     private ScaledVariables v;
@@ -131,14 +140,22 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void SetColoredVertices(List<Triangle> triangles, Dictionary<Triangle, Dictionary<Point, double>> paintAmount) {
-        var maxAmount = double.MinValue;
-        var minAmount = double.MaxValue;
+        var _maxAmount = double.MinValue;
+        var _minAmount = double.MaxValue;
         foreach (var amountItem in paintAmount) {
             foreach (var amount in amountItem.Value) {
-                maxAmount = Math.Max(maxAmount, amount.Value);
-                minAmount = Math.Min(minAmount, amount.Value);
+                _maxAmount = Math.Max(_maxAmount, amount.Value);
+                _minAmount = Math.Min(_minAmount, amount.Value);
             }
         }
+        var t2 = v.targetPaintThicknessOnSurface;
+        var t1 = v.targetPaintThicknessOnSingleLine;
+        var k = simplifiedRobotPathProcessors.Count > 1 ? t2 / t1 : 1.0f;
+        var target = t1 * k;
+        var minAmount = target * 0.89006395f;
+        var maxAmount = target * 2.0f;
+        // var minAmount = _minAmount;
+        // var maxAmount = target * 2.0f;
 
         var meshTriangles = new List<int>();
         var meshVertices = new List<Vector3>();
@@ -147,10 +164,21 @@ public class ExtractVertices : MonoBehaviour {
             foreach (var p in t.GetPoints()) {
                 meshTriangles.Add(meshVertices.Count);
                 meshVertices.Add(Utils.PtoV(p));
-                var color = Color.white;
+                var color = heatMapMinColor;
                 if (paintAmount.ContainsKey(t) && paintAmount[t].ContainsKey(p)) {
                     var amount = paintAmount[t][p];
-                    color = heatMapMinColor + (heatMapMaxColor - heatMapMinColor) * (float)((amount - minAmount) / (maxAmount - minAmount));
+                    var c1 = heatMapMinColor;
+                    var c2 = heatMapNormColor;
+                    var a = minAmount;
+                    var b = target;
+                    if (amount > target) {
+                        c1 = heatMapNormColor;
+                        c2 = heatMapMaxColor;
+                        a = target;
+                        b = maxAmount;
+                    }
+                    amount = Math.Min(amount, b);
+                    color = c1 + (c2 - c1) * (float)((amount - a) / (b - a));
                     // color = new Color((float)(amount / maxAmount), 0, 0, 1);
                 }
                 meshColors.Add(color);
@@ -172,7 +200,7 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private void UpdateScaledVariables() {
-        var k = SCALE_IN_GAME;
+        var k = CommonSettings.SCALE_IN_GAME;
 
         v.paintSpeed = k * paintSpeed;
         v.paintRadius = k * paintRadius;
@@ -185,7 +213,8 @@ public class ExtractVertices : MonoBehaviour {
         v.maxPaintRobotAcceleration = k * maxPaintRobotAcceleration;
         v.maxTriangleSquare = k * k * maxTriangleSquare;
         v.linearPathStep = k * linearPathStep;
-        v.targetPaintThickness = k * targetPaintThickness;
+        v.targetPaintThicknessOnSingleLine = k * targetPaintThicknessOnSingleLine;
+        v.targetPaintThicknessOnSurface = k * targetPaintThicknessOnSurface;
     }
 
     private List<Triangle> LoadTriangles() {
@@ -253,12 +282,25 @@ public class ExtractVertices : MonoBehaviour {
             if (filename.Length > 0) {
                 InitializePath();
                 SimplifyPath();
-                CreatePlaneForExportPaintData();
                 CalculateTexturePaint();
 
                 ExportHeatMapSettings(filename + "_heat_map.txt");
-                ExportPaintData(filename + ".txt");
+
+                isOrt = false;
+                foreach (var sigmaCount in defaultOffsets) {
+                    CreatePlaneForExportPaintData(-1, new Point(v.paintRadius / 3.0f * sigmaCount, 0.0f, 0.0f));
+                    ExportPaintData($"{filename}_{sigmaCount.ToString(CultureInfo.InvariantCulture)}_def.txt");
+                }
+
+                isOrt = true;
+                foreach (var sigmaCount in ortOffsets) {
+                    CreatePlaneForExportPaintData(-1, new Point(0.0f, 0.0f, v.paintRadius / 3.0f * sigmaCount));
+                    ExportPaintData($"{filename}_{sigmaCount.ToString(CultureInfo.InvariantCulture)}_ort.txt");
+                }
+
+                isOrt = false;
                 ExportPathSpeeds(filename + "_speeds.txt");
+                ExportPathNormalAngles(filename + "_angles.txt");
                 ExportTexturePaintData(filename + "_texture.txt");
                 SaveData(filename + "_data.txt");
             }
@@ -279,23 +321,6 @@ public class ExtractVertices : MonoBehaviour {
         paintPointsHolder.GetComponent<MeshRenderer>().material = material;
     }
 
-    private void RunExperiment() {
-        var baseExportPath = Path.Combine(Utils.GetStoreFolder(), "generated", experimentStoreFolder);
-        Directory.CreateDirectory(baseExportPath);
-
-        InitializePath();
-        SimplifyPath();
-        CalculateTexturePaint();
-        SaveData(Path.Combine(baseExportPath, "data", $"{sampleName}_{name}.txt"));
-        ExportPathData(Path.Combine(baseExportPath, "pathData", $"{sampleName}_{name}.txt"));
-
-        for (var i = 0; i < simplifiedRobotPathProcessors.Count; ++i) {
-            CreatePlaneForExportPaintData(i);
-            ExportPaintData(Path.Combine(baseExportPath, "experiments", $"{sampleName}_{name}_path_{i}.txt"));
-            DestroyPlaneForExportPaintData();
-        }
-    }
-
     private List<Triangle> GetFigureTriangles() {
         var angles = Quaternion.identity.eulerAngles;
         angles.y += yRotation;
@@ -303,7 +328,7 @@ public class ExtractVertices : MonoBehaviour {
 
         var rotatedTriangles = new List<Triangle>();
         var rotation = rotationCube.transform.rotation;
-        var k = sampleScaleToWorldMeter * SCALE_IN_GAME;
+        var k = sampleScaleToWorldMeter * CommonSettings.SCALE_IN_GAME;
         foreach (var triangle in baseTriangles) {
             rotatedTriangles.Add(new Triangle(
                 Utils.VtoP(extraRotation * rotation * Utils.PtoV(triangle.p1) * k),
@@ -340,7 +365,7 @@ public class ExtractVertices : MonoBehaviour {
 
         var watch = Stopwatch.StartNew();
         var pathFinder = PathFinderFactory.Create(
-            pathFinderType, v.paintRadius, v.paintHeight, v.paintLateralAllowance, v.paintLongitudinalAllowance, v.paintLineWidth, addExtraParallelPaths
+            pathFinderType, v.paintRadius, v.paintHeight, paintAngle, v.paintLateralAllowance, v.paintLongitudinalAllowance, v.paintLineWidth, addExtraParallelPaths
         );
         var basePaths = pathFinder.GetPaths(triangles);
         baseRobotPathProcessors = RobotPathProcessorBuilder.Build(basePaths, v.paintSpeed, float.NaN);
@@ -362,7 +387,7 @@ public class ExtractVertices : MonoBehaviour {
         // var app2 = new Bezier5Approximation(false);
         // aPaths = app2.Approximate(aPaths, 5.0f, triangles);
 
-        var app3 = new LinearApproximation(false);
+        var app3 = new LinearApproximation(false, pathFinderType == PathFinderType.IntersectionsWithSurfacesPathFinder);
         var linearPaths = new List<List<Position>>();
         basePaths.ForEach(x => linearPaths.Add(app3.Approximate(x, v.linearPathStep, triangles)));
 
@@ -378,15 +403,23 @@ public class ExtractVertices : MonoBehaviour {
     }
 
     private List<int> GetBadRobotPathItemIndexes(IReadOnlyList<RobotPathItem> robotPathItems) {
-        var result = new List<int>();
+        var d = new Dictionary<int, bool>();
         for (var j = 0; j < robotPathItems.Count; ++j) {
             var item = robotPathItems[j];
             if (item.GetSpeed(v.paintSpeed) > v.maxPaintRobotSpeed) {
-                result.Add(j);
+                DictUtils.FillValueIfNotExists(d, j, true);
+            }
+
+            if (j > 0) {
+                var a = RobotPathItem.GetAcceleration(robotPathItems[j - 1], robotPathItems[j], v.paintSpeed);
+                if (a > v.maxPaintRobotAcceleration) {
+                    DictUtils.FillValueIfNotExists(d, j, true);
+                    DictUtils.FillValueIfNotExists(d, j + 1, true);
+                }
             }
         }
 
-        return result;
+        return d.Keys.ToList().OrderBy(x => x).ToList();
     }
 
     private void SimplifyPath() {
@@ -395,18 +428,19 @@ public class ExtractVertices : MonoBehaviour {
 
         if (useBasePathSimplification) {
             for (var i = 0; i < simplifiedRobotPathProcessors.Count; ++i) {
-                var rp = simplifiedRobotPathProcessors[i];
+                var rpp = simplifiedRobotPathProcessors[i];
 
-                var attempts = 0;
-                var maxAttempts = 10000;
+                var attempts = 498;
+                var maxAttempts = 500;
+                var maxPositionCount = baseSimplificationPointCount;
                 while (true) {
-                    var robotPathItems = rp.GetRobotPathItems();
+                    var robotPathItems = rpp.GetRobotPathItems();
                     Debug.Assert(robotPathItems.First().a.type == Position.PositionType.Start);
                     Debug.Assert(robotPathItems.Last().b.type == Position.PositionType.Finish);
 
                     var badItemIndexes = GetBadRobotPathItemIndexes(robotPathItems);
                     var r = attempts + 1;
-                    var segments = badItemIndexes.Select(idx => new KeyValuePair<int, int>(Math.Max(1, idx - r), Math.Min(robotPathItems.Count - 2, idx + r))).ToList();
+                    var segments = badItemIndexes.Select(idx => new KeyValuePair<int, int>(Math.Max(0, idx - r), Math.Min(robotPathItems.Count - 1, idx + r))).ToList();
 
                     var mergedSegments = new List<KeyValuePair<int, int>>();
                     for (var j = 0; j < segments.Count; ++j) {
@@ -426,7 +460,7 @@ public class ExtractVertices : MonoBehaviour {
                         var count = segment.Value - segment.Key + 1;
 
                         newRobotPathItems.AddRange(robotPathItems.GetRange(currentIndex, from - currentIndex));
-                        var bezierApp = new BezierNApproximation(false, Math.Max(count - 2, 1));
+                        var bezierApp = new BezierNApproximation(false, pathFinderType == PathFinderType.IntersectionsWithSurfacesPathFinder, Math.Max(count - 2, 1));
 
                         {
                             var subItems = robotPathItems.GetRange(from, count);
@@ -434,18 +468,52 @@ public class ExtractVertices : MonoBehaviour {
                             subItems.ForEach(x => badPositions.Add(x.a));
                             badPositions.Add(subItems.Last().b);
 
-                            var subPositions = bezierApp.Approximate(badPositions, v.linearPathStep, triangles);
+                            var addMiddlePosition = false;
+                            var posCount = Math.Min(badPositions.Count, maxPositionCount) - 2;
+                            if (posCount % 2 == 1) {
+                                --posCount;
+                                addMiddlePosition = true;
+                            }
+
+                            var idxs = new List<int>();
+                            idxs.Add(0);
+                            if (posCount > 0) {
+                                var distance = (badPositions.Count - 2) / (posCount + 1);
+                                for (var j = 1; j <= posCount / 2; ++j) {
+                                    idxs.Add(j * distance);
+                                }
+                            }
+
+                            if (addMiddlePosition) {
+                                idxs.Add(badPositions.Count / 2);
+                            }
+
+                            if (posCount > 0) {
+                                var distance = (badPositions.Count - 2) / (posCount + 1);
+                                for (var j = posCount / 2; j >= 1; --j) {
+                                    idxs.Add(badPositions.Count - 1 - j * distance);
+                                }
+                            }
+
+                            idxs.Add(badPositions.Count - 1);
+
+                            var badPositionsForApproximation = new List<Position>();
+                            foreach (var idx in idxs) {
+                                badPositionsForApproximation.Add(badPositions[idx]);
+                            }
+
+                            var subPositions = bezierApp.Approximate(badPositionsForApproximation, v.linearPathStep, triangles);
 
                             var a1 = subPositions.First();
                             var a2 = subItems.First().a;
                             if (MMath.GetDistance(a1.originPoint, a2.originPoint) > 1 || MMath.GetDistance(a1.surfacePoint, a2.surfacePoint) > 1) {
-                                throw new Exception("Magic");
+                                //throw new Exception("Magic");
                             }
 
                             var b1 = subPositions.Last();
                             var b2 = subItems.Last().b;
                             if (MMath.GetDistance(b1.originPoint, b2.originPoint) > 1 || MMath.GetDistance(b1.surfacePoint, b2.surfacePoint) > 1) {
-                                throw new Exception("Magic");
+                                //throw new Exception("Magic");
                             }
 
                             subPositions[0] = a2;
@@ -472,23 +540,62 @@ public class ExtractVertices : MonoBehaviour {
                             // var k = Math.Min(speed, v.maxPaintRobotSpeed) / speed;
                             newRobotPathItems[j] = new RobotPathItem(pathItem.a, pathItem.b, k);
                         }
+
+                        // var newPositions = new List<Position>();
+                        // foreach (var item in newRobotPathItems) {
+                        //     newPositions.Add(item.a);
+                        // }
+                        // newPositions.Add(newRobotPathItems.Last().b);
+                        //
+                        // var linearApp = new LinearApproximation(false, pathFinderType == PathFinderType.IntersectionsWithSurfacesPathFinder);
+                        // var linearPathItems = linearApp.Approximate(newPositions, v.linearPathStep, triangles);
+                        //
+                        // var newLinearPathItems = RobotPathProcessorBuilder.BuildRobotPathItems(newPositions);
                         simplifiedRobotPathProcessors[i] = RobotPathProcessorBuilder.Build(newRobotPathItems, v.paintSpeed, v.maxPaintRobotSpeed);
                         break;
                     }
 
-                    attempts += 10;
+                    attempts += 2;
                 }
 
                 Debug.Log("Attempts: " + attempts);
             }
         }
 
-        if (useBaseSpeedCorrection) {
-            var paintConsumptionRateGameSizeUnitsCubicMeterPerSecond =
-                commonSettings.paintConsumptionRateKgPerHour * 1000 / 3600 /
-                commonSettings.paintDensityGramPerCubicMeter *
-                commonSettings.paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3); // M^3 -> MM^3 (scale in game);
+        if (addExtraParallelPaths) {
+            var anchorPath = simplifiedRobotPathProcessors[simplifiedRobotPathProcessors.Count / 2];
+            for (var i = 0; i < 10; ++i) {
+                {
+                    var j = simplifiedRobotPathProcessors.Count - 1 - i;
 
+                    var rpp = simplifiedRobotPathProcessors[j];
+                    var x = rpp.GetRobotPathItems().First().a.surfacePoint.x;
+                    var newRobotPathItems = new List<RobotPathItem>();
+                    foreach (var pathItem in anchorPath.GetRobotPathItems()) {
+                        var a = new Position(
+                            new Point(x, pathItem.a.originPoint.y, pathItem.a.originPoint.z),
+                            new Point(pathItem.a.paintDirection.x, pathItem.a.paintDirection.y, pathItem.a.paintDirection.z),
+                            new Point(x, pathItem.a.surfacePoint.y, pathItem.a.surfacePoint.z),
+                            pathItem.a.type
+                        );
+                        var b = new Position(
+                            new Point(x, pathItem.b.originPoint.y, pathItem.b.originPoint.z),
+                            new Point(pathItem.b.paintDirection.x, pathItem.b.paintDirection.y, pathItem.b.paintDirection.z),
+                            new Point(x, pathItem.b.surfacePoint.y, pathItem.b.surfacePoint.z),
+                            pathItem.b.type
+                        );
+                        newRobotPathItems.Add(new RobotPathItem(a, b, pathItem.extraAccelerationMultiplier));
+                    }
+
+                    var newRpp = new RobotPathProcessor(newRobotPathItems);
+                    newRpp.SetSurfaceSpeed(rpp.GetSurfaceSpeed());
+                    newRpp.SetMaxOriginSpeed(rpp.GetMaxOriginSpeed());
+                    simplifiedRobotPathProcessors[j] = newRpp;
+                }
+            }
+        }
+
+        if (useBaseSpeedCorrection) {
             for (var i = 0; i < simplifiedRobotPathProcessors.Count; ++i) {
                 var rpp = simplifiedRobotPathProcessors[i];
                 var pathItems = rpp.GetRobotPathItems();
@@ -498,28 +605,7 @@ public class ExtractVertices : MonoBehaviour {
                 var n = planeGameObject.transform.up;
                 Destroy(planeGameObject);
 
-                var currentTriangles = new Dictionary<Triangle, bool>();
-                var plane = new Plane(Utils.VtoP(n), Utils.VtoP(planePosition));
-                foreach (var t in triangles) {
-                    foreach (var e in t.GetEdges()) {
-                        if (MMath.Intersect(plane, new Segment(e.p1, e.p2)) != null && !currentTriangles.ContainsKey(t)) {
-                            currentTriangles.Add(t, true);
-                            break;
-                        }
-                    }
-                }
-
-                var paintResult = new DrawingSimulator().ProcessPath(
-                    new List<RobotPathProcessor>{rpp},
-                    currentTriangles.Keys.ToList(),
-                    20 * v.paintHeight,
-                    v.paintRadius,
-                    v.paintHeight,
-                    v.maxTriangleSquare,
-                    paintConsumptionRateGameSizeUnitsCubicMeterPerSecond
-                );
-
-                var data = GetPaintDataForExport(paintResult, plane);
+                var data = GetPaintDataForExport(new Plane(Utils.VtoP(n), Utils.VtoP(planePosition)));
                 var sumDistance = data.Last().Item2;
                 var sumValue = 0.0;
                 for (var j = 0; j < data.Count; ++j) {
@@ -542,7 +628,7 @@ public class ExtractVertices : MonoBehaviour {
                 }
 
                 var avgValue = sumValue / sumDistance;
-                var extraMultiplier = avgValue / v.targetPaintThickness;
+                var extraMultiplier = avgValue / v.targetPaintThicknessOnSingleLine;
 
                 var newPathItems = new List<RobotPathItem>();
                 foreach (var pathItem in pathItems) {
@@ -557,342 +643,330 @@ public class ExtractVertices : MonoBehaviour {
         }
 
         if (useAdvancedPathSimplification) {
-            var paintConsumptionRateGameSizeUnitsCubicMeterPerSecond =
-                commonSettings.paintConsumptionRateKgPerHour * 1000 / 3600 /
-                commonSettings.paintDensityGramPerCubicMeter *
-                commonSettings.paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3); // M^3 -> MM^3 (scale in game);
+            var _isOrt = isOrt;
+            isOrt = false;
 
-
-
-            Dictionary<Position, List<RobotPathItem>> pathItemsByPosition = null;
-            List<Point> points = null;
-            List<Position> positions = null;
-            Dictionary<Point, Dictionary<RobotPathItem, double>> paintAmountByPointAndPathItem = null;
-
-            var ok = false;
+            var notOptimizedRobotIndexes = new List<int>();
+            var optimizedRobotIndexes = new List<int>();
             for (var i = 0; i < simplifiedRobotPathProcessors.Count; ++i) {
-                var iterationCount = 0;
-                double CalculateLimitV2(double v1, double w1, double v2, double w2, double acceleration) {
-                    var c = 1.0 - 0.01 * Math.Log10(iterationCount + 1);
-                    return Math.Abs(w1 / v1 - w2 / v2) * (c * v.maxPaintRobotAcceleration / acceleration);
-                }
-
-                var limits = new List<double>();
-                var usedLimitsIndexes = new Dictionary<int, bool>();
-                var aLog = new List<Tuple<double, double, int>>();
-                var weights = new List<double>();
-
                 var rpp = simplifiedRobotPathProcessors[i];
                 var pathItems = rpp.GetRobotPathItems();
-                var basePathItems = new List<RobotPathItem>();
+
+                var baseSpeeds = new List<double>();
+                var baseDistances = new List<double>();
                 foreach (var pathItem in pathItems) {
-                    basePathItems.Add(new RobotPathItem(pathItem.a, pathItem.b, 1.0f));
+                    baseSpeeds.Add(pathItem.GetSpeed(v.paintSpeed));
+                    baseDistances.Add(pathItem.GetDistance());
                 }
 
-                var allTimes = new List<List<float>>();
-                while (!ok) {
-                    var times = new List<float>();
-                    var watch = Stopwatch.StartNew();
+                var planeGameObject = CreatePlaneGameObject(i);
+                var planePosition = planeGameObject.transform.position;
+                var n = planeGameObject.transform.up;
+                Destroy(planeGameObject);
 
-                    if (iterationCount == 0) {
-                        for (var j = 0; j < pathItems.Count; ++j) {
-                            weights.Add(basePathItems[j].GetSpeed(v.paintSpeed) / pathItems[j].GetSpeed(v.paintSpeed));
-                        }
+                var plane = new Plane(Utils.VtoP(n), Utils.VtoP(planePosition));
 
-                        for (var j = 0; j < pathItems.Count - 1; ++j) {
-                            var acceleration = RobotPathItem.GetAcceleration(pathItems[j], pathItems[j + 1], v.paintSpeed);
-                            var v1 = basePathItems[j].GetSpeed(v.paintSpeed);
-                            var v2 = basePathItems[j + 1].GetSpeed(v.paintSpeed);
-                            var limit = CalculateLimitV2(v1, weights[j], v2, weights[j + 1], acceleration);
-                            limits.Add(limit);
+                var trianglePoints = new Dictionary<Triangle, List<Point>>();
+                foreach (var t in triangles) {
+                    foreach (var e in t.GetEdges()) {
+                        var point = MMath.Intersect(plane, new Segment(e.p1, e.p2));
+                        if (point != null) {
+                            DictUtils.FillValueIfNotExists(trianglePoints, t, new List<Point>());
+                            trianglePoints[t].Add(point);
                         }
                     }
 
-                    watch.Stop();
-                    times.Add(watch.ElapsedMilliseconds); // 0
-                    watch.Restart();
+                    Debug.Assert(!trianglePoints.ContainsKey(t) || trianglePoints[t].Count <= 2);
+                    if (trianglePoints.ContainsKey(t) && trianglePoints[t].Count == 2) {
+                        var a = trianglePoints[t].First();
+                        var b = trianglePoints[t].Last();
+                        var d = MMath.GetDistance(a, b);
 
-                    var planeGameObject = CreatePlaneGameObject(i);
-                    var planePosition = planeGameObject.transform.position;
-                    var n = planeGameObject.transform.up;
-                    Destroy(planeGameObject);
-
-                    var plane = new Plane(Utils.VtoP(n), Utils.VtoP(planePosition));
-
-                    watch.Stop();
-                    times.Add(watch.ElapsedMilliseconds); // 1
-                    watch.Restart();
-
-                    if (iterationCount == 0) {
-                        var currentTriangles = new Dictionary<Triangle, bool>();
-                        foreach (var t in triangles) {
-                            foreach (var e in t.GetEdges()) {
-                                if (MMath.Intersect(plane, new Segment(e.p1, e.p2)) != null && !currentTriangles.ContainsKey(t)) {
-                                    currentTriangles.Add(t, true);
-                                    break;
-                                }
-                            }
-                        }
-
-                        var paintResult = new DrawingSimulator().ProcessPath(
-                            new List<RobotPathProcessor>{rpp},
-                            currentTriangles.Keys.ToList(),
-                            20 * v.paintHeight,
-                            v.paintRadius,
-                            v.paintHeight,
-                            v.maxTriangleSquare,
-                            paintConsumptionRateGameSizeUnitsCubicMeterPerSecond
-                        );
-
-                        var newDetailedPaintAmountForPositions = new Dictionary<Position, Dictionary<Point, double>>();
-                        foreach (var items in paintResult.detailedPaintAmountForPositions) {
-                            DictUtils.FillValueIfNotExists(newDetailedPaintAmountForPositions, items.Key, new Dictionary<Point, double>());
-                            foreach (var triangleAmount in items.Value) {
-                                var paintAmounts = MMath.GetIntersectionPaintAmount(triangleAmount.Value, plane, triangleAmount.Key);
-                                if (paintAmounts != null) {
-                                    DictUtils.SumValue(newDetailedPaintAmountForPositions[items.Key], paintAmounts.GetAvgPoint(), paintAmounts.GetAvgAmount());
-                                }
-                            }
-                        }
-
-                        paintAmountByPointAndPathItem = GetPaintAmountByPointAndPathItem(paintResult, plane);
-
-                        var idxByPoint = new Dictionary<Point, int>();
-                        var idxByPosition = new Dictionary<Position, int>();
-                        foreach (var paintAmountsForPosition in newDetailedPaintAmountForPositions) {
-                            var position = paintAmountsForPosition.Key;
-                            DictUtils.FillValueIfNotExists(idxByPosition, position, idxByPosition.Count);
-
-                            foreach (var paintAmountByPoint in paintAmountsForPosition.Value) {
-                                var point = paintAmountByPoint.Key;
-                                DictUtils.FillValueIfNotExists(idxByPoint, point, idxByPoint.Count);
-                            }
-                        }
-
-                        points = idxByPoint.Keys.OrderBy(x => idxByPoint[x]).ToList();
-                        positions = idxByPosition.Keys.OrderBy(x => idxByPosition[x]).ToList();
-
-                        pathItemsByPosition = new Dictionary<Position, List<RobotPathItem>>();
-                        foreach (var pathItem in pathItems) {
-                            DictUtils.FillValueIfNotExists(pathItemsByPosition, pathItem.a, new List<RobotPathItem>());
-                            DictUtils.FillValueIfNotExists(pathItemsByPosition, pathItem.b, new List<RobotPathItem>());
-                            pathItemsByPosition[pathItem.a].Add(pathItem);
-                            pathItemsByPosition[pathItem.b].Add(pathItem);
-                        }
-
-                        var oneCount = 0;
-                        foreach (var q in pathItemsByPosition) {
-                            if (q.Value.Count == 1) {
-                                ++oneCount;
-                            }
-                        }
-                        if (oneCount != 2) {
-                            throw new Exception("Invalid path items");
+                        var count = d / v.linearPathStep;
+                        var step = d / count;
+                        var direction = (b - a).Normalized;
+                        Debug.Assert(MMath.GetDistance(a + (float)d * direction, b) < 1);
+                        for (var j = 1.0f; j < count; ++j) {
+                            trianglePoints[t].Add(a + direction * (float)step * j);
                         }
                     }
-                    ++iterationCount;
-
-                    watch.Stop();
-                    times.Add(watch.ElapsedMilliseconds); // 2
-                    watch.Restart();
-
-                    var rRows = new List<List<double>>();
-                    var sRows = new List<List<double>>();
-                    var gRows = new List<List<double>>();
-                    var aRows = new List<List<double>>();
-                    var hList = new List<List<double>>();
-                    var bList = new List<List<double>>();
-                    var wRows = new List<List<double>>();
-
-                    foreach (var point in points) {
-                        var newRow = new List<double>();
-                        foreach (var pathItem in pathItems) {
-                            newRow.Add(paintAmountByPointAndPathItem[point][pathItem]);
-                        }
-
-                        rRows.Add(newRow);
-                        sRows.Add(new List<double>{v.targetPaintThickness});
-                    }
-
-                    foreach (var position in positions) {
-                        var currentPathItems = pathItemsByPosition[position];
-                        if (currentPathItems.Count == 2) {
-                            var newRRow = new List<double>();
-                            var newGRow = new List<double>();
-                            var currentLimit = double.NaN;
-                            for (var j = 0; j < pathItems.Count; ++j) {
-                                var pathItem = pathItems[j];
-                                if (currentPathItems[0] == pathItem) {
-                                    var baseItem1 = basePathItems[j];
-                                    var baseItem2 = basePathItems[j + 1];
-                                    if (usedLimitsIndexes.ContainsKey(j)) {
-                                        var v1 = baseItem1.GetSpeed(v.paintSpeed);
-                                        var v2 = baseItem2.GetSpeed(v.paintSpeed);
-                                        var k = v1 / weights[j] - v2 / weights[j + 1] >= 0 ? -1.0 : 1.0;
-                                        newGRow.Add(k / v1);
-                                        newGRow.Add(-k / v2);
-                                        currentLimit = Math.Abs(limits[j]);
-                                        DictUtils.FillValueIfNotExists(usedLimitsIndexes, j, true);
-                                    }
-
-                                    var alpha = 0.01;
-                                    newRRow.Add(alpha);
-                                    newRRow.Add(-alpha);
-                                }
-                                else if (currentPathItems[1] == pathItem) {
-                                    Debug.Assert(pathItems[j - 1] == currentPathItems[0]);
-                                }
-                                else {
-                                    newGRow.Add(0.0);
-                                    newRRow.Add(0.0);
-                                }
-                            }
-
-                            if (!double.IsNaN(currentLimit)) {
-                                gRows.Add(newGRow);
-                                hList.Add(new List<double>{Math.Abs(currentLimit)});
-                            }
-
-                            rRows.Add(newRRow);
-                            sRows.Add(new List<double>{0.0});
-                        }
-                    }
-
-                    for (var j = 0; j < basePathItems.Count; ++j) {
-                        var newGRow = new List<double>();
-                        for (var k = 0; k < j; ++k) {
-                            newGRow.Add(0.0);
-                        }
-
-                        newGRow.Add(1.0);
-
-                        for (var k = j + 1; k < basePathItems.Count; ++k) {
-                            newGRow.Add(0.0);
-                        }
-
-                        gRows.Add(newGRow);
-                        hList.Add(new List<double>{basePathItems[j].GetSpeed(v.paintSpeed) / v.minPaintRobotSpeed});
-                    }
-
-                    for (var j = 0; j < basePathItems.Count; ++j) {
-                        var newGRow = new List<double>();
-                        for (var k = 0; k < j; ++k) {
-                            newGRow.Add(0.0);
-                        }
-
-                        newGRow.Add(-1.0);
-
-                        for (var k = j + 1; k < basePathItems.Count; ++k) {
-                            newGRow.Add(0.0);
-                        }
-
-                        gRows.Add(newGRow);
-                        hList.Add(new List<double>{-basePathItems[j].GetSpeed(v.paintSpeed) / v.maxPaintRobotSpeed});
-                    }
-
-                    for (var j = 0; j < rRows.Count; ++j) {
-                        var newWRow = new List<double>();
-                        for (var k = 0; k < rRows.Count; ++k) {
-                            newWRow.Add(j == k ? 1.0 : 0.0);
-                        }
-                        wRows.Add(newWRow);
-                    }
-
-                    watch.Stop();
-                    times.Add(watch.ElapsedMilliseconds); // 3
-                    watch.Restart();
-
-                    var rm = new Matrix(rRows);
-                    var sm = new Matrix(sRows);
-                    var gm = new Matrix(gRows);
-                    var hm = new Matrix(hList);
-                    var am = new Matrix(aRows); // not used
-                    var bm = new Matrix(bList); // not used
-                    var wm = new Matrix(wRows);
-                    var result = Equations.QuadraticProgrammingASLE(rm, sm, gm, hm, am, bm, wm);
-
-                    watch.Stop();
-                    times.Add(watch.ElapsedMilliseconds); // 4
-                    watch.Restart();
-
-                    Debug.Assert(result.ColumnCount == 1);
-
-                    var newPathItems = new List<RobotPathItem>();
-                    for (var j = 0; j < result.RowCount; ++j) {
-                        var basePathItem = basePathItems[j];
-                        weights[j] = result.Get(j, 0);
-                        newPathItems.Add(new RobotPathItem(basePathItem.a, basePathItem.b, (float)(basePathItem.extraAccelerationMultiplier / result.Get(j, 0))));
-                    }
-
-                    ok = true;
-                    var aList = new List<double>();
-                    for (var j = 1; j < newPathItems.Count; ++j) {
-                        var a = RobotPathItem.GetAcceleration(newPathItems[j - 1], newPathItems[j], v.paintSpeed);
-                        ok = ok && Math.Abs(a) < v.maxPaintRobotAcceleration;
-                        aList.Add(a);
-                    }
-
-                    if (!ok) {
-                        for (var j = 0; j < aList.Count; ++j) {
-                            if (Math.Abs(aList[j]) > v.maxPaintRobotAcceleration || usedLimitsIndexes.ContainsKey(j)) {
-                                var newV1 = basePathItems[j].GetSpeed(v.paintSpeed);
-                                var newV2 = basePathItems[j + 1].GetSpeed(v.paintSpeed);
-                                var newLimit = CalculateLimitV2(newV1, weights[j], newV2, weights[j + 1], aList[j]);
-                                limits[j] = newLimit;
-                                DictUtils.FillValueIfNotExists(usedLimitsIndexes, j, true);
-                            }
-                        }
-                    }
-
-                    var aMax = aList.Max();
-                    var aMin = aList.Min();
-                    aLog.Add(new Tuple<double, double, int>(aMax, aMin, usedLimitsIndexes.Count));
-
-                    watch.Stop();
-                    times.Add(watch.ElapsedMilliseconds); // 5
-                    allTimes.Add(times);
-
-                    if (ok) {
-                        var newRpp = new RobotPathProcessor(newPathItems);
-                        newRpp.SetSurfaceSpeed(rpp.GetSurfaceSpeed());
-                        newRpp.SetMaxOriginSpeed(rpp.GetMaxOriginSpeed());
-                        simplifiedRobotPathProcessors[i] = newRpp;
-                    }
-
-                    // var testPaintResult = new DrawingSimulator().ProcessPath(
-                    //     new List<RobotPathProcessor>{newRpp},
-                    //     currentTriangles.Keys.ToList(),
-                    //     20 * v.paintHeight,
-                    //     v.paintRadius,
-                    //     v.paintHeight,
-                    //     v.maxTriangleSquare,
-                    //     paintConsumptionRateGameSizeUnitsCubicMeterPerSecond
-                    // );
-                    // var testPaintAmountByPointAndPathItem = GetPaintAmountByPointAndPathItem(testPaintResult, plane);
-                    // var testMinAmount = double.MaxValue;
-                    // var testMaxAmount = double.MinValue;
-                    // foreach (var q in testPaintAmountByPointAndPathItem) {
-                    //     var sumAmount = q.Value.Sum(x => x.Value);
-                    //     testMinAmount = Math.Min(testMinAmount, sumAmount);
-                    //     testMaxAmount = Math.Max(testMaxAmount, sumAmount);
-                    // }
                 }
-                Debug.Log(aLog);
-                Debug.Log($"Optimization iterations: {iterationCount}");
+
+                if (trianglePoints.Count == 0 || optimizedRobotIndexes.Count > 0) {
+                    notOptimizedRobotIndexes.Add(i);
+                    continue;
+                }
+
+                var paintResult = new DrawingSimulator().ProcessPoints(
+                    new List<RobotPathProcessor>{rpp},
+                    trianglePoints.Keys.ToList(),
+                    trianglePoints,
+                    10 * v.paintHeight,
+                    v.paintRadius,
+                    v.paintHeight,
+                    commonSettings.GetPaintConsumptionRateInGameScale()
+                );
+
+                var idxByPoint = new Dictionary<Point, int>();
+                foreach (var triangleAmount in paintResult.paintAmount) {
+                    foreach (var pointAmount in triangleAmount.Value) {
+                        DictUtils.FillValueIfNotExists(idxByPoint, pointAmount.Key, idxByPoint.Count);
+                    }
+                }
+
+                var rRows = new List<List<double>>();
+                var sRows = new List<List<double>>();
+                var wRows = new List<List<double>>();
+
+                var paintAmountByPointAndPathItem = GetPaintAmountByPointAndPathItem(paintResult);
+                paintResult.triangles.Clear();
+                paintResult.paintAmount.Clear();
+                paintResult.detailedPaintAmountForItems.Clear();
+
+                var points = idxByPoint.Keys.OrderBy(x => idxByPoint[x]).ToList();
+                foreach (var point in points) {
+                    var newRow = new List<double>();
+                    foreach (var pathItem in pathItems) {
+                        newRow.Add(paintAmountByPointAndPathItem[point][pathItem]);
+                    }
+
+                    rRows.Add(newRow);
+                    sRows.Add(new List<double>{v.targetPaintThicknessOnSingleLine});
+                }
+
+                for (var j = 0; j < baseSpeeds.Count - 1; ++j) {
+                    var newRRow = new List<double>();
+                    for (var k = 0; k < j; ++k) {
+                        newRRow.Add(0.0);
+                    }
+
+                    var alpha = 0.01;
+                    newRRow.Add(alpha);
+                    newRRow.Add(-alpha);
+
+                    for (var k = j + 2; k < baseSpeeds.Count; ++k) {
+                        newRRow.Add(0.0);
+                    }
+
+                    rRows.Add(newRRow);
+                    sRows.Add(new List<double>{0.0});
+                }
+
+                for (var j = 0; j < rRows.Count; ++j) {
+                    var newWRow = new List<double>();
+                    for (var k = 0; k < rRows.Count; ++k) {
+                        newWRow.Add(j == k ? 1.0 : 0.0);
+                    }
+                    wRows.Add(newWRow);
+                }
+
+                var rm = new Matrix(rRows);
+                var sm = new Matrix(sRows);
+                var wm = new Matrix(wRows);
+
+                // var weights = GetWeights(rm, sm, wm, baseSpeeds, baseDistances);
+                var result = Equations.QuadraticProgrammingASLEV2(
+                    rm, sm, wm, baseSpeeds, baseDistances,
+                    v.minPaintRobotSpeed, v.maxPaintRobotSpeed, v.maxPaintRobotAcceleration, !dontUseAdvancedPathSimplificationV2
+                );
+
+                var weights = new List<double>();
+                for (var j = 0; j < result.RowCount; ++j) {
+                    weights.Add(result.Get(j, 0));
+                }
+
+                var newPathItems = new List<RobotPathItem>();
+                for (var j = 0; j < weights.Count; ++j) {
+                    var pathItem = pathItems[j];
+                    newPathItems.Add(new RobotPathItem(pathItem.a, pathItem.b, pathItem.extraAccelerationMultiplier / (float)weights[j]));
+                }
+
+                var newRpp = new RobotPathProcessor(newPathItems);
+                newRpp.SetSurfaceSpeed(rpp.GetSurfaceSpeed());
+                newRpp.SetMaxOriginSpeed(rpp.GetMaxOriginSpeed());
+                simplifiedRobotPathProcessors[i] = newRpp;
+
+                optimizedRobotIndexes.Add(i);
             }
+
+            foreach (var i in notOptimizedRobotIndexes) {
+                var nearestRobotId = -1;
+                var distance = double.MaxValue;
+                foreach (var j in optimizedRobotIndexes) {
+                    var startI = simplifiedRobotPathProcessors[j].GetRobotPathItems().First().a;
+                    var startJ = simplifiedRobotPathProcessors[j].GetRobotPathItems().First().a;
+                    var newDistance = MMath.GetDistance(startI.originPoint, startJ.originPoint);
+                    if (newDistance < distance) {
+                        nearestRobotId = j;
+                        distance = newDistance;
+                    }
+                }
+
+                var pathItemsI = simplifiedRobotPathProcessors[i].GetRobotPathItems();
+                var pathItemsJ = simplifiedRobotPathProcessors[nearestRobotId].GetRobotPathItems();
+                for (var j = 0; j < pathItemsJ.Count; ++j) {
+                    var pathItem = pathItemsI[j];
+                    pathItemsI[j] = new RobotPathItem(pathItem.a, pathItem.b, pathItemsJ[j].extraAccelerationMultiplier);
+                }
+
+                var newRpp = new RobotPathProcessor(pathItemsI);
+                newRpp.SetSurfaceSpeed(simplifiedRobotPathProcessors[nearestRobotId].GetSurfaceSpeed());
+                newRpp.SetMaxOriginSpeed(simplifiedRobotPathProcessors[nearestRobotId].GetMaxOriginSpeed());
+                simplifiedRobotPathProcessors[i] = newRpp;
+            }
+
+            isOrt = _isOrt;
         }
     }
 
-    private Dictionary<Point, Dictionary<RobotPathItem, double>> GetPaintAmountByPointAndPathItem(TexturePaintResult paintResult, Plane plane) {
+    private double CalculateLimit(double v1, double w1, double v2, double w2, double acceleration, int iterationNumber) {
+        var c = 1.0 - 0.01 * Math.Log10(iterationNumber + 1);
+        return Math.Abs(w1 / v1 - w2 / v2) * (c * v.maxPaintRobotAcceleration / acceleration);
+    }
+
+    private List<double> GetWeights(Matrix rm, Matrix sm, Matrix wm, List<double> speeds, List<double> distances) {
+        var weights = new List<double>();
+        for (var j = 0; j < speeds.Count; ++j) {
+            weights.Add(1.0);
+        }
+
+        var iterationCount = 0;
+        var limits = new List<double>();
+        for (var j = 0; j < speeds.Count - 1; ++j) {
+            var acceleration = RobotPathItem.GetAcceleration(speeds[j], distances[j], speeds[j + 1], distances[j + 1]);
+            var limit = CalculateLimit(speeds[j], weights[j], speeds[j + 1], weights[j + 1], acceleration, iterationCount);
+            limits.Add(limit);
+        }
+
+        var usedLimitsIndexes = new Dictionary<int, bool>();
+        var allTimes = new List<List<float>>();
+        var ok = false;
+        var aLog = new List<Tuple<double, double, int>>();
+        while (!ok) {
+            ++iterationCount;
+            var times = new List<float>();
+            var watch = Stopwatch.StartNew();
+
+            var gRows = new List<List<double>>();
+            var hList = new List<List<double>>();
+
+            for (var j = 0; j < speeds.Count - 1; ++j) {
+                if (usedLimitsIndexes.ContainsKey(j)) {
+                    var newGRow = new List<double>();
+                    for (var k = 0; k < j; ++k) {
+                        newGRow.Add(0.0);
+                    }
+
+                    var v1 = speeds[j];
+                    var v2 = speeds[j + 1];
+                    var c = v1 / weights[j] - v2 / weights[j + 1] >= 0 ? -1.0 : 1.0;
+                    newGRow.Add(c / v1);
+                    newGRow.Add(-c / v2);
+                    var currentLimit = Math.Abs(limits[j]);
+
+                    for (var k = j + 2; k < speeds.Count; ++k) {
+                        newGRow.Add(0.0);
+                    }
+
+                    gRows.Add(newGRow);
+                    hList.Add(new List<double>{Math.Abs(currentLimit)});
+                }
+            }
+
+            for (var j = 0; j < speeds.Count; ++j) {
+                var newGRow = new List<double>();
+                for (var k = 0; k < j; ++k) {
+                    newGRow.Add(0.0);
+                }
+
+                newGRow.Add(1.0);
+
+                for (var k = j + 1; k < speeds.Count; ++k) {
+                    newGRow.Add(0.0);
+                }
+
+                gRows.Add(newGRow);
+                hList.Add(new List<double>{speeds[j] / v.minPaintRobotSpeed});
+            }
+
+            for (var j = 0; j < speeds.Count; ++j) {
+                var newGRow = new List<double>();
+                for (var k = 0; k < j; ++k) {
+                    newGRow.Add(0.0);
+                }
+
+                newGRow.Add(-1.0);
+
+                for (var k = j + 1; k < speeds.Count; ++k) {
+                    newGRow.Add(0.0);
+                }
+
+                gRows.Add(newGRow);
+                hList.Add(new List<double>{-speeds[j] / v.maxPaintRobotSpeed});
+            }
+
+            watch.Stop();
+            times.Add(watch.ElapsedMilliseconds); // 0
+            watch.Restart();
+
+            var gm = new Matrix(gRows);
+            var hm = new Matrix(hList);
+            var result = Equations.QuadraticProgrammingASLE(rm, sm, gm, hm, wm);
+
+            watch.Stop();
+            times.Add(watch.ElapsedMilliseconds); // 1
+            watch.Restart();
+
+            Debug.Assert(result.ColumnCount == 1);
+
+            for (var j = 0; j < result.RowCount; ++j) {
+                weights[j] = result.Get(j, 0);
+            }
+
+            ok = true;
+            var aList = new List<double>();
+            for (var j = 0; j < speeds.Count - 1; ++j) {
+                var a = RobotPathItem.GetAcceleration(speeds[j] / weights[j], distances[j], speeds[j + 1] / weights[j + 1], distances[j + 1]);
+                ok = ok && Math.Abs(a) < v.maxPaintRobotAcceleration;
+                aList.Add(a);
+            }
+
+            if (!ok) {
+                for (var j = 0; j < aList.Count; ++j) {
+                    if (Math.Abs(aList[j]) > v.maxPaintRobotAcceleration || usedLimitsIndexes.ContainsKey(j)) {
+                        limits[j] = CalculateLimit(speeds[j], weights[j], speeds[j + 1], weights[j + 1], aList[j], iterationCount);
+                        DictUtils.FillValueIfNotExists(usedLimitsIndexes, j, true);
+                    }
+                }
+            }
+
+            var aMax = aList.Max();
+            var aMin = aList.Min();
+            aLog.Add(new Tuple<double, double, int>(aMax, aMin, usedLimitsIndexes.Count));
+
+            watch.Stop();
+            times.Add(watch.ElapsedMilliseconds); // 2
+            allTimes.Add(times);
+        }
+
+        return weights;
+    }
+
+    private Dictionary<Point, Dictionary<RobotPathItem, double>> GetPaintAmountByPointAndPathItem(TexturePaintResult paintResult) {
         var paintAmountByPointAndPathItem = new Dictionary<Point, Dictionary<RobotPathItem, double>>();
         foreach (var pathItemAmount in paintResult.detailedPaintAmountForItems) {
             var pathItem = pathItemAmount.Key;
 
             foreach (var triangleAmount in pathItemAmount.Value) {
-                var paintAmounts = MMath.GetIntersectionPaintAmount(triangleAmount.Value, plane, triangleAmount.Key);
-                if (paintAmounts != null) {
-                    DictUtils.FillValueIfNotExists(paintAmountByPointAndPathItem, paintAmounts.GetAvgPoint(), new Dictionary<RobotPathItem, double>());
-                    DictUtils.SumValue(paintAmountByPointAndPathItem[paintAmounts.GetAvgPoint()], pathItem, paintAmounts.GetAvgAmount());
+                foreach (var pointAmount in triangleAmount.Value) {
+                    var point = pointAmount.Key;
+                    DictUtils.FillValueIfNotExists(paintAmountByPointAndPathItem, point, new Dictionary<RobotPathItem, double>());
+                    if (paintAmountByPointAndPathItem[point].ContainsKey(pathItem)) {
+                        paintAmountByPointAndPathItem[point][pathItem] = (paintAmountByPointAndPathItem[point][pathItem] + pointAmount.Value) / 2.0f;
+                    }
+                    else {
+                        paintAmountByPointAndPathItem[point].Add(pathItem, pointAmount.Value);
+                    }
                 }
             }
         }
@@ -972,6 +1046,15 @@ public class ExtractVertices : MonoBehaviour {
                     maxPointCount = maxPointCount,
                     timeScale = timeScale,
                     maxPaintRobotPathSimplifyIterations = maxPaintRobotPathSimplifyIterations,
+                    useBasePathSimplification = useBasePathSimplification,
+                    baseSimplificationPointCount = baseSimplificationPointCount,
+                    useBaseSpeedCorrection = useBaseSpeedCorrection,
+                    useAdvancedPathSimplification = useAdvancedPathSimplification,
+                    dontUseAdvancedPathSimplificationV2 = dontUseAdvancedPathSimplificationV2,
+                    targetPaintThicknessOnSingleLine = targetPaintThicknessOnSingleLine,
+                    targetPaintThicknessOnSurface = targetPaintThicknessOnSurface,
+                    defaultOffsets = defaultOffsets,
+                    ortOffsets = ortOffsets,
 
                     maxTriangleSquare = maxTriangleSquare,
                     linearPathStep = linearPathStep,
@@ -1024,6 +1107,15 @@ public class ExtractVertices : MonoBehaviour {
         maxPointCount = settings.maxPointCount;
         timeScale = settings.timeScale;
         maxPaintRobotPathSimplifyIterations = settings.maxPaintRobotPathSimplifyIterations;
+        useBasePathSimplification = settings.useBasePathSimplification;
+        baseSimplificationPointCount = settings.baseSimplificationPointCount;
+        useBaseSpeedCorrection = settings.useBaseSpeedCorrection;
+        useAdvancedPathSimplification = settings.useAdvancedPathSimplification;
+        dontUseAdvancedPathSimplificationV2 = settings.dontUseAdvancedPathSimplificationV2;
+        targetPaintThicknessOnSingleLine = settings.targetPaintThicknessOnSingleLine;
+        targetPaintThicknessOnSurface = settings.targetPaintThicknessOnSurface;
+        defaultOffsets = settings.defaultOffsets;
+        ortOffsets = settings.ortOffsets;
 
         maxTriangleSquare = settings.maxTriangleSquare;
         linearPathStep = settings.linearPathStep;
@@ -1077,7 +1169,7 @@ public class ExtractVertices : MonoBehaviour {
             var pathData = JsonUtility.FromJson<DataExport.PathData>(File.ReadAllText(dialog.FileName));
             Debug.Log(dialog.FileName);
 
-            var root = GameObject.Find("Objects");
+            var root = GameObject.Find("Objects-Samples-1Path (2)");
             var settings = pathData.settings;
             for (var i = 0; i < root.transform.childCount; ++i) {
                 var child = root.transform.GetChild(i).gameObject;
@@ -1106,18 +1198,14 @@ public class ExtractVertices : MonoBehaviour {
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of calculate robot path with speeds");
         watch.Restart();
 
-        var paintConsumptionRateGameSizeUnitsCubicMeterPerSecond =
-            commonSettings.paintConsumptionRateKgPerHour * 1000 / 3600 /
-            commonSettings.paintDensityGramPerCubicMeter *
-            commonSettings.paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3); // M^3 -> MM^3 (scale in game);
         texturePaintResult = new DrawingSimulator().ProcessPath(
             simplifiedRobotPathProcessors,
             triangles,
-            20 * v.paintHeight,
+            10 * v.paintHeight,
             v.paintRadius,
             v.paintHeight,
             v.maxTriangleSquare,
-            paintConsumptionRateGameSizeUnitsCubicMeterPerSecond
+            commonSettings.GetPaintConsumptionRateInGameScale()
         );
         Debug.Log($"Triangles: {triangles.Count}; {texturePaintResult.triangles.Count}.");
 
@@ -1141,7 +1229,7 @@ public class ExtractVertices : MonoBehaviour {
 
     private GameObject paintTexturePlaneGameObject = null;
 
-    private GameObject CreatePlaneGameObject(int pathIdx = -1) {
+    private GameObject CreatePlaneGameObject(int pathIdx = -1, Point centerOffset = null) {
         var triangles = GetFigureTriangles();
         var position = triangles.Aggregate(Point.Zero, (current, t) => current + t.o) / triangles.Count;
         if (pathIdx != -1) {
@@ -1149,11 +1237,15 @@ public class ExtractVertices : MonoBehaviour {
             position = items.Aggregate(Point.Zero, (current, t) => current + t.a.surfacePoint + t.b.surfacePoint) / (2 * items.Count);
         }
 
+        if (centerOffset != null) {
+            position += centerOffset;
+        }
+
         var paintTexturePlanePosition = position;
         var paintTexturePlane = new Plane(
             position,
-            position + Point.Up * SCALE_IN_GAME,
-            position + Point.Forward * SCALE_IN_GAME
+            position + Point.Up * CommonSettings.SCALE_IN_GAME,
+            position + Point.Forward * CommonSettings.SCALE_IN_GAME
         );
 
         var n = Utils.PtoV(paintTexturePlane.GetNormal());
@@ -1172,13 +1264,13 @@ public class ExtractVertices : MonoBehaviour {
         return planeGameObject;
     }
 
-    private void CreatePlaneForExportPaintData(int pathIdx = -1) {
+    private void CreatePlaneForExportPaintData(int pathIdx = -1, Point centerOffset = null) {
         Debug.Log("CreatePlaneForExportPaintData");
 
         var watch = Stopwatch.StartNew();
 
         DestroyPlaneForExportPaintData();
-        paintTexturePlaneGameObject = CreatePlaneGameObject(pathIdx);
+        paintTexturePlaneGameObject = CreatePlaneGameObject(pathIdx, centerOffset);
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds + " ms. Time of creating plane for export paint data");
@@ -1188,99 +1280,83 @@ public class ExtractVertices : MonoBehaviour {
         Destroy(paintTexturePlaneGameObject);
     }
 
-    private List<Tuple<Point, double, double>> GetPaintDataForExport(TexturePaintResult paintResult, Plane paintTexturePlane) {
-        var segments = new List<Segment>();
-        var values = new List<double>();
-        var intersectionResults = new List<MMath.IntersectionPaintResult>();
-        foreach (var t in paintResult.triangles) {
-            var paintAmountResult = MMath.GetIntersectionPaintAmount(paintResult.paintAmount[t], paintTexturePlane, t);
-            if (paintAmountResult != null) {
-                intersectionResults.Add(paintAmountResult);
-                segments.Add(paintAmountResult.GetSegment());
-                values.Add(paintAmountResult.GetAvgAmount());
+    private List<Tuple<Point, double, double>> GetPaintDataForExport(Plane paintTexturePlane) {
+        var triangles = GetFigureTriangles();
+
+        var pointsDict = new Dictionary<Point, bool>();
+        var trianglePoints = new Dictionary<Triangle, List<Point>>();
+        foreach (var t in triangles) {
+            foreach (var e in t.GetEdges()) {
+                var point = MMath.Intersect(paintTexturePlane, new Segment(e.p1, e.p2));
+                if (point != null) {
+                    DictUtils.FillValueIfNotExists(trianglePoints, t, new List<Point>());
+                    trianglePoints[t].Add(point);
+                    DictUtils.FillValueIfNotExists(pointsDict, point, true);
+                }
+            }
+
+            Debug.Assert(!trianglePoints.ContainsKey(t) || trianglePoints[t].Count <= 2);
+            if (trianglePoints.ContainsKey(t) && trianglePoints[t].Count >= 2) {
+                var tPoints = trianglePoints[t];
+                tPoints = tPoints.OrderBy(p => isOrt ? p.x : p.z).ToList();
+
+                var a = tPoints.First();
+                var b = tPoints.Last();
+                var d = MMath.GetDistance(a, b);
+
+                var count = d / v.linearPathStep;
+                var step = d / count;
+                var direction = (b - a).Normalized;
+                Debug.Assert(MMath.GetDistance(a + (float)d * direction, b) < 1);
+                for (var j = 1.0f; j < count; ++j) {
+                    var point = a + direction * (float)step * j;
+                    trianglePoints[t].Add(point);
+                    DictUtils.FillValueIfNotExists(pointsDict, point, true);
+                }
             }
         }
 
+        var paintResult = new DrawingSimulator().ProcessPoints(
+            simplifiedRobotPathProcessors,
+            trianglePoints.Keys.ToList(),
+            trianglePoints,
+            10 * v.paintHeight,
+            v.paintRadius,
+            v.paintHeight,
+            commonSettings.GetPaintConsumptionRateInGameScale()
+        );
+
+        var points = pointsDict.Keys.ToList();
+        if (!isOrt) {
+            points = points.OrderBy(x => x.z).ToList();
+        }
+        else {
+            points = points.OrderBy(x => x.x).ToList();
+        }
+
+        var valueByPoint = new Dictionary<Point, double>();
+        foreach (var triangleAmount in paintResult.paintAmount) {
+            foreach (var pointAmount in triangleAmount.Value) {
+                if (valueByPoint.ContainsKey(pointAmount.Key)) {
+                    valueByPoint[pointAmount.Key] = 0.5 * (valueByPoint[pointAmount.Key] + pointAmount.Value);
+                }
+                else {
+                    valueByPoint.Add(pointAmount.Key, pointAmount.Value);
+                }
+            }
+        }
+
+        paintResult.triangles.Clear();
+        paintResult.paintAmount.Clear();
+        paintResult.detailedPaintAmountForItems.Clear();
+
         var result = new List<Tuple<Point, double, double>>();
-        if (intersectionResults.Count > 0) {
-            var idxBySegment = new Dictionary<Segment, int>();
-            var segmentsByPoint = new Dictionary<Point, List<Segment>>();
-            foreach (var segment in segments) {
-                idxBySegment.Add(segment, idxBySegment.Count);
-
-                foreach (var p in segment.GetPoints()) {
-                    if (!segmentsByPoint.ContainsKey(p)) {
-                        segmentsByPoint.Add(p, new List<Segment>());
-                    }
-                    segmentsByPoint[p].Add(segment);
-                }
+        var distance = 0.0;
+        for (var i = 0; i < points.Count; ++i) {
+            if (i > 0) {
+                distance += MMath.GetDistance(points[i - 1], points[i]);
             }
-
-            var newSegments = new List<Segment>();
-            Point lastPoint = null;
-            var processedSegments = new Dictionary<Segment, bool>();
-            var processedPoints = new Dictionary<Point, bool>();
-            while (processedSegments.Count != segments.Count) {
-                var ok = false;
-                if (!(lastPoint is null)) {
-                    foreach (var segment in segmentsByPoint[lastPoint]) {
-                        if (!processedSegments.ContainsKey(segment)) {
-                            processedSegments.Add(segment, true);
-                            newSegments.Add(segment);
-                            ok = true;
-                            break;
-                        }
-                    }
-
-                    if (!ok) {
-                        processedPoints.Add(lastPoint, true);
-                        var lastSegment = newSegments.Last();
-                        lastPoint = lastPoint == lastSegment.p1 ? lastSegment.p2 : lastSegment.p1;
-                        if (processedPoints.ContainsKey(lastPoint)) {
-                            lastPoint = null;
-                        }
-                    }
-                }
-
-                if (!ok && lastPoint is null) {
-                    Edge e = null;
-                    if (newSegments.Count > 0) {
-                        e = new Edge(newSegments.Last().p1, newSegments.Last().p2);
-                    }
-                    foreach (var line in segments) {
-                        if (!processedSegments.ContainsKey(line)) {
-                            foreach (var p in line.GetPoints()) {
-                                if (!(e is null) && (lastPoint is null || MMath.GetDistance(e, p) < MMath.GetDistance(e, lastPoint))) {
-                                    lastPoint = p;
-                                }
-
-                                // TODO Bad condition for first point
-                                if (e is null && (lastPoint is null || !isOrt && p.z < lastPoint.z || isOrt && p.x < lastPoint.x)) {
-                                    lastPoint = p;
-                                }
-                                // if (e is null && (lastPoint is null || p.x < lastPoint.x)) {
-                                //     lastPoint = p;
-                                // }
-                                // if (lastPoint is null || p.x < lastPoint.x) {
-                                //     lastPoint = p;
-                                //     break;
-                                // }
-                            }
-                        }
-                    }
-                }
-            }
-
-            Debug.Assert(newSegments.Count == segments.Count);
-            var distance = 0.0;
-            var lastAmount = values[idxBySegment[newSegments.First()]];
-            foreach (var segment in newSegments) {
-                var amount = values[idxBySegment[segment]];
-                result.Add(new Tuple<Point, double, double>(segment.p1, distance, 0.5 * (lastAmount + amount)));
-                distance += segment.GetLength();
-                lastAmount = amount;
-            }
-            result.Add(new Tuple<Point, double, double>(newSegments.Last().p2, distance + newSegments.Last().GetLength(), values[idxBySegment[newSegments.Last()]]));
+            result.Add(new Tuple<Point, double, double>(points[i], distance, valueByPoint[points[i]]));
         }
 
         return result;
@@ -1289,11 +1365,6 @@ public class ExtractVertices : MonoBehaviour {
     private void ExportHeatMapSettings(string filename = "") {
         if (texturePaintResult is null) {
             Debug.Log("Unable ExportPaintData: texturePaintResult is null");
-            return;
-        }
-
-        if (paintTexturePlaneGameObject is null) {
-            Debug.Log("Unable ExportPaintData: paintTexturePlane is null");
             return;
         }
 
@@ -1361,7 +1432,7 @@ public class ExtractVertices : MonoBehaviour {
             var n = paintTexturePlaneGameObject.transform.up;
 
             var watch = Stopwatch.StartNew();
-            var exportData = GetPaintDataForExport(texturePaintResult, new Plane(Utils.VtoP(n), Utils.VtoP(position)));
+            var exportData = GetPaintDataForExport(new Plane(Utils.VtoP(n), Utils.VtoP(position)));
             watch.Stop();
             Debug.Log(watch.ElapsedMilliseconds + " ms. Time of export paint data");
 
@@ -1370,8 +1441,98 @@ public class ExtractVertices : MonoBehaviour {
                 var p = exportItem.Item1;
                 var distance = exportItem.Item2;
                 var value = exportItem.Item3;
-                strLines.Add($"({p.x};{p.y};{p.z})\t{distance}\t{value / SCALE_IN_GAME}");
+                strLines.Add($"({p.x};{p.y};{p.z})\t{distance}\t{value / CommonSettings.SCALE_IN_GAME}");
             }
+
+            exportData.Clear();
+
+            File.WriteAllLines(filename, strLines);
+        }
+    }
+
+    private List<double> GetRppAnglesToFigure(List<Position> pathItems) {
+        var triangles = GetFigureTriangles();
+
+        var planes = new List<Plane>();
+        foreach (var t in GetFigureTriangles()) {
+            planes.Add(t.GetPlane());
+        }
+
+        var result = new List<double>();
+        // Normal denormalization and redirection;
+        for (var j = 0; j < pathItems.Count; ++j) {
+            var item = pathItems[j];
+            var ok = false;
+            for (var k = 0; k < planes.Count; ++k) {
+                var point = MMath.Intersect(
+                    planes[k],
+                    new Segment(
+                        item.originPoint,
+                        item.surfacePoint + item.paintDirection * (float)MMath.GetDistance(item.originPoint, item.surfacePoint) * 0.1f
+                    )
+                );
+                if (!(point is null)) {
+                    var t = triangles[k];
+
+                    var s0 = t.GetSquare();
+                    var s1 = new Triangle(point, t.p1, t.p2).GetSquare();
+                    var s2 = new Triangle(point, t.p1, t.p3).GetSquare();
+                    var s3 = new Triangle(point, t.p2, t.p3).GetSquare();
+
+                    if (Math.Abs(s0 - s1 - s2 - s3) < 50) {
+                        var dot = MMath.Dot(planes[k].GetNormal(), -item.paintDirection);
+                        var angle = Math.Acos(Math.Min(dot, 1.0));
+                        result.Add(angle / Math.PI * 180.0);
+                        ok = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!ok) {
+                result.Add(0.0);
+            }
+        }
+
+        return result;
+    }
+
+    private void ExportPathNormalAngles(string filename = "") {
+        Debug.Log("ExportPathNormalAngles");
+
+        if (filename.Length == 0) {
+            var dialog = new SaveFileDialog {
+                InitialDirectory = Utils.GetStoreFolder(),
+                Filter = "text files (*.txt)|*.txt",
+                RestoreDirectory = false
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK) {
+                filename = dialog.FileName;
+            }
+        }
+
+        if (filename.Length > 0) {
+            var strLines = new List<string>();
+            foreach (var rpp in simplifiedRobotPathProcessors) {
+                var pathItems = rpp.GetRobotPathItems();
+
+                var positions = new List<Position>();
+                for (var j = 0; j < pathItems.Count; ++j) {
+                    positions.Add(pathItems[j].a);
+                    if (j + 1 == pathItems.Count) {
+                        positions.Add(pathItems[j].b);
+                    }
+                }
+
+                var angles = GetRppAnglesToFigure(positions);
+                for (var j = 0; j < positions.Count; ++j) {
+                    var p = positions[j].surfacePoint;
+                    strLines.Add($"({p.x};{p.y};{p.z})\t{angles[j]}");
+                }
+            }
+
+            strLines.Add("\t");
 
             File.WriteAllLines(filename, strLines);
         }
@@ -1395,18 +1556,24 @@ public class ExtractVertices : MonoBehaviour {
         if (filename.Length > 0) {
             var strLines = new List<string>();
             foreach (var rpp in simplifiedRobotPathProcessors) {
-                var sumDistance = 0.0;
+                var sumOriginDistance = 0.0;
+                var sumSurfaceDistance = 0.0;
                 var pathItems = rpp.GetRobotPathItems();
                 for (var j = 0; j < pathItems.Count; ++j) {
                     var pathItem = pathItems[j];
 
                     var speed = pathItem.GetSpeed(v.paintSpeed);
-                    var acceleration = j < pathItems.Count - 2 ? RobotPathItem.GetAcceleration(pathItems[j], pathItems[j + 1], v.paintSpeed) : 0.0;
-                    var distance = MMath.GetDistance(pathItem.a.originPoint, pathItem.b.originPoint);
+                    var acceleration = j + 2 < pathItems.Count ? RobotPathItem.GetAcceleration(pathItems[j], pathItems[j + 1], v.paintSpeed) : 0.0;
+                    var originDistance = MMath.GetDistance(pathItem.a.originPoint, pathItem.b.originPoint);
+                    var surfaceDistance = MMath.GetDistance(pathItem.a.surfacePoint, pathItem.b.surfacePoint);
+                    var time = pathItem.GetTime(v.paintSpeed);
 
-                    sumDistance += distance;
-                    strLines.Add($"{speed}\t{sumDistance}\t{acceleration}\t{pathItem.GetSpeedMultiplier()}\t{pathItem.GetSpeedAccelerationMultiplier()}");
+                    sumOriginDistance += originDistance;
+                    sumSurfaceDistance += surfaceDistance;
+                    strLines.Add($"{speed}\t{sumOriginDistance}\t{sumSurfaceDistance}\t{acceleration}\t{pathItem.GetSpeedMultiplier()}\t{pathItem.GetSpeedAccelerationMultiplier()}\t{time}");
                 }
+
+                strLines.Add("\t");
             }
 
             File.WriteAllLines(filename, strLines);
@@ -1577,12 +1744,6 @@ public class ExtractVertices : MonoBehaviour {
 
         simplifiedRobotPathProcessors.ForEach(x => x.SetSurfaceSpeed(v.paintSpeed));
         MoveRobot(Time.deltaTime * timeScale);
-
-        if (needRunExperiment) {
-            RunExperiment();
-            needRunExperiment = false;
-            gameObject.SetActive(false);
-        }
     }
 
     private void OnDrawGizmos() {

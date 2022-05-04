@@ -37,6 +37,15 @@ namespace DataExport {
         public int maxPointCount;
         public float timeScale;
         public int maxPaintRobotPathSimplifyIterations;
+        public bool useBasePathSimplification;
+        public int baseSimplificationPointCount;
+        public bool useBaseSpeedCorrection;
+        public bool useAdvancedPathSimplification;
+        public bool dontUseAdvancedPathSimplificationV2;
+        public float targetPaintThicknessOnSingleLine;
+        public float targetPaintThicknessOnSurface;
+        public List<float> defaultOffsets;
+        public List<float> ortOffsets;
 
         public float maxTriangleSquare;
         public float linearPathStep;

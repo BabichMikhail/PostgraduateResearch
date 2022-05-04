@@ -7,6 +7,7 @@ public class CommonSettings : MonoBehaviour {
     public float paintAdhesionPart = 0.5f;
     public float paintDensityGramPerCubicMeter = 2.7e6f;
     public float paintConsumptionRateKgPerHour = 1.0f;
+    public float paintPorosityRate = 0.1f;
 
     [Header("Draw settings")]
     public bool drawSurfacePath = true;
@@ -17,4 +18,13 @@ public class CommonSettings : MonoBehaviour {
     public bool drawLinearPath = false;
     public bool drawApproximatedPathWithSpeed = true;
     public bool drawApproximatedPathWithAcceleration = false;
+
+    public const float SCALE_IN_GAME = 1000.0f;
+
+    public float GetPaintConsumptionRateInGameScale() {
+        return paintConsumptionRateKgPerHour * 1000 / 3600 /
+               paintDensityGramPerCubicMeter *
+               paintAdhesionPart * Mathf.Pow(SCALE_IN_GAME, 3) /
+               (1.0f - paintPorosityRate); // M^3 -> MM^3 (scale in game);
+    }
 }

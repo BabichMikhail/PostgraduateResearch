@@ -449,7 +449,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 78
+  m_RootOrder: 83
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &10065413
 MonoBehaviour:
@@ -473,17 +473,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -502,7 +502,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: concaveLine200S
   isOrt: 0
 --- !u!65 &10065414
@@ -597,7 +597,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 114
+  m_RootOrder: 119
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &31396400
 MonoBehaviour:
@@ -806,7 +806,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: angleWide06A
   isOrt: 0
 --- !u!65 &34763536
@@ -901,7 +901,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 97
+  m_RootOrder: 102
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &36107457
 MonoBehaviour:
@@ -1357,7 +1357,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 71
+  m_RootOrder: 77
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &64096305
 MonoBehaviour:
@@ -1381,17 +1381,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -1410,7 +1410,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shortZZ44_50S
   isOrt: 0
 --- !u!65 &64096306
@@ -1505,7 +1505,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 136
+  m_RootOrder: 141
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &66507116
 MonoBehaviour:
@@ -1714,7 +1714,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: invAngleWide06S
   isOrt: 0
 --- !u!65 &70936641
@@ -1864,7 +1864,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments25
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: angleWide12A
   isOrt: 0
 --- !u!65 &75753242
@@ -2201,7 +2201,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 113
+  m_RootOrder: 118
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &93462351
 MonoBehaviour:
@@ -2708,9 +2708,9 @@ MonoBehaviour:
   ortOffsets:
   - 0
   maxTriangleSquare: 0.0005
-  linearPathStep: 0.004
+  linearPathStep: 0.001
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments31
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments35
   experimentFileName: plane2sigma
   isOrt: 0
 --- !u!65 &114080501
@@ -2860,7 +2860,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: angleWide06S
   isOrt: 0
 --- !u!65 &118861924
@@ -2955,7 +2955,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 82
+  m_RootOrder: 87
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &123290630
 MonoBehaviour:
@@ -2979,17 +2979,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -3008,7 +3008,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: concaveLine1000S
   isOrt: 0
 --- !u!65 &123290631
@@ -3545,7 +3545,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 62
+  m_RootOrder: 63
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &155727792
 MonoBehaviour:
@@ -3569,17 +3569,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -3598,7 +3598,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shearWaves40S
   isOrt: 0
 --- !u!65 &155727793
@@ -4137,7 +4137,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 115
+  m_RootOrder: 120
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &194341576
 MonoBehaviour:
@@ -4346,7 +4346,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: angleWide04A
   isOrt: 0
 --- !u!65 &197431921
@@ -4408,6 +4408,154 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197431918}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &210281063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 210281064}
+  - component: {fileID: 210281068}
+  - component: {fileID: 210281067}
+  - component: {fileID: 210281066}
+  - component: {fileID: 210281065}
+  m_Layer: 0
+  m_Name: ShortShearWaves60S
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &210281064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210281063}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1669806554}
+  m_RootOrder: 65
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &210281065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210281063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleName: short_shear_waves_60
+  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
+    type: 3}
+  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
+  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
+    type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
+  paintRobotScale: 1
+  pathFinderType: 0
+  paintSpeed: 0.4547
+  paintRadius: 0.03
+  paintHeight: 0.2
+  paintAngle: 0
+  paintLateralAllowance: 0.1
+  paintLongitudinalAllowance: 0.04
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
+  maxPaintRobotSpeed: 2
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 1000
+  timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  baseSimplificationPointCount: 12
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 0
+  dontUseAdvancedPathSimplificationV2: 0
+  targetPaintThicknessOnSingleLine: 0.00001
+  targetPaintThicknessOnSurface: 0.0000166
+  defaultOffsets:
+  - 0
+  ortOffsets:
+  - 0
+  maxTriangleSquare: 0.001
+  linearPathStep: 0.01
+  yRotation: 0
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentFileName: shearWaves60S
+  isOrt: 0
+--- !u!65 &210281066
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210281063}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &210281067
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210281063}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &210281068
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210281063}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &214075576
 GameObject:
@@ -4782,7 +4930,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 122
+  m_RootOrder: 127
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &230345897
 MonoBehaviour:
@@ -4936,7 +5084,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 59
+  m_RootOrder: 60
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &234314341
 MonoBehaviour:
@@ -4960,17 +5108,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -4989,7 +5137,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shearWaves10S
   isOrt: 0
 --- !u!65 &234314342
@@ -5203,7 +5351,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 117
+  m_RootOrder: 122
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &257530465
 MonoBehaviour:
@@ -5450,7 +5598,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 94
+  m_RootOrder: 99
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &260528824
 MonoBehaviour:
@@ -6335,7 +6483,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: angleWide04S
   isOrt: 0
 --- !u!65 &337429046
@@ -6578,7 +6726,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 99
+  m_RootOrder: 104
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &348211486
 MonoBehaviour:
@@ -7079,9 +7227,9 @@ MonoBehaviour:
   ortOffsets:
   - 0
   maxTriangleSquare: 0.0005
-  linearPathStep: 0.004
+  linearPathStep: 0.001
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments31
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments35
   experimentFileName: plane1.5sigma
   isOrt: 0
 --- !u!65 &383321605
@@ -7324,7 +7472,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 107
+  m_RootOrder: 112
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &412020827
 MonoBehaviour:
@@ -7502,17 +7650,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -7531,7 +7679,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shearWaves20A
   isOrt: 0
 --- !u!65 &418798542
@@ -7885,7 +8033,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: invAngle06S
   isOrt: 0
 --- !u!65 &444319635
@@ -8528,7 +8676,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments25
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: angleWide12S
   isOrt: 0
 --- !u!65 &490303722
@@ -8674,9 +8822,9 @@ MonoBehaviour:
   ortOffsets:
   - 0
   maxTriangleSquare: 0.0005
-  linearPathStep: 0.004
+  linearPathStep: 0.001
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments30
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments34
   experimentFileName: plane1sigma
   isOrt: 0
 --- !u!65 &496782061
@@ -8771,7 +8919,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 110
+  m_RootOrder: 115
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &496888657
 MonoBehaviour:
@@ -9257,7 +9405,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 139
+  m_RootOrder: 144
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &536337380
 MonoBehaviour:
@@ -9798,7 +9946,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 127
+  m_RootOrder: 132
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &568802349
 MonoBehaviour:
@@ -10011,7 +10159,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: invAngle06A
   isOrt: 0
 --- !u!65 &574394503
@@ -10161,7 +10309,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: angleWide08S
   isOrt: 0
 --- !u!65 &579733130
@@ -10463,7 +10611,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: invAngle08S
   isOrt: 0
 --- !u!65 &587104159
@@ -10558,7 +10706,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 137
+  m_RootOrder: 142
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &587923391
 MonoBehaviour:
@@ -10712,7 +10860,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 80
+  m_RootOrder: 85
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &593678742
 MonoBehaviour:
@@ -10736,17 +10884,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -10765,7 +10913,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: concaveLine600S
   isOrt: 0
 --- !u!65 &593678743
@@ -10860,7 +11008,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 93
+  m_RootOrder: 98
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &616389078
 MonoBehaviour:
@@ -11162,7 +11310,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 64
+  m_RootOrder: 68
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &629749071
 MonoBehaviour:
@@ -11186,17 +11334,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -11215,7 +11363,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shortZZ44_200A
   isOrt: 0
 --- !u!65 &629749072
@@ -11754,7 +11902,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 132
+  m_RootOrder: 137
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &668407272
 MonoBehaviour:
@@ -11908,7 +12056,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 116
+  m_RootOrder: 121
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &675483949
 MonoBehaviour:
@@ -12062,7 +12210,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 85
+  m_RootOrder: 90
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &679051172
 MonoBehaviour:
@@ -12086,17 +12234,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -12115,7 +12263,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: convexLine600A
   isOrt: 0
 --- !u!65 &679051173
@@ -12487,9 +12635,9 @@ MonoBehaviour:
   ortOffsets:
   - 0
   maxTriangleSquare: 0.0005
-  linearPathStep: 0.004
+  linearPathStep: 0.001
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments30
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments34
   experimentFileName: plane2sigma
   isOrt: 0
 --- !u!65 &693640557
@@ -12584,7 +12732,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 75
+  m_RootOrder: 81
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &701726981
 MonoBehaviour:
@@ -12608,17 +12756,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -12637,7 +12785,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: concaveLine800A
   isOrt: 0
 --- !u!65 &701726982
@@ -13082,7 +13230,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: angleWide10S
   isOrt: 0
 --- !u!65 &717708810
@@ -13296,7 +13444,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: invAngle10A
   isOrt: 0
 --- !u!65 &730221940
@@ -13446,7 +13594,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: angleWide08A
   isOrt: 0
 --- !u!65 &765580972
@@ -13776,154 +13924,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784943724}
   m_CullTransparentMesh: 0
---- !u!1 &785998033
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 785998034}
-  - component: {fileID: 785998038}
-  - component: {fileID: 785998037}
-  - component: {fileID: 785998036}
-  - component: {fileID: 785998035}
-  m_Layer: 0
-  m_Name: ConcaveLine_400A (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &785998034
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785998033}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1669806554}
-  m_RootOrder: 76
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &785998035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785998033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sampleName: long_concave_line_400
-  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
-    type: 3}
-  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
-  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
-    type: 3}
-  scaleGameToWorldMeter: 1
-  sampleScaleToWorldMeter: 0.001
-  paintRobotScale: 1
-  pathFinderType: 0
-  paintSpeed: 5.7
-  paintRadius: 0.03
-  paintHeight: 0.2
-  paintAngle: 0
-  paintLateralAllowance: 0.1
-  paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
-  maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
-  pointPerSecondDrawingSpeed: 0
-  maxPointCount: 1000
-  timeScale: 1
-  maxPaintRobotPathSimplifyIterations: 10
-  useBasePathSimplification: 1
-  baseSimplificationPointCount: 12
-  useBaseSpeedCorrection: 0
-  useAdvancedPathSimplification: 1
-  dontUseAdvancedPathSimplificationV2: 1
-  targetPaintThicknessOnSingleLine: 0.00001
-  targetPaintThicknessOnSurface: 0.0000166
-  defaultOffsets:
-  - 0
-  ortOffsets:
-  - 0
-  maxTriangleSquare: 0.001
-  linearPathStep: 0.01
-  yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
-  experimentFileName: concaveLine400A2
-  isOrt: 0
---- !u!65 &785998036
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785998033}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &785998037
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785998033}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &785998038
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 785998033}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &786471984
 GameObject:
   m_ObjectHideFlags: 0
@@ -13956,7 +13956,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 60
+  m_RootOrder: 61
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &786471986
 MonoBehaviour:
@@ -13980,17 +13980,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -14009,7 +14009,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shearWaves20S
   isOrt: 0
 --- !u!65 &786471987
@@ -14350,17 +14350,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -14379,7 +14379,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shearWaves10A
   isOrt: 0
 --- !u!65 &806342204
@@ -14675,7 +14675,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: superWaveA
   isOrt: 0
 --- !u!65 &830773325
@@ -15185,7 +15185,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 101
+  m_RootOrder: 106
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &892541441
 MonoBehaviour:
@@ -15417,7 +15417,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 77
+  m_RootOrder: 82
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &925132296
 MonoBehaviour:
@@ -15441,17 +15441,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -15470,7 +15470,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: concaveLine1000A
   isOrt: 0
 --- !u!65 &925132297
@@ -16113,7 +16113,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: invAngleWide12S
   isOrt: 0
 --- !u!65 &948133735
@@ -16362,7 +16362,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 119
+  m_RootOrder: 124
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &976597688
 MonoBehaviour:
@@ -16571,7 +16571,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: invAngleWide10S
   isOrt: 0
 --- !u!65 &984931474
@@ -16666,7 +16666,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 124
+  m_RootOrder: 129
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &986167375
 MonoBehaviour:
@@ -17087,7 +17087,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 83
+  m_RootOrder: 88
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1018030034
 MonoBehaviour:
@@ -17111,17 +17111,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -17140,7 +17140,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: convexLine200A
   isOrt: 0
 --- !u!65 &1018030035
@@ -17235,7 +17235,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 102
+  m_RootOrder: 107
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1021711350
 MonoBehaviour:
@@ -17537,7 +17537,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 134
+  m_RootOrder: 139
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1056284286
 MonoBehaviour:
@@ -17898,7 +17898,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments25
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: invAngle12A
   isOrt: 0
 --- !u!65 &1056677233
@@ -18295,7 +18295,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 67
+  m_RootOrder: 71
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1072558358
 MonoBehaviour:
@@ -18319,17 +18319,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -18348,7 +18348,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shortZZ44_50A
   isOrt: 0
 --- !u!65 &1072558359
@@ -18443,7 +18443,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 118
+  m_RootOrder: 123
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1076635104
 MonoBehaviour:
@@ -18745,7 +18745,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 106
+  m_RootOrder: 111
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1080473536
 MonoBehaviour:
@@ -18899,7 +18899,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 74
+  m_RootOrder: 80
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1083996129
 MonoBehaviour:
@@ -18923,17 +18923,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -18952,7 +18952,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: concaveLine600A
   isOrt: 0
 --- !u!65 &1083996130
@@ -19246,6 +19246,154 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1094157896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1094157897}
+  - component: {fileID: 1094157901}
+  - component: {fileID: 1094157900}
+  - component: {fileID: 1094157899}
+  - component: {fileID: 1094157898}
+  m_Layer: 0
+  m_Name: ShortZZ44_300A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1094157897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094157896}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1669806554}
+  m_RootOrder: 66
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1094157898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094157896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleName: zz44_300
+  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
+    type: 3}
+  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
+  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
+    type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
+  paintRobotScale: 1
+  pathFinderType: 0
+  paintSpeed: 0.4547
+  paintRadius: 0.03
+  paintHeight: 0.2
+  paintAngle: 0
+  paintLateralAllowance: 0.1
+  paintLongitudinalAllowance: 0.04
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
+  maxPaintRobotSpeed: 2
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 1000
+  timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  baseSimplificationPointCount: 12
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 1
+  dontUseAdvancedPathSimplificationV2: 0
+  targetPaintThicknessOnSingleLine: 0.00001
+  targetPaintThicknessOnSurface: 0.0000166
+  defaultOffsets:
+  - 0
+  ortOffsets:
+  - 0
+  maxTriangleSquare: 0.001
+  linearPathStep: 0.01
+  yRotation: 0
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentFileName: shortZZ44_300A
+  isOrt: 0
+--- !u!65 &1094157899
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094157896}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1094157900
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094157896}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1094157901
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094157896}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1098800977
 GameObject:
   m_ObjectHideFlags: 0
@@ -19337,7 +19485,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments25
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: invAngle12S
   isOrt: 0
 --- !u!65 &1098800980
@@ -19432,7 +19580,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 131
+  m_RootOrder: 136
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1098965167
 MonoBehaviour:
@@ -19734,7 +19882,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 66
+  m_RootOrder: 70
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1113229885
 MonoBehaviour:
@@ -19758,17 +19906,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -19787,7 +19935,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shortZZ44_100A
   isOrt: 0
 --- !u!65 &1113229886
@@ -19882,7 +20030,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 96
+  m_RootOrder: 101
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1115952597
 MonoBehaviour:
@@ -20190,7 +20338,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 70
+  m_RootOrder: 76
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1162647683
 MonoBehaviour:
@@ -20214,17 +20362,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -20243,7 +20391,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shortZZ44_100S
   isOrt: 0
 --- !u!65 &1162647684
@@ -20338,7 +20486,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 81
+  m_RootOrder: 86
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1170665274
 MonoBehaviour:
@@ -20362,17 +20510,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -20391,7 +20539,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: concaveLine800S
   isOrt: 0
 --- !u!65 &1170665275
@@ -21165,7 +21313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 105
+  m_RootOrder: 110
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1297556894
 MonoBehaviour:
@@ -21319,7 +21467,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 63
+  m_RootOrder: 64
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1297689918
 MonoBehaviour:
@@ -21343,17 +21491,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -21372,7 +21520,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shearWaves50S
   isOrt: 0
 --- !u!65 &1297689919
@@ -21434,6 +21582,154 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297689916}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1310353292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1310353293}
+  - component: {fileID: 1310353297}
+  - component: {fileID: 1310353296}
+  - component: {fileID: 1310353295}
+  - component: {fileID: 1310353294}
+  m_Layer: 0
+  m_Name: ShortZZ44_250S
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1310353293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310353292}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1669806554}
+  m_RootOrder: 73
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1310353294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310353292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleName: zz44_250
+  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
+    type: 3}
+  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
+  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
+    type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
+  paintRobotScale: 1
+  pathFinderType: 0
+  paintSpeed: 0.4547
+  paintRadius: 0.03
+  paintHeight: 0.2
+  paintAngle: 0
+  paintLateralAllowance: 0.1
+  paintLongitudinalAllowance: 0.04
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
+  maxPaintRobotSpeed: 2
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 1000
+  timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  baseSimplificationPointCount: 12
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 0
+  dontUseAdvancedPathSimplificationV2: 0
+  targetPaintThicknessOnSingleLine: 0.00001
+  targetPaintThicknessOnSurface: 0.0000166
+  defaultOffsets:
+  - 0
+  ortOffsets:
+  - 0
+  maxTriangleSquare: 0.001
+  linearPathStep: 0.01
+  yRotation: 0
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentFileName: shortZZ44_250S
+  isOrt: 0
+--- !u!65 &1310353295
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310353292}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1310353296
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310353292}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1310353297
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310353292}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1324681887
 GameObject:
@@ -21527,6 +21823,154 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1354775137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1354775138}
+  - component: {fileID: 1354775142}
+  - component: {fileID: 1354775141}
+  - component: {fileID: 1354775140}
+  - component: {fileID: 1354775139}
+  m_Layer: 0
+  m_Name: ShortZZ44_300S
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1354775138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354775137}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1669806554}
+  m_RootOrder: 72
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1354775139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354775137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleName: zz44_300
+  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
+    type: 3}
+  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
+  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
+    type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
+  paintRobotScale: 1
+  pathFinderType: 0
+  paintSpeed: 0.4547
+  paintRadius: 0.03
+  paintHeight: 0.2
+  paintAngle: 0
+  paintLateralAllowance: 0.1
+  paintLongitudinalAllowance: 0.04
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
+  maxPaintRobotSpeed: 2
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 1000
+  timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  baseSimplificationPointCount: 12
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 0
+  dontUseAdvancedPathSimplificationV2: 0
+  targetPaintThicknessOnSingleLine: 0.00001
+  targetPaintThicknessOnSurface: 0.0000166
+  defaultOffsets:
+  - 0
+  ortOffsets:
+  - 0
+  maxTriangleSquare: 0.001
+  linearPathStep: 0.01
+  yRotation: 0
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentFileName: shortZZ44_300S
+  isOrt: 0
+--- !u!65 &1354775140
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354775137}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1354775141
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354775137}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1354775142
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354775137}
+  m_Mesh: {fileID: 0}
 --- !u!1 &1366727774
 GameObject:
   m_ObjectHideFlags: 0
@@ -21559,7 +22003,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 108
+  m_RootOrder: 113
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1366727776
 MonoBehaviour:
@@ -21713,7 +22157,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 123
+  m_RootOrder: 128
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1374438993
 MonoBehaviour:
@@ -22015,7 +22459,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 65
+  m_RootOrder: 69
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1399008262
 MonoBehaviour:
@@ -22039,17 +22483,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -22068,7 +22512,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shortZZ44_150A
   isOrt: 0
 --- !u!65 &1399008263
@@ -22163,7 +22607,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 125
+  m_RootOrder: 130
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1413089336
 MonoBehaviour:
@@ -22372,7 +22816,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: invAngleWide10A
   isOrt: 0
 --- !u!65 &1419584301
@@ -22467,7 +22911,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 133
+  m_RootOrder: 138
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1426174193
 MonoBehaviour:
@@ -22676,7 +23120,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: angleWide10A
   isOrt: 0
 --- !u!65 &1428398153
@@ -22827,10 +23271,16 @@ MonoBehaviour:
   - 3
   ortOffsets:
   - 0
+  - 0.5
+  - 1
+  - 1.5
+  - 2
+  - 2.5
+  - 3
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: angle12S
   isOrt: 0
 --- !u!65 &1433442281
@@ -22925,7 +23375,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 103
+  m_RootOrder: 108
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1437056547
 MonoBehaviour:
@@ -23233,7 +23683,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 79
+  m_RootOrder: 84
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1458772010
 MonoBehaviour:
@@ -23257,17 +23707,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -23286,7 +23736,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: concaveLine400S
   isOrt: 0
 --- !u!65 &1458772011
@@ -23446,7 +23896,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 87
+  m_RootOrder: 92
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1467397111
 MonoBehaviour:
@@ -23470,17 +23920,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -23499,7 +23949,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: convexLine1000A
   isOrt: 0
 --- !u!65 &1467397112
@@ -23801,7 +24251,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: invAngle08A
   isOrt: 0
 --- !u!65 &1474079018
@@ -23983,6 +24433,154 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477666680}
   m_CullTransparentMesh: 0
+--- !u!1 &1477978559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1477978560}
+  - component: {fileID: 1477978564}
+  - component: {fileID: 1477978563}
+  - component: {fileID: 1477978562}
+  - component: {fileID: 1477978561}
+  m_Layer: 0
+  m_Name: ShortShearWaves60A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1477978560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477978559}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1669806554}
+  m_RootOrder: 59
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1477978561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477978559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleName: short_shear_waves_60
+  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
+    type: 3}
+  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
+  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
+    type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
+  paintRobotScale: 1
+  pathFinderType: 0
+  paintSpeed: 0.4547
+  paintRadius: 0.03
+  paintHeight: 0.2
+  paintAngle: 0
+  paintLateralAllowance: 0.1
+  paintLongitudinalAllowance: 0.04
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
+  maxPaintRobotSpeed: 2
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 1000
+  timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  baseSimplificationPointCount: 12
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 1
+  dontUseAdvancedPathSimplificationV2: 0
+  targetPaintThicknessOnSingleLine: 0.00001
+  targetPaintThicknessOnSurface: 0.0000166
+  defaultOffsets:
+  - 0
+  ortOffsets:
+  - 0
+  maxTriangleSquare: 0.001
+  linearPathStep: 0.01
+  yRotation: 0
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentFileName: shearWaves60A
+  isOrt: 0
+--- !u!65 &1477978562
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477978559}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1477978563
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477978559}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1477978564
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477978559}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1479935201
 GameObject:
   m_ObjectHideFlags: 0
@@ -24134,7 +24732,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 89
+  m_RootOrder: 94
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1499020842
 MonoBehaviour:
@@ -24158,17 +24756,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -24187,7 +24785,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: convexLine400S
   isOrt: 0
 --- !u!65 &1499020843
@@ -24282,7 +24880,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 129
+  m_RootOrder: 134
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1514974279
 MonoBehaviour:
@@ -24904,17 +25502,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -24933,7 +25531,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shearWaves30A
   isOrt: 0
 --- !u!65 &1548113764
@@ -25410,7 +26008,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 111
+  m_RootOrder: 116
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1561389850
 MonoBehaviour:
@@ -26008,7 +26606,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 88
+  m_RootOrder: 93
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1581525154
 MonoBehaviour:
@@ -26032,17 +26630,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -26061,7 +26659,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: convexLine200S
   isOrt: 0
 --- !u!65 &1581525155
@@ -26458,7 +27056,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 109
+  m_RootOrder: 114
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1621921060
 MonoBehaviour:
@@ -26612,7 +27210,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 112
+  m_RootOrder: 117
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1629944224
 MonoBehaviour:
@@ -26822,6 +27420,12 @@ MonoBehaviour:
   - 3
   ortOffsets:
   - 0
+  - 0.5
+  - 1
+  - 1.5
+  - 2
+  - 2.5
+  - 3
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
@@ -26987,15 +27591,21 @@ Transform:
   - {fileID: 1548113762}
   - {fileID: 2132002916}
   - {fileID: 1915325602}
+  - {fileID: 1477978560}
   - {fileID: 234314340}
   - {fileID: 786471985}
   - {fileID: 1799069888}
   - {fileID: 155727791}
   - {fileID: 1297689917}
+  - {fileID: 210281064}
+  - {fileID: 1094157897}
+  - {fileID: 1730756492}
   - {fileID: 629749070}
   - {fileID: 1399008261}
   - {fileID: 1113229884}
   - {fileID: 1072558357}
+  - {fileID: 1354775138}
+  - {fileID: 1310353293}
   - {fileID: 1851071975}
   - {fileID: 1699972431}
   - {fileID: 1162647682}
@@ -27004,7 +27614,6 @@ Transform:
   - {fileID: 1836675718}
   - {fileID: 1083996128}
   - {fileID: 701726980}
-  - {fileID: 785998034}
   - {fileID: 925132295}
   - {fileID: 10065412}
   - {fileID: 1458772009}
@@ -27157,9 +27766,9 @@ MonoBehaviour:
   ortOffsets:
   - 0
   maxTriangleSquare: 0.0005
-  linearPathStep: 0.004
+  linearPathStep: 0.001
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments31
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments35
   experimentFileName: plane1sigma
   isOrt: 0
 --- !u!65 &1673478568
@@ -27254,7 +27863,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 86
+  m_RootOrder: 91
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1683145277
 MonoBehaviour:
@@ -27278,17 +27887,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -27307,7 +27916,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: convexLine800A
   isOrt: 0
 --- !u!65 &1683145278
@@ -27453,9 +28062,9 @@ MonoBehaviour:
   ortOffsets:
   - 0
   maxTriangleSquare: 0.0005
-  linearPathStep: 0.004
+  linearPathStep: 0.001
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments30
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments34
   experimentFileName: plane1.5sigma
   isOrt: 0
 --- !u!65 &1690162613
@@ -27605,7 +28214,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: invAngleWide08S
   isOrt: 0
 --- !u!65 &1691446877
@@ -27700,7 +28309,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 69
+  m_RootOrder: 75
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1699972432
 MonoBehaviour:
@@ -27724,17 +28333,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -27753,7 +28362,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shortZZ44_150S
   isOrt: 0
 --- !u!65 &1699972433
@@ -27995,7 +28604,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 95
+  m_RootOrder: 100
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1705882266
 MonoBehaviour:
@@ -28297,7 +28906,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 126
+  m_RootOrder: 131
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1716622776
 MonoBehaviour:
@@ -28451,7 +29060,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 120
+  m_RootOrder: 125
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1724117776
 MonoBehaviour:
@@ -28572,6 +29181,154 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724117774}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1730756491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1730756492}
+  - component: {fileID: 1730756496}
+  - component: {fileID: 1730756495}
+  - component: {fileID: 1730756494}
+  - component: {fileID: 1730756493}
+  m_Layer: 0
+  m_Name: ShortZZ44_250A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1730756492
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730756491}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1669806554}
+  m_RootOrder: 67
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1730756493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730756491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6fa5d09ac9f9b4ba0a3463675b55b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleName: zz44_250
+  material: {fileID: -3033667219593020291, guid: b297ac53a00754f47a8aa0d624ea1536,
+    type: 3}
+  colorMaterial: {fileID: 2100000, guid: b4f51b473721b4444bd106d7cf2a6bb6, type: 2}
+  paintRobotPrefab: {fileID: 2100195664938429524, guid: 64e6b020368ebef43bf9cef408c0e670,
+    type: 3}
+  scaleGameToWorldMeter: 1
+  sampleScaleToWorldMeter: 0.001
+  paintRobotScale: 1
+  pathFinderType: 0
+  paintSpeed: 0.4547
+  paintRadius: 0.03
+  paintHeight: 0.2
+  paintAngle: 0
+  paintLateralAllowance: 0.1
+  paintLongitudinalAllowance: 0.04
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
+  maxPaintRobotSpeed: 2
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
+  pointPerSecondDrawingSpeed: 0
+  maxPointCount: 1000
+  timeScale: 1
+  maxPaintRobotPathSimplifyIterations: 10
+  useBasePathSimplification: 1
+  baseSimplificationPointCount: 12
+  useBaseSpeedCorrection: 0
+  useAdvancedPathSimplification: 1
+  dontUseAdvancedPathSimplificationV2: 0
+  targetPaintThicknessOnSingleLine: 0.00001
+  targetPaintThicknessOnSurface: 0.0000166
+  defaultOffsets:
+  - 0
+  ortOffsets:
+  - 0
+  maxTriangleSquare: 0.001
+  linearPathStep: 0.01
+  yRotation: 0
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentFileName: shortZZ44_250A
+  isOrt: 0
+--- !u!65 &1730756494
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730756491}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1730756495
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730756491}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1730756496
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730756491}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1730773584
 GameObject:
@@ -28738,7 +29495,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: invAngleWide04A
   isOrt: 0
 --- !u!65 &1732176398
@@ -28833,7 +29590,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 104
+  m_RootOrder: 109
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1740919548
 MonoBehaviour:
@@ -29046,7 +29803,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: invAngle04S
   isOrt: 0
 --- !u!65 &1756536080
@@ -29200,7 +29957,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: invAngle10S
   isOrt: 0
 --- !u!65 &1762091222
@@ -29439,7 +30196,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 61
+  m_RootOrder: 62
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1799069889
 MonoBehaviour:
@@ -29463,17 +30220,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -29492,7 +30249,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shearWaves30S
   isOrt: 0
 --- !u!65 &1799069890
@@ -29646,7 +30403,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: invAngle04A
   isOrt: 0
 --- !u!65 &1801664560
@@ -29794,7 +30551,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
   experimentFileName: superWaveS
   isOrt: 0
 --- !u!65 &1801677903
@@ -29889,7 +30646,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 90
+  m_RootOrder: 95
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1815822919
 MonoBehaviour:
@@ -29913,17 +30670,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -29942,7 +30699,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: convexLine600S
   isOrt: 0
 --- !u!65 &1815822920
@@ -30304,7 +31061,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 92
+  m_RootOrder: 97
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1823606706
 MonoBehaviour:
@@ -30328,17 +31085,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -30357,7 +31114,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: convexLine1000S
   isOrt: 0
 --- !u!65 &1823606707
@@ -30452,7 +31209,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 73
+  m_RootOrder: 79
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1836675719
 MonoBehaviour:
@@ -30476,17 +31233,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -30505,7 +31262,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: concaveLine400A
   isOrt: 0
 --- !u!65 &1836675720
@@ -30600,7 +31357,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 135
+  m_RootOrder: 140
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1837788153
 MonoBehaviour:
@@ -31021,7 +31778,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 68
+  m_RootOrder: 74
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1851071976
 MonoBehaviour:
@@ -31045,17 +31802,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -31074,7 +31831,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shortZZ44_200S
   isOrt: 0
 --- !u!65 &1851071977
@@ -31366,7 +32123,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 140
+  m_RootOrder: 145
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1877415382
 MonoBehaviour:
@@ -31520,7 +32277,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 130
+  m_RootOrder: 135
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1892723313
 MonoBehaviour:
@@ -31852,17 +32609,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -31881,7 +32638,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shearWaves50A
   isOrt: 0
 --- !u!65 &1915325604
@@ -32321,7 +33078,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 100
+  m_RootOrder: 105
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1988534956
 MonoBehaviour:
@@ -32530,7 +33287,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: invAngleWide06A
   isOrt: 0
 --- !u!65 &1988719385
@@ -32625,7 +33382,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 138
+  m_RootOrder: 143
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1989192940
 MonoBehaviour:
@@ -32779,7 +33536,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 121
+  m_RootOrder: 126
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2004273816
 MonoBehaviour:
@@ -33013,7 +33770,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 91
+  m_RootOrder: 96
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2015164630
 MonoBehaviour:
@@ -33037,17 +33794,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -33066,7 +33823,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: convexLine800S
   isOrt: 0
 --- !u!65 &2015164631
@@ -33161,7 +33918,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 141
+  m_RootOrder: 146
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2031658807
 MonoBehaviour:
@@ -33370,7 +34127,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: invAngleWide04S
   isOrt: 0
 --- !u!65 &2035179716
@@ -33520,7 +34277,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: invAngleWide12A
   isOrt: 0
 --- !u!65 &2047292652
@@ -34144,7 +34901,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 72
+  m_RootOrder: 78
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2074735294
 MonoBehaviour:
@@ -34168,17 +34925,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -34197,7 +34954,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: concaveLine200A
   isOrt: 0
 --- !u!65 &2074735295
@@ -34292,7 +35049,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 98
+  m_RootOrder: 103
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2078982653
 MonoBehaviour:
@@ -34594,7 +35351,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 142
+  m_RootOrder: 147
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2084373202
 MonoBehaviour:
@@ -35015,7 +35772,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 84
+  m_RootOrder: 89
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2119239164
 MonoBehaviour:
@@ -35039,17 +35796,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -35068,7 +35825,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: convexLine400A
   isOrt: 0
 --- !u!65 &2119239165
@@ -35631,17 +36388,17 @@ MonoBehaviour:
   sampleScaleToWorldMeter: 0.001
   paintRobotScale: 1
   pathFinderType: 0
-  paintSpeed: 5.7
+  paintSpeed: 0.4547
   paintRadius: 0.03
   paintHeight: 0.2
   paintAngle: 0
   paintLateralAllowance: 0.1
   paintLongitudinalAllowance: 0.04
-  paintLineWidth: 0.2
-  minPaintRobotSpeed: 0.01
+  paintLineWidth: 0.015
+  minPaintRobotSpeed: 0
   maxPaintRobotSpeed: 2
-  maxPaintRobotAcceleration: 5
-  addExtraParallelPaths: 0
+  maxPaintRobotAcceleration: 3
+  addExtraParallelPaths: 1
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
@@ -35660,7 +36417,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: shearWaves40A
   isOrt: 0
 --- !u!65 &2132002918
@@ -35755,7 +36512,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669806554}
-  m_RootOrder: 128
+  m_RootOrder: 133
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2140121120
 MonoBehaviour:
@@ -36112,7 +36869,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
   experimentFileName: invAngleWide08A
   isOrt: 0
 --- !u!65 &2144654508

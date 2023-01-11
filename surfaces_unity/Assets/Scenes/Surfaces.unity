@@ -177,6 +177,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -339,6 +340,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -487,6 +489,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -502,7 +505,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: concaveLine200S
   isOrt: 0
 --- !u!65 &10065414
@@ -635,6 +638,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -789,6 +793,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 6
@@ -806,7 +811,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angleWide06A
   isOrt: 0
 --- !u!65 &34763536
@@ -939,6 +944,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -1079,6 +1085,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -1241,6 +1248,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 6
@@ -1262,7 +1270,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angle06A
   isOrt: 0
 --- !u!65 &62668956
@@ -1395,6 +1403,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -1410,7 +1419,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_50S
   isOrt: 0
 --- !u!65 &64096306
@@ -1543,6 +1552,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -1697,6 +1707,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 6
@@ -1714,7 +1725,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngleWide06S
   isOrt: 0
 --- !u!65 &70936641
@@ -1847,6 +1858,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -1864,7 +1876,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angleWide12A
   isOrt: 0
 --- !u!65 &75753242
@@ -2089,6 +2101,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 4
@@ -2239,6 +2252,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -2393,6 +2407,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -2541,6 +2556,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 8
@@ -2562,7 +2578,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angle08A
   isOrt: 0
 --- !u!65 &113844683
@@ -2695,6 +2711,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -2843,6 +2860,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 6
@@ -2860,7 +2878,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angleWide06S
   isOrt: 0
 --- !u!65 &118861924
@@ -2993,6 +3011,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -3008,7 +3027,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: concaveLine1000S
   isOrt: 0
 --- !u!65 &123290631
@@ -3141,6 +3160,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -3348,6 +3368,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 0
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -3435,6 +3456,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 0
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -3583,6 +3605,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -3598,7 +3621,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves40S
   isOrt: 0
 --- !u!65 &155727793
@@ -3731,6 +3754,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -3879,6 +3903,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -4027,6 +4052,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -4175,6 +4201,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -4329,6 +4356,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 4
@@ -4346,7 +4374,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angleWide04A
   isOrt: 0
 --- !u!65 &197431921
@@ -4479,6 +4507,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -4494,7 +4523,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves60S
   isOrt: 0
 --- !u!65 &210281066
@@ -4818,6 +4847,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 4
@@ -4968,6 +4998,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -5122,6 +5153,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -5137,7 +5169,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves10S
   isOrt: 0
 --- !u!65 &234314342
@@ -5389,6 +5421,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -5636,6 +5669,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -5868,6 +5902,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -6016,6 +6051,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -6190,7 +6226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &307488327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6466,6 +6502,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 4
@@ -6483,7 +6520,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angleWide04S
   isOrt: 0
 --- !u!65 &337429046
@@ -6602,6 +6639,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -6764,6 +6802,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -6918,6 +6957,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -7066,6 +7106,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -7214,6 +7255,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -7362,6 +7404,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -7510,6 +7553,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -7664,6 +7708,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -7679,7 +7724,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves20A
   isOrt: 0
 --- !u!65 &418798542
@@ -7758,7 +7803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &419743701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7864,6 +7909,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -8012,6 +8058,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 6
@@ -8033,7 +8080,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngle06S
   isOrt: 0
 --- !u!65 &444319635
@@ -8244,6 +8291,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -8392,6 +8440,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -8659,6 +8708,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -8676,7 +8726,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angleWide12S
   isOrt: 0
 --- !u!65 &490303722
@@ -8809,6 +8859,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -8957,6 +9008,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -9133,6 +9185,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -9295,6 +9348,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -9443,6 +9497,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -9688,6 +9743,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 0
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -9836,6 +9892,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -9984,6 +10041,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -10138,6 +10196,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 6
@@ -10159,7 +10218,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngle06A
   isOrt: 0
 --- !u!65 &574394503
@@ -10292,6 +10351,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 8
@@ -10309,7 +10369,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angleWide08S
   isOrt: 0
 --- !u!65 &579733130
@@ -10428,6 +10488,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -10590,6 +10651,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 8
@@ -10611,7 +10673,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngle08S
   isOrt: 0
 --- !u!65 &587104159
@@ -10744,6 +10806,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -10898,6 +10961,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -10913,7 +10977,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: concaveLine600S
   isOrt: 0
 --- !u!65 &593678743
@@ -11046,6 +11110,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -11200,6 +11265,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -11348,6 +11414,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -11363,7 +11430,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_200A
   isOrt: 0
 --- !u!65 &629749072
@@ -11496,6 +11563,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -11630,6 +11698,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -11792,6 +11861,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -11940,6 +12010,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -12094,6 +12165,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -12248,6 +12320,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -12263,7 +12336,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: convexLine600A
   isOrt: 0
 --- !u!65 &679051173
@@ -12396,6 +12469,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -12622,6 +12696,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -12770,6 +12845,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -12785,7 +12861,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: concaveLine800A
   isOrt: 0
 --- !u!65 &701726982
@@ -12917,6 +12993,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 0
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -13065,6 +13142,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -13213,6 +13291,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 10
@@ -13230,7 +13309,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angleWide10S
   isOrt: 0
 --- !u!65 &717708810
@@ -13309,7 +13388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &723243534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13423,6 +13502,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 10
@@ -13444,7 +13524,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngle10A
   isOrt: 0
 --- !u!65 &730221940
@@ -13577,6 +13657,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 8
@@ -13594,7 +13675,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angleWide08A
   isOrt: 0
 --- !u!65 &765580972
@@ -13713,6 +13794,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -13994,6 +14076,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -14009,7 +14092,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves20S
   isOrt: 0
 --- !u!65 &786471987
@@ -14142,6 +14225,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -14364,6 +14448,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -14379,7 +14464,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves10A
   isOrt: 0
 --- !u!65 &806342204
@@ -14498,6 +14583,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -14660,6 +14746,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -14675,7 +14762,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: superWaveA
   isOrt: 0
 --- !u!65 &830773325
@@ -14794,6 +14881,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -14942,6 +15030,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -15223,6 +15312,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -15455,6 +15545,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -15470,7 +15561,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: concaveLine1000A
   isOrt: 0
 --- !u!65 &925132297
@@ -15681,6 +15772,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -15948,6 +16040,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -16096,6 +16189,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -16113,7 +16207,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngleWide12S
   isOrt: 0
 --- !u!65 &948133735
@@ -16246,6 +16340,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -16400,6 +16495,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -16554,6 +16650,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 10
@@ -16571,7 +16668,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngleWide10S
   isOrt: 0
 --- !u!65 &984931474
@@ -16704,6 +16801,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -16977,6 +17075,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -17125,6 +17224,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -17140,7 +17240,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: convexLine200A
   isOrt: 0
 --- !u!65 &1018030035
@@ -17273,6 +17373,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -17413,6 +17514,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -17575,6 +17677,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -17729,6 +17832,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -17877,6 +17981,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -17898,7 +18003,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngle12A
   isOrt: 0
 --- !u!65 &1056677233
@@ -18031,6 +18136,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -18179,6 +18285,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 10
@@ -18200,7 +18307,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angle10S
   isOrt: 0
 --- !u!65 &1071493936
@@ -18333,6 +18440,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -18348,7 +18456,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_50A
   isOrt: 0
 --- !u!65 &1072558359
@@ -18481,6 +18589,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -18635,6 +18744,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -18783,6 +18893,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -18937,6 +19048,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -18952,7 +19064,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: concaveLine600A
   isOrt: 0
 --- !u!65 &1083996130
@@ -19085,6 +19197,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -19316,6 +19429,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -19331,7 +19445,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_300A
   isOrt: 0
 --- !u!65 &1094157899
@@ -19464,6 +19578,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -19485,7 +19600,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngle12S
   isOrt: 0
 --- !u!65 &1098800980
@@ -19618,6 +19733,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -19772,6 +19888,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -19920,6 +20037,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -19935,7 +20053,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_100A
   isOrt: 0
 --- !u!65 &1113229886
@@ -20068,6 +20186,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -20222,6 +20341,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -20376,6 +20496,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -20391,7 +20512,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_100S
   isOrt: 0
 --- !u!65 &1162647684
@@ -20524,6 +20645,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -20539,7 +20661,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: concaveLine800S
   isOrt: 0
 --- !u!65 &1170665275
@@ -20791,6 +20913,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -21150,6 +21273,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -21244,7 +21368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1296195460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21351,6 +21475,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -21505,6 +21630,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -21520,7 +21646,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves50S
   isOrt: 0
 --- !u!65 &1297689919
@@ -21653,6 +21779,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -21668,7 +21795,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_250S
   isOrt: 0
 --- !u!65 &1310353295
@@ -21893,6 +22020,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -21908,7 +22036,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_300S
   isOrt: 0
 --- !u!65 &1354775140
@@ -22041,6 +22169,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -22195,6 +22324,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -22349,6 +22479,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -22497,6 +22628,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -22512,7 +22644,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_150A
   isOrt: 0
 --- !u!65 &1399008263
@@ -22645,6 +22777,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -22799,6 +22932,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 10
@@ -22816,7 +22950,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngleWide10A
   isOrt: 0
 --- !u!65 &1419584301
@@ -22949,6 +23083,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -23103,6 +23238,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 10
@@ -23120,7 +23256,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angleWide10A
   isOrt: 0
 --- !u!65 &1428398153
@@ -23253,6 +23389,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -23280,7 +23417,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angle12S
   isOrt: 0
 --- !u!65 &1433442281
@@ -23413,6 +23550,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -23567,6 +23705,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 8
@@ -23588,7 +23727,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angle08S
   isOrt: 0
 --- !u!65 &1438291604
@@ -23721,6 +23860,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -23736,7 +23876,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: concaveLine400S
   isOrt: 0
 --- !u!65 &1458772011
@@ -23934,6 +24074,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -23949,7 +24090,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: convexLine1000A
   isOrt: 0
 --- !u!65 &1467397112
@@ -24031,7 +24172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1472597468
 Transform:
   m_ObjectHideFlags: 0
@@ -24082,6 +24223,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -24230,6 +24372,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 8
@@ -24251,7 +24394,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngle08A
   isOrt: 0
 --- !u!65 &1474079018
@@ -24503,6 +24646,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -24518,7 +24662,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves60A
   isOrt: 0
 --- !u!65 &1477978562
@@ -24770,6 +24914,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -24785,7 +24930,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: convexLine400S
   isOrt: 0
 --- !u!65 &1499020843
@@ -24918,6 +25063,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -25072,6 +25218,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -25220,6 +25367,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -25354,6 +25502,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -25516,6 +25665,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -25531,7 +25681,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves30A
   isOrt: 0
 --- !u!65 &1548113764
@@ -25664,6 +25814,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 10
@@ -25685,7 +25836,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angle10A
   isOrt: 0
 --- !u!65 &1550895547
@@ -25818,6 +25969,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -26046,6 +26198,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -26200,6 +26353,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -26334,6 +26488,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -26496,6 +26651,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -26644,6 +26800,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -26659,7 +26816,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: convexLine200S
   isOrt: 0
 --- !u!65 &1581525155
@@ -26778,6 +26935,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -26940,6 +27098,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 6
@@ -26961,7 +27120,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angle06S
   isOrt: 0
 --- !u!65 &1614922927
@@ -27094,6 +27253,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -27248,6 +27408,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -27402,6 +27563,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -27429,7 +27591,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angle12A
   isOrt: 0
 --- !u!65 &1654321675
@@ -27753,6 +27915,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -27901,6 +28064,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -27916,7 +28080,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: convexLine800A
   isOrt: 0
 --- !u!65 &1683145278
@@ -28049,6 +28213,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -28197,6 +28362,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 8
@@ -28214,7 +28380,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngleWide08S
   isOrt: 0
 --- !u!65 &1691446877
@@ -28347,6 +28513,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -28362,7 +28529,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_150S
   isOrt: 0
 --- !u!65 &1699972433
@@ -28494,6 +28661,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 0
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -28642,6 +28810,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -28796,6 +28965,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -28944,6 +29114,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -29098,6 +29269,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -29252,6 +29424,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -29267,7 +29440,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_250A
   isOrt: 0
 --- !u!65 &1730756494
@@ -29478,6 +29651,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 4
@@ -29495,7 +29669,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngleWide04A
   isOrt: 0
 --- !u!65 &1732176398
@@ -29628,6 +29802,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -29782,6 +29957,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 4
@@ -29803,7 +29979,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngle04S
   isOrt: 0
 --- !u!65 &1756536080
@@ -29936,6 +30112,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 10
@@ -29957,7 +30134,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngle10S
   isOrt: 0
 --- !u!65 &1762091222
@@ -30234,6 +30411,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -30249,7 +30427,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves30S
   isOrt: 0
 --- !u!65 &1799069890
@@ -30382,6 +30560,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 4
@@ -30403,7 +30582,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngle04A
   isOrt: 0
 --- !u!65 &1801664560
@@ -30536,6 +30715,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -30551,7 +30731,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments32
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: superWaveS
   isOrt: 0
 --- !u!65 &1801677903
@@ -30684,6 +30864,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -30699,7 +30880,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: convexLine600S
   isOrt: 0
 --- !u!65 &1815822920
@@ -30832,6 +31013,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -31099,6 +31281,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -31114,7 +31297,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: convexLine1000S
   isOrt: 0
 --- !u!65 &1823606707
@@ -31247,6 +31430,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -31262,7 +31446,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: concaveLine400A
   isOrt: 0
 --- !u!65 &1836675720
@@ -31395,6 +31579,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -31549,6 +31734,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -31816,6 +32002,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -31831,7 +32018,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shortZZ44_200S
   isOrt: 0
 --- !u!65 &1851071977
@@ -32161,6 +32348,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -32315,6 +32503,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -32469,6 +32658,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 4
@@ -32490,7 +32680,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angle04A
   isOrt: 0
 --- !u!65 &1892990959
@@ -32623,6 +32813,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -32638,7 +32829,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves50A
   isOrt: 0
 --- !u!65 &1915325604
@@ -32771,6 +32962,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -33116,6 +33308,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -33270,6 +33463,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 6
@@ -33287,7 +33481,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngleWide06A
   isOrt: 0
 --- !u!65 &1988719385
@@ -33420,6 +33614,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -33574,6 +33769,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -33808,6 +34004,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -33823,7 +34020,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: convexLine800S
   isOrt: 0
 --- !u!65 &2015164631
@@ -33956,6 +34153,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -34110,6 +34308,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 4
@@ -34127,7 +34326,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngleWide04S
   isOrt: 0
 --- !u!65 &2035179716
@@ -34209,7 +34408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2047292650
 Transform:
   m_ObjectHideFlags: 0
@@ -34260,6 +34459,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -34277,7 +34477,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngleWide12A
   isOrt: 0
 --- !u!65 &2047292652
@@ -34410,6 +34610,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 4
@@ -34431,7 +34632,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments24
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: angle04S
   isOrt: 0
 --- !u!65 &2049934563
@@ -34549,8 +34750,9 @@ MonoBehaviour:
   drawFoundPath: 0
   drawApproximatedPath: 1
   drawLinearPath: 0
-  drawApproximatedPathWithSpeed: 1
+  drawApproximatedPathWithSpeed: 0
   drawApproximatedPathWithAcceleration: 0
+  drawApproximatedPathWithCustomColors: 1
 --- !u!1 &2057064420
 GameObject:
   m_ObjectHideFlags: 0
@@ -34621,6 +34823,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -34939,6 +35142,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -34954,7 +35158,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: concaveLine200A
   isOrt: 0
 --- !u!65 &2074735295
@@ -35087,6 +35291,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -35227,6 +35432,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -35389,6 +35595,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -35543,6 +35750,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -35810,6 +36018,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -35825,7 +36034,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: convexLine400A
   isOrt: 0
 --- !u!65 &2119239165
@@ -35944,6 +36153,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -36106,6 +36316,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -36254,6 +36465,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -36402,6 +36614,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 12
@@ -36417,7 +36630,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.001
   linearPathStep: 0.01
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: shearWaves40A
   isOrt: 0
 --- !u!65 &2132002918
@@ -36550,6 +36763,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -36704,6 +36918,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 0
   baseSimplificationPointCount: 12
@@ -36852,6 +37067,7 @@ MonoBehaviour:
   pointPerSecondDrawingSpeed: 0
   maxPointCount: 1000
   timeScale: 1
+  customOriginPathColor: {r: 0, g: 1, b: 0, a: 1}
   maxPaintRobotPathSimplifyIterations: 10
   useBasePathSimplification: 1
   baseSimplificationPointCount: 8
@@ -36869,7 +37085,7 @@ MonoBehaviour:
   maxTriangleSquare: 0.0001
   linearPathStep: 0.004
   yRotation: 0
-  experimentStoreFolder: G:\Projects\PostgraduateResearch\store\articleExperiments33
+  experimentStoreFolder: '{0}\articleExperiments36'
   experimentFileName: invAngleWide08A
   isOrt: 0
 --- !u!65 &2144654508

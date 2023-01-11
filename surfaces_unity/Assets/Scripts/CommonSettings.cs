@@ -18,6 +18,7 @@ public class CommonSettings : MonoBehaviour {
     public bool drawLinearPath = false;
     public bool drawApproximatedPathWithSpeed = true;
     public bool drawApproximatedPathWithAcceleration = false;
+    public bool drawApproximatedPathWithCustomColors = false;
 
     public const float SCALE_IN_GAME = 1000.0f;
 

@@ -55,6 +55,7 @@ public class ExtractVertices : MonoBehaviour {
     public int pointPerSecondDrawingSpeed = 0;
     public int maxPointCount = 0;
     public float timeScale = 1.0f;
+    public Color customOriginPathColor = Color.green;
     public int maxPaintRobotPathSimplifyIterations = 10;
     public bool useBasePathSimplification;
     public int baseSimplificationPointCount = 12;
@@ -266,7 +267,9 @@ public class ExtractVertices : MonoBehaviour {
 
         var runExperimentButton = GameObject.Find("RunExperimentButton").GetComponent<Button>();
         runExperimentButton.onClick.AddListener(delegate {
-            var filename = Path.Combine(experimentStoreFolder, experimentFileName);
+            var watch = Stopwatch.StartNew();
+
+            var filename = Path.Combine(String.Format(experimentStoreFolder, Utils.GetStoreFolder()), experimentFileName);
             if (filename.Length == 0) {
                 var dialog = new SaveFileDialog {
                     InitialDirectory = Utils.GetStoreFolder(),
@@ -303,6 +306,9 @@ public class ExtractVertices : MonoBehaviour {
                 ExportTexturePaintData(filename + "_texture.txt");
                 SaveData(filename + "_data.txt");
             }
+
+            watch.Stop();
+            Debug.Log($"{watch.ElapsedMilliseconds} ms. Experiment time");
         });
 
         rotationCube = GameObject.Find("RotationCube");
@@ -1167,16 +1173,19 @@ public class ExtractVertices : MonoBehaviour {
         if (dialog.ShowDialog() == DialogResult.OK) {
             var pathData = JsonUtility.FromJson<DataExport.PathData>(File.ReadAllText(dialog.FileName));
             Debug.Log(dialog.FileName);
+            Debug.Log(pathData.settings.sampleName);
 
             var root = GameObject.Find("Objects-Samples-1Path (2)");
-            var settings = pathData.settings;
             for (var i = 0; i < root.transform.childCount; ++i) {
                 var child = root.transform.GetChild(i).gameObject;
-                var controller = child.GetComponent<ExtractVertices>();
-                var active = controller.sampleName == settings.sampleName;
-                child.SetActive(active);
-                if (active) {
-                    controller.ApplyLoadedData(pathData);
+                if (child.activeSelf) {
+                    var controller = child.GetComponent<ExtractVertices>();
+                    if (controller.sampleName == pathData.settings.sampleName) {
+                        controller.ApplyLoadedData(pathData);
+                    }
+                    else {
+                        child.SetActive(false);
+                    }
                 }
             }
         }
@@ -1769,6 +1778,15 @@ public class ExtractVertices : MonoBehaviour {
             }
         }
 
+        if (commonSettings.drawApproximatedPathWithCustomColors)  {
+            Gizmos.color = customOriginPathColor;
+            foreach (var rpp in simplifiedRobotPathProcessors) {
+                foreach (var item in rpp.GetRobotPathItems()) {
+                    Gizmos.DrawLine(Utils.PtoV(item.a.originPoint), Utils.PtoV(item.b.originPoint));
+                }
+            }
+        }
+
         if (commonSettings.drawLinearPath) {
             if (commonSettings.drawOriginPath) {
                 Gizmos.color = Color.blue;
@@ -1795,9 +1813,13 @@ public class ExtractVertices : MonoBehaviour {
 
             if (commonSettings.drawApproximatedPath) {
                 Gizmos.color = Color.cyan;
-                foreach (var rpp in simplifiedRobotPathProcessors) {
+                foreach (var rpp in simplifiedRobotPathProcessors)  {
+                    var i = 0;
                     foreach (var item in rpp.GetRobotPathItems()) {
-                        Gizmos.DrawLine(Utils.PtoV(item.a.originPoint), Utils.PtoV(item.a.surfacePoint));
+                        ++i;
+                        if (i % 4 == 1) {
+                            Gizmos.DrawLine(Utils.PtoV(item.a.originPoint), Utils.PtoV(item.a.surfacePoint));
+                        } 
                         if (item.b.type == Position.PositionType.Finish) {
                             Gizmos.DrawLine(Utils.PtoV(item.b.originPoint), Utils.PtoV(item.b.surfacePoint));
                         }

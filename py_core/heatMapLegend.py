@@ -1,7 +1,8 @@
 import turtle
 from tkinter import *
 
-file = open("G:\\Projects\\PostgraduateResearch\\store\\articleExperiments9\\plane2_heat_map.txt", "r")
+# file = open("T:\\Projects\\PostgraduateResearch\\store\\articleExperiments36\\angleWide12A_heat_map.txt", "r")
+file = open("T:\\Projects\\PostgraduateResearch\\store\\articleExperiments36\\invAngleWide12A_heat_map.txt", "r")
 content = file.read()
 file.close()
 lines = content.split("\n")
@@ -35,8 +36,8 @@ root = Tk()
 canvas = Canvas(root, width=1000, height=1000)
 # canvas.create_rectangle(30, 30, 60, 330, outline="#fb0", fill="#fb0")
 # print("#" + data[0]["color"]["r"] + data[0]["color"]["g"] + data[0]["color"]["b"])
-color1 = data[1]["color"]
-color2 = data[0]["color"]
+color1 = data[0]["color"]
+color2 = data[1]["color"]
 hexColor1 = "#" + "{:02x}".format(color1["r"]) + "{:02x}".format(color1["g"]) + "{:02x}".format(color1["b"])
 hexColor2 = "#" + "{:02x}".format(color2["r"]) + "{:02x}".format(color2["g"]) + "{:02x}".format(color2["b"])
 
@@ -49,4 +50,6 @@ for i in range(n + 1):
     hexColor = "#" + "{:02x}".format(r) + "{:02x}".format(g) + "{:02x}".format(b)
     canvas.create_line(30, 30 + i, 60, 30 + i, width=1, fill=hexColor)
 canvas.pack(fill=BOTH, expand=1)
+canvas.create_text(70, 50, anchor="w", text="{:.4f} мкр".format(data[1]["value"]), font='Helvetica 18')
+canvas.create_text(70, 315, anchor="w", text="{:.4f} мкр".format(data[0]["value"]), font='Helvetica 18')
 root.mainloop()

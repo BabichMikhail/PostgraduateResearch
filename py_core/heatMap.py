@@ -2,6 +2,7 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
+from matplotlib import cm
 
 
 def Sub(p1, p2):
@@ -84,7 +85,7 @@ while True:
     sumV += (t[0]["q"] + t[1]["q"] + t[2]["q"]) * square
 
 print(sumV)
-exit(0)
+# exit(0)
 
 # print(triangles)
 # exit(0)
@@ -191,5 +192,34 @@ for t in triangles:
                 hotMap[ii][jj] = q
                 hotMapCounts[ii][jj] += 1
 
-plt.imshow(hotMap, cmap='hot', interpolation='nearest')
+# plt.imshow(hotMap, cmap='hot', interpolation='nearest')
+# plt.title(sys.argv[1])
+
+x = [i for i in range(mapWidth)]
+y = [i for i in range(mapHeight)]
+# z = [i for i in range(mapWidth * mapHeight)]
+# x = np.zeros(mapWidth * mapHeight)
+# y = np.zeros(mapWidth * mapHeight)
+# z = np.zeros(mapWidth * mapHeight)
+# k = 0
+# for i in range(len(hotMap)):
+#     for j in range(len(hotMap[i])):
+#         x[k] = i
+#         y[k] = j
+#         z[k] = hotMap[i][j]
+#         k += 1
+
+x, y = np.meshgrid(x, y)
+z = np.sqrt(x * x + y * y)
+z = np.sin(z)
+z1 = hotMap
+
+figure = plt.figure()
+axes = figure.add_subplot(projection='3d')
+axes.plot_surface(x, y, z1, linewidth=0, antialiased=True, cmap=cm.coolwarm)
+axes.set_title('3D heatmap')
+axes.set_xlabel('x')
+axes.set_ylabel('y')
+axes.set_zlabel('z')
+
 plt.show()
